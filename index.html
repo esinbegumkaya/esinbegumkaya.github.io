@@ -1,0 +1,1362 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Esin Begüm Kaya — Portfolyo</title>
+<meta name="description" content="Esin Begüm Kaya: bilgisayar mühendisi. Yerel yapay zekâ, test otomasyonu, derin öğrenme ve gömülü sistem projeleri.">
+<link rel="canonical" href="https://esinbegumkaya.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Esin Begüm Kaya">
+<meta property="og:title" content="Esin Begüm Kaya — Portfolyo">
+<meta property="og:description" content="Bilgisayar mühendisliği, yazılım, veri ve yapay zekâ projeleri.">
+<meta property="og:url" content="https://esinbegumkaya.com/">
+<meta property="og:image" content="https://esinbegumkaya.com/assets/portrait.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#EEEEF3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+<style>
+/* ───────── Tokens ───────── */
+:root{
+  --display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --ui:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gutter:clamp(20px,4.2vw,72px);
+  --pad-top:clamp(84px,11vh,116px);
+  --pad-bot:clamp(80px,10.5vh,108px);
+  --r-img:6px;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);background:var(--page-bg,#EEEEF3);transition:background-color .5s var(--ease)}
+body{margin:0;min-height:100%;font-family:var(--ui);background:var(--page-bg,#EEEEF3);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,video,svg{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Color worlds */
+.w-paper  {--bg:#EEEEF3;--ink:#1D1B34;--muted:#5E5B7A;--accent:#4A3AD6;--accent-text:#4A3AD6;--line:rgba(29,27,52,.14);--surface:#FFFFFF;--on-accent:#fff}
+.w-recall {--bg:#1F1C4D;--ink:#EFEDFF;--muted:#B0ABDD;--accent:#A99BFF;--accent-text:#BDB2FF;--line:rgba(239,237,255,.16);--surface:#2A2663;--on-accent:#17143A}
+.w-hotel  {--bg:#D9EAEF;--ink:#0D3343;--muted:#46697A;--accent:#0A7A9C;--accent-text:#08627E;--line:rgba(13,51,67,.16);--surface:#F4FAFC;--on-accent:#fff}
+.w-skin   {--bg:#F2E5E3;--ink:#3B1C24;--muted:#7A5760;--accent:#B02E4E;--accent-text:#9C2442;--line:rgba(59,28,36,.15);--surface:#FBF5F4;--on-accent:#fff}
+.w-systems{--bg:#0F2A2C;--ink:#E2F2EC;--muted:#93B8AF;--accent:#8FE3C0;--accent-text:#9FEACB;--line:rgba(226,242,236,.15);--surface:#163A3D;--on-accent:#0B2022}
+.w-herobot{--bg:#ECE6F8;--ink:#28195C;--muted:#655891;--accent:#6A3FD8;--accent-text:#5A30C4;--line:rgba(40,25,92,.14);--surface:#FAF8FE;--on-accent:#fff}
+.w-mirror {--bg:#0B1535;--ink:#E5EDFF;--muted:#93A2CB;--accent:#6FB4FF;--accent-text:#8CC3FF;--line:rgba(229,237,255,.15);--surface:#13204A;--on-accent:#081230}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .w-paper  {--bg:#16152B;--ink:#ECEBF7;--muted:#A5A2C2;--accent:#A89CFF;--accent-text:#B8AEFF;--line:rgba(236,235,247,.14);--surface:#211F3C;--on-accent:#16152B}
+  :root:not([data-theme="light"]) .w-hotel  {--bg:#0C2A36;--ink:#DCEFF5;--muted:#8DB2C0;--accent:#4FC3E3;--accent-text:#6FD0EA;--line:rgba(220,239,245,.15);--surface:#123745;--on-accent:#06202A}
+  :root:not([data-theme="light"]) .w-skin   {--bg:#2A1519;--ink:#F6E6E8;--muted:#C49EA6;--accent:#F07A95;--accent-text:#F59AAE;--line:rgba(246,230,232,.15);--surface:#3A1E24;--on-accent:#2A1519}
+  :root:not([data-theme="light"]) .w-herobot{--bg:#1C1438;--ink:#EEE8FF;--muted:#AB9FD8;--accent:#A98BFF;--accent-text:#BBA3FF;--line:rgba(238,232,255,.14);--surface:#281D4E;--on-accent:#1C1438}
+}
+:root[data-theme="dark"] .w-paper  {--bg:#16152B;--ink:#ECEBF7;--muted:#A5A2C2;--accent:#A89CFF;--accent-text:#B8AEFF;--line:rgba(236,235,247,.14);--surface:#211F3C;--on-accent:#16152B}
+:root[data-theme="dark"] .w-hotel  {--bg:#0C2A36;--ink:#DCEFF5;--muted:#8DB2C0;--accent:#4FC3E3;--accent-text:#6FD0EA;--line:rgba(220,239,245,.15);--surface:#123745;--on-accent:#06202A}
+:root[data-theme="dark"] .w-skin   {--bg:#2A1519;--ink:#F6E6E8;--muted:#C49EA6;--accent:#F07A95;--accent-text:#F59AAE;--line:rgba(246,230,232,.15);--surface:#3A1E24;--on-accent:#2A1519}
+:root[data-theme="dark"] .w-herobot{--bg:#1C1438;--ink:#EEE8FF;--muted:#AB9FD8;--accent:#A98BFF;--accent-text:#BBA3FF;--line:rgba(238,232,255,.14);--surface:#281D4E;--on-accent:#1C1438}
+
+/* ───────── Chrome ───────── */
+.chrome{position:fixed;inset:0 0 auto 0;z-index:40;padding:calc(env(safe-area-inset-top,0px) + 18px) var(--gutter) 0;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:none;color:var(--ink);transition:color .5s var(--ease)}
+.chrome>*{pointer-events:auto}
+.brand{text-align:left;font-family:var(--display);font-weight:650;font-size:16px;letter-spacing:-.01em;}
+.brand small{display:block;font-weight:400;color:var(--muted);font-size:13px;letter-spacing:0;transition:color .5s var(--ease)}
+.chrome-right{display:flex;align-items:center;gap:6px}
+.where{font-size:14px;color:var(--muted);margin-right:10px;text-align:right;transition:color .5s var(--ease);white-space:nowrap}
+.where b{color:var(--ink);font-weight:600}
+.counter{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.icon-btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);font-size:14px;font-weight:550;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background-color .2s, border-color .5s}
+.icon-btn:hover{background:var(--surface)}
+.icon-btn svg{width:16px;height:16px}
+
+.rail{position:fixed;inset:auto 0 0 0;z-index:40;padding:0 var(--gutter) calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;align-items:flex-end;justify-content:space-between;gap:20px;pointer-events:none;color:var(--ink);transition:color .5s var(--ease)}
+.rail>*{pointer-events:auto}
+.track{display:flex;align-items:flex-end;gap:14px;flex-wrap:nowrap}
+.chap{display:flex;flex-direction:column;gap:7px}
+.chap-name{font-size:12px;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(3px);transition:opacity .3s,transform .3s var(--ease),color .5s}
+.chap.on .chap-name{opacity:1;transform:none;color:var(--ink)}
+.segs{display:flex;gap:4px}
+.seg{position:relative;width:20px;height:18px;display:flex;align-items:flex-end}
+.seg::before{content:"";width:100%;height:3px;border-radius:2px;background:var(--line);transition:height .25s var(--ease),background-color .3s}
+.seg:hover::before{background:var(--muted)}
+.seg.past::before{background:color-mix(in srgb,var(--ink) 45%,transparent)}
+.seg.now::before{height:6px;background:var(--accent)}
+.seg .tip{position:absolute;left:50%;bottom:26px;transform:translateX(-50%) translateY(4px);background:var(--ink);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:5px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
+.seg:hover .tip,.seg:focus-visible .tip{opacity:1;transform:translateX(-50%)}
+.steppers{display:flex;gap:6px}
+.stepper{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background-color .2s,opacity .2s}
+.stepper:hover{background:var(--surface)}
+.stepper:disabled{opacity:.35;cursor:default}
+.stepper svg{width:18px;height:18px}
+.progress{display:none}
+
+/* ───────── Slides ───────── */
+.slide{position:relative;height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));min-height:560px;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:var(--bg);color:var(--ink);padding:var(--pad-top) var(--gutter) var(--pad-bot)}
+.stage{position:relative;height:100%;max-width:1360px;margin:0 auto}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,4.5vw,80px);align-items:center;height:100%}
+.split.even{grid-template-columns:1fr 1fr}
+.split.rev{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}
+.col{min-width:0}
+.stack>*+*{margin-top:var(--gap,18px)}
+
+h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:680;letter-spacing:-.02em;}
+h2.title{font-size:clamp(34px,4.3vw,62px);line-height:.98;letter-spacing:-.022em;text-wrap:balance}
+h3{font-size:21px;line-height:1.15}
+p{margin:0}
+.lede{font-family:var(--serif);font-size:clamp(19px,1.65vw,25px);line-height:1.38;font-weight:380;max-width:34ch;text-wrap:pretty}
+.body{font-family:var(--serif);font-size:clamp(16px,1.12vw,18px);line-height:1.58;color:color-mix(in srgb,var(--ink) 86%,var(--bg));max-width:58ch;text-wrap:pretty}
+.small{font-size:14px;line-height:1.5;color:var(--muted)}
+.muted{color:var(--muted)}
+
+.wordmark{font-family:var(--display);font-weight:760;font-size:clamp(84px,12.5vw,224px);line-height:.88;letter-spacing:-.022em;margin-left:-.04em;color:var(--ink)}
+.wordmark{font-size:min(clamp(84px,12.5vw,224px),24vh)}
+.wordmark.long{font-size:min(clamp(52px,6.6vw,124px),13.5vh);line-height:.92;letter-spacing:-.028em}
+
+.metrics{display:flex;flex-wrap:wrap;gap:clamp(18px,2.6vw,40px);border-top:1px solid var(--line);padding-top:16px}
+.metric b{display:block;font-family:var(--display);font-weight:600;font-size:clamp(28px,2.6vw,42px);line-height:1;letter-spacing:-.022em;color:var(--accent-text)}
+.metric span{display:block;margin-top:6px;font-size:14px;line-height:1.35;color:var(--muted);max-width:17ch}
+.stackline{font-size:14px;line-height:1.6;color:var(--muted)}
+.stackline b{color:var(--ink);font-weight:600}
+
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--line);font-size:15px;font-weight:550;text-decoration:none;transition:background-color .2s,border-color .2s,color .2s}
+.btn:hover{background:var(--surface);border-color:transparent}
+.btn.solid{background:var(--accent);color:var(--on-accent);border-color:transparent}
+.btn.solid:hover{background:color-mix(in srgb,var(--accent) 86%,var(--ink))}
+.btn svg{width:14px;height:14px}
+
+/* Browser frame */
+.frame{margin:0;border-radius:10px;overflow:hidden;background:var(--surface);box-shadow:0 1px 0 var(--line),0 30px 60px -30px rgba(10,10,40,.45);border:1px solid var(--line)}
+.frame-bar{height:34px;display:flex;align-items:center;gap:12px;padding:0 12px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--surface) 92%,var(--ink))}
+.frame-bar .dots{display:flex;gap:6px}
+.frame-bar .dots i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--ink) 22%,transparent)}
+.frame-url{flex:1;max-width:340px;margin:0 auto;height:20px;border-radius:5px;background:color-mix(in srgb,var(--ink) 7%,transparent);font-size:11.5px;color:var(--muted);display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px}
+.frame img{width:100%;height:auto;background:#fff}
+.bleed-right{margin-right:calc(-1 * var(--gutter) - max(0px,(100vw - 1360px - 2*var(--gutter))/2));border-top-right-radius:0;border-bottom-right-radius:0;border-right:0}
+.zoomable{cursor:zoom-in}
+
+/* ───────── Cover ───────── */
+.cover .stage{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,72px);align-items:end}
+.cover-name{font-family:var(--display);font-weight:760;font-size:min(18.5vh,11.4vw);line-height:.88;letter-spacing:-.034em;margin:0 0 -.06em -.05em}
+.cover-name span{display:block;overflow:hidden;padding-bottom:.06em}
+.cover-name span>span{display:block}
+.cover-side{padding-bottom:6px}
+.cover-side .lede{max-width:30ch}
+.toc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.toc li{border-bottom:1px solid var(--line)}
+.toc button{width:100%;display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:12px;padding:9px 2px;text-align:left;font-size:15.5px;transition:padding .2s var(--ease)}
+.toc button:hover{padding-left:8px}
+.toc .sw{width:14px;height:14px;border-radius:4px;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.toc .n{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.keyhint{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+kbd{font-family:var(--ui);font-size:12px;min-width:24px;height:24px;display:inline-grid;place-items:center;padding:0 6px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;color:var(--ink)}
+
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.intro .cover-name span>span{animation:rise 1s var(--ease) both}
+.intro .cover-name span:nth-child(2)>span{animation-delay:.09s}
+.intro .cover-name span:nth-child(3)>span{animation-delay:.18s}
+.intro .cover-side>*{animation:fadein .8s var(--ease) both;animation-delay:.45s}
+.intro .cover-side>*:nth-child(2){animation-delay:.55s}
+.intro .cover-side>*:nth-child(3){animation-delay:.65s}
+.intro .cover-side>*:nth-child(4){animation-delay:.75s}
+
+/* ───────── About ───────── */
+.portrait{margin:0;position:relative;height:min(100%,640px);max-height:100%;aspect-ratio:4/5;border-radius:var(--r-img);overflow:hidden;justify-self:start}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.portrait figcaption{position:absolute;left:14px;bottom:12px;font-size:13px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.facts{display:grid;grid-template-columns:auto 1fr;margin:0;border-top:1px solid var(--line)}
+.facts dt,.facts dd{margin:0;padding:11px 0;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.45}
+.facts dt{color:var(--muted);padding-right:28px;white-space:nowrap}
+
+/* ───────── Pipeline (Recall) ───────── */
+.pipe-wrap{margin-top:clamp(22px,4vh,44px)}
+.pipe-groups{display:grid;grid-template-columns:repeat(7,1fr);font-size:13px;color:var(--muted);margin-bottom:10px}
+.pipe-groups span{border-bottom:1px solid var(--line);padding-bottom:6px}
+.pipe-groups .g1{grid-column:2/5}.pipe-groups .g2{grid-column:5/8;margin-left:10px}
+.pipe{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:10px;list-style:none;margin:0;padding:0}
+.pipe::before{content:"";position:absolute;left:calc(100%/14);right:calc(100%/14);top:21px;height:1px;background:var(--line)}
+.pipe-dot{position:absolute;top:15px;left:calc((100% + 10px) / 7 * var(--i,0) + (100% - 60px) / 14 - 6px);width:13px;height:13px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 22%,transparent);transition:left .6s var(--ease);pointer-events:none}
+.pipe button{position:relative;width:100%;text-align:left;padding:52px 12px 14px;border-radius:8px;transition:background-color .2s}
+.pipe button::before{content:"";position:absolute;top:17px;left:calc(50% - 5px);width:9px;height:9px;border-radius:50%;background:var(--bg);border:1.5px solid var(--muted)}
+.pipe button:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.pipe button[aria-pressed="true"]{background:var(--surface)}
+.pipe .pn{display:block;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pipe .pt{display:block;font-family:var(--display);font-weight:620;font-size:17px;line-height:1.15;margin-top:4px;}
+.pipe .ps{display:block;font-size:13px;color:var(--muted);margin-top:4px;line-height:1.3}
+.pipe-detail{margin-top:clamp(18px,3.4vh,36px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);border-top:1px solid var(--line);padding-top:clamp(16px,2.6vh,26px);min-height:130px}
+.pipe-detail h3{font-size:clamp(26px,2.4vw,36px);letter-spacing:-.025em;}
+.pipe-detail .k{font-size:14px;color:var(--muted);margin-bottom:6px}
+
+/* ───────── Demo / media ───────── */
+.video{width:100%;border-radius:10px;background:#000;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.shot{text-align:left;border-radius:6px;overflow:hidden;background:var(--surface);border:1px solid var(--line);transition:transform .25s var(--ease),border-color .2s}
+.shot:hover{transform:translateY(-2px);border-color:var(--accent)}
+.shot img{width:100%;aspect-ratio:16/8;object-fit:cover;object-position:top left}
+.shot span{display:block;padding:8px 10px;font-size:13px;line-height:1.3}
+
+/* Steps viewer (Hotel) */
+.steps{list-style:none;margin:0;padding:0;counter-reset:st;border-top:1px solid var(--line)}
+.steps li{border-bottom:1px solid var(--line)}
+.steps button{width:100%;display:grid;grid-template-columns:30px 1fr;gap:8px;text-align:left;padding:11px 4px;align-items:baseline;transition:color .2s}
+.steps .sn{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.steps .st{font-family:var(--display);font-size:17px;font-weight:580;}
+.steps .sd{grid-column:2;font-size:14px;color:var(--muted);line-height:1.45;display:none}
+.steps button[aria-pressed="true"] .st{color:var(--accent-text)}
+.steps button[aria-pressed="true"] .sd{display:block}
+.viewer img{transition:opacity .25s}
+
+/* Diagrams */
+.diagram-wrap{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:clamp(20px,3.5vw,56px);align-items:start;margin-top:clamp(18px,3.5vh,40px)}
+.diagram svg{width:100%;height:auto;overflow:visible}
+.dnode{cursor:pointer;outline:none}
+.dnode rect{fill:var(--surface);stroke:var(--line);stroke-width:1.2;transition:fill .2s,stroke .2s}
+.dnode .t1{font-family:var(--display);font-weight:620;font-size:16px;fill:var(--ink);}
+.dnode .t2{font-family:var(--ui);font-size:12.5px;fill:var(--muted)}
+.dnode:hover rect{stroke:var(--muted)}
+.dnode:focus-visible rect{stroke:var(--accent);stroke-width:2}
+.dnode.sel rect{fill:var(--accent);stroke:var(--accent)}
+.dnode.sel .t1,.dnode.sel .t2{fill:var(--on-accent)}
+.dedge{fill:none;stroke:color-mix(in srgb,var(--ink) 34%,transparent);stroke-width:1.4;transition:stroke .2s}
+.dedge.dash{stroke-dasharray:4 5}
+.dedge.hot{stroke:var(--accent);stroke-width:2}
+.dlabel{font-size:11.5px;fill:var(--muted);font-family:var(--ui)}
+.dlabel-bg{fill:var(--bg)}
+.ddetail{border-top:1px solid var(--line);padding-top:16px}
+.ddetail .k{font-size:14px;color:var(--muted)}
+.ddetail h3{font-size:clamp(24px,2.1vw,32px);letter-spacing:-.025em;margin:4px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);font-size:13.5px;display:inline-flex;align-items:center;transition:background-color .2s,color .2s,border-color .2s}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+
+/* Systems */
+.term-stack{position:relative;height:min(62vh,540px)}
+.term-stack button{position:absolute;width:72%;border-radius:8px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 50px -24px rgba(0,0,0,.7);transition:transform .35s var(--ease),z-index 0s}
+.term-stack button img{width:100%;height:auto}
+.term-stack button:nth-child(1){left:0;top:0;transform:rotate(-2deg)}
+.term-stack button:nth-child(2){left:13%;top:13%;transform:rotate(1deg)}
+.term-stack button:nth-child(3){left:26%;top:26%;transform:rotate(-.5deg)}
+.term-stack button:hover{transform:translateY(-6px) rotate(0);z-index:5}
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:0;border-left:1px solid var(--line)}
+.flow li{position:relative;padding:8px 0 8px 22px}
+.flow li::before{content:"";position:absolute;left:-5px;top:15px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.flow b{font-family:var(--display);font-weight:600;font-size:17px;}
+.flow span{display:block;font-size:14px;color:var(--muted);line-height:1.45}
+.aside-card{border-top:1px solid var(--line);padding-top:16px}
+
+/* Herobot phones */
+.phones{position:relative;height:min(64vh,560px);display:flex;justify-content:center;align-items:center}
+.phone{position:absolute;width:clamp(120px,13vw,200px);aspect-ratio:9/18.5;border-radius:24px;padding:6px;background:#1a1330;box-shadow:0 30px 60px -30px rgba(30,10,80,.6);transition:transform .45s var(--ease),z-index 0s;transform:translateX(calc(var(--k) * 58%)) rotate(calc(var(--k) * 5deg)) translateY(calc(var(--a) * 18px))}
+.phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:19px;background:#fff}
+.phone.front{z-index:6;transform:translateX(calc(var(--k) * 58%)) translateY(-14px) scale(1.08)}
+.phone-caption{position:absolute;left:0;right:0;bottom:-6px;text-align:center;font-size:14px;color:var(--muted)}
+
+/* Mirror */
+.tunnel{position:absolute;right:-12vw;top:50%;width:min(95vh,60vw);aspect-ratio:1;transform:translateY(-50%);pointer-events:none;opacity:.9}
+.tunnel i{position:absolute;inset:calc(var(--n) * 6.2%);border-radius:50%;border:1px solid rgba(111,180,255,calc(.5 - var(--n) * .055));box-shadow:0 0 calc(24px - var(--n) * 2px) rgba(111,180,255,calc(.22 - var(--n) * .025)) inset}
+.gallery3{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:10px;position:relative;z-index:1}
+.gallery3 button{border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.gallery3 button img{width:100%;height:100%;object-fit:cover}
+.gallery3 .tall{grid-row:span 2;aspect-ratio:3/4}
+.gallery3 .sq{aspect-ratio:4/3}
+.gallery3 .sq img[src*="schematic"]{object-fit:contain;background:#fff}
+
+/* Timeline (experience) */
+.tl{list-style:none;margin:clamp(18px,3.4vh,36px) 0 0;padding:0;border-top:1px solid var(--line)}
+.tl li{display:grid;grid-template-columns:120px 150px minmax(0,1fr) minmax(0,1.1fr);gap:clamp(14px,2.2vw,36px);align-items:center;padding:clamp(12px,2.1vh,20px) 0;border-bottom:1px solid var(--line)}
+.tl .yr{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.logo{height:62px;border-radius:6px;background:#fff;display:grid;place-items:center;padding:8px 12px}
+.logo img{max-height:44px;width:auto;object-fit:contain}
+.tl h3{font-size:clamp(19px,1.6vw,24px)}
+.tl .role{font-size:14.5px;color:var(--muted);margin-top:3px}
+.tl p{font-family:var(--serif);font-size:16px;line-height:1.5}
+
+.edu{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);margin-top:clamp(20px,4vh,48px)}
+.edu article{border-top:2px solid var(--ink);padding-top:18px}
+.edu .yr{font-size:14px;color:var(--muted)}
+.edu h3{font-size:clamp(24px,2.3vw,34px);letter-spacing:-.025em;margin:8px 0 6px}
+.edu .deg{font-size:16px;margin-bottom:14px}
+.edu .grade{display:flex;align-items:baseline;gap:10px;margin-top:18px}
+.edu .grade b{font-family:var(--display);font-size:clamp(34px,3.4vw,52px);font-weight:600;letter-spacing:-.022em;color:var(--accent-text)}
+
+/* Awards */
+.awards{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,72px);margin-top:clamp(20px,4vh,44px)}
+.award-list{list-style:none;margin:14px 0 0;padding:0;border-top:1px solid var(--line)}
+.award-list li{display:flex;justify-content:space-between;gap:18px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.award-list b{font-family:var(--display);font-size:clamp(20px,1.8vw,27px);font-weight:600;letter-spacing:-.02em;}
+.award-list span{font-size:14px;color:var(--muted);text-align:right}
+.award-hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.award-hd .yr{font-size:14px;color:var(--muted)}
+
+/* Certificates */
+.certs{list-style:none;margin:clamp(18px,3.4vh,36px) 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(24px,4vw,64px)}
+.certs li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:clamp(10px,1.7vh,15px) 0;border-top:1px solid var(--line)}
+.certs .yr{font-size:14px;color:var(--accent-text);font-variant-numeric:tabular-nums;padding-top:2px}
+.certs b{display:block;font-weight:600;font-size:16px;line-height:1.3}
+.certs span{display:block;font-size:13.5px;color:var(--muted);line-height:1.4;margin-top:3px}
+
+/* Skills */
+.skills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.4vh,30px) clamp(24px,3.5vw,56px);margin-top:clamp(20px,4vh,44px)}
+.skills section{border-top:1px solid var(--line);padding-top:12px}
+.skills h3{font-size:15px;font-weight:550;color:var(--muted);font-family:var(--ui);letter-spacing:0;}
+.skills ul{list-style:none;margin:8px 0 0;padding:0}
+.skills li{font-family:var(--display);font-size:clamp(18px,1.55vw,23px);font-weight:560;line-height:1.35;letter-spacing:-.015em;}
+
+/* Closing */
+.closing .stage{display:flex;flex-direction:column;justify-content:space-between}
+.thanks{font-family:var(--display);font-weight:760;font-size:clamp(72px,11.5vw,210px);line-height:.88;letter-spacing:-.034em;margin-left:-.05em}
+.contact{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,48px);border-top:1px solid var(--line);padding-top:18px}
+.contact a{text-decoration:none;display:block}
+.contact .k{font-size:14px;color:var(--muted)}
+.contact .v{font-family:var(--display);font-size:clamp(18px,1.8vw,27px);font-weight:560;letter-spacing:-.015em;margin-top:4px;word-break:break-word;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s var(--ease)}
+.contact a:hover .v{background-size:100% 1px}
+
+
+.stage.center{display:flex;flex-direction:column;justify-content:center}
+.metrics.three{display:grid;grid-template-columns:repeat(3,minmax(0,auto));justify-content:start;column-gap:clamp(18px,2.6vw,40px)}
+.metrics.three .metric span{max-width:15ch}
+.certs{grid-template-rows:repeat(4,auto);grid-auto-flow:column}
+.contact .k,.contact .v{display:block}
+.logo img{max-height:40px;max-width:100%}
+.phone{background:none;padding:0;box-shadow:none;border-radius:0;filter:drop-shadow(0 26px 30px rgba(30,10,80,.35))}
+.phone img{object-fit:contain;border-radius:0;background:none}
+.thanks{margin-top:.1em}
+
+.lang-btn{font-weight:650;letter-spacing:.02em;min-width:52px;justify-content:center}
+[data-en]{transition:opacity .2s}
+
+html.deck{scroll-snap-type:y mandatory}
+html.home-mode{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+[hidden]{display:none!important}
+
+/* ───────── Header modes ───────── */
+.chrome{transition:color .5s var(--ease),background-color .3s,padding .3s}
+.chrome.solid{background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-bottom:14px;box-shadow:0 1px 0 var(--line)}
+.chrome-left{display:flex;align-items:center;gap:14px}
+.brand{text-decoration:none}
+.nav-links{display:flex;gap:clamp(14px,2vw,30px);margin-left:auto;margin-right:18px}
+.nav-links a{font-size:15px;text-decoration:none;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.back-btn svg{width:14px;height:14px}
+
+/* ───────── Home ───────── */
+.home{background:var(--bg);color:var(--ink)}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;gap:clamp(28px,5vh,56px);padding:calc(env(safe-area-inset-top,0px) + 110px) 0 clamp(28px,5vh,48px)}
+.hero-top{width:100%;max-width:1360px;margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,72px);align-items:end}
+.hero h1{font-size:clamp(54px,8.4vw,150px);font-weight:760;line-height:.9;letter-spacing:-.034em;margin-left:-.04em}
+.hero-sub{font-family:var(--display);font-size:clamp(20px,1.9vw,28px);font-weight:500;line-height:1.2;letter-spacing:-.01em;margin-top:clamp(12px,2vh,20px);color:var(--muted);max-width:26ch}
+.hero-side .lede{max-width:34ch}
+.hero-meta{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;max-width:1360px;margin:0 auto;padding:0 var(--gutter);font-size:14px;color:var(--muted)}
+
+.marquee{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mq-track{display:flex;gap:18px;width:max-content;padding:6px 0 10px;animation:mq var(--dur,70s) linear infinite}
+@keyframes mq{to{transform:translateX(calc(-50% - 9px))}}
+.marquee:hover .mq-track,.marquee:focus-within .mq-track,.marquee.paused .mq-track{animation-play-state:paused}
+.pcard{flex:0 0 auto;width:clamp(270px,27vw,410px);text-align:left;background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 12px 16px;border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 24px 44px -26px rgba(20,20,60,.5)}
+.pv{position:relative;aspect-ratio:16/10;border-radius:7px;overflow:hidden;background:var(--surface)}
+.pv img{width:100%;height:100%;object-fit:cover;object-position:top left;transition:transform .8s var(--ease)}
+.pcard:hover .pv img{transform:scale(1.035)}
+.pv.phones3{display:flex;justify-content:center;align-items:flex-end;gap:4%;padding:8% 6% 0;background:color-mix(in srgb,var(--accent) 16%,var(--bg))}
+.pv.phones3 img{width:26%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 12px rgba(30,10,80,.3))}
+.pv.phones3 img:nth-child(2){width:30%;margin-bottom:-3%}
+.pv.skinpv{display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+.pv.skinpv svg{width:84%;height:auto}
+.pc-meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:14px;padding:0 4px}
+.pc-title{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.015em;line-height:1.1}
+.pc-count{font-size:13px;color:var(--muted);white-space:nowrap}
+.pc-cat{display:block;font-size:14px;color:var(--muted);margin-top:4px;padding:0 4px}
+
+.hs{padding:clamp(72px,11vh,130px) var(--gutter);border-top:1px solid var(--line);scroll-margin-top:60px}
+.hs-in{max-width:1360px;margin:0 auto}
+.hs-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,72px);align-items:end;margin-bottom:clamp(20px,4vh,40px)}
+.hs-head .body{justify-self:start}
+
+.plist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.plist li{border-bottom:1px solid var(--line)}
+.prow{width:100%;display:grid;grid-template-columns:14px minmax(0,3fr) minmax(0,2.4fr) minmax(0,4fr) auto;gap:clamp(12px,2vw,32px);align-items:center;padding:clamp(16px,2.4vh,24px) 4px;text-align:left;transition:background-color .2s,padding .25s var(--ease)}
+.prow:hover{background:var(--surface);padding-left:14px;padding-right:14px}
+.prow .sw{width:12px;height:12px;border-radius:3px;background:var(--sw)}
+.prow .pt{font-family:var(--display);font-weight:680;font-size:clamp(20px,1.9vw,28px);letter-spacing:-.015em}
+.prow .pc{font-size:14.5px;color:var(--muted)}
+.prow .ps{font-family:var(--serif);font-size:16px;line-height:1.45;color:color-mix(in srgb,var(--ink) 84%,var(--bg))}
+.prow .go{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);white-space:nowrap}
+.prow .go svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+.prow:hover .go svg{transform:translateX(3px)}
+
+.about-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,4.5vw,80px);align-items:center}
+.about-grid .portrait{height:auto;width:100%;max-width:520px;max-height:none}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,72px)}
+.home .edu,.home .awards,.home .skills,.home .certs,.home .tl{margin-top:0}
+.home .edu{margin-top:clamp(40px,7vh,72px)}
+.home .certs{margin-top:clamp(28px,5vh,48px)}
+.home .awards + h3{margin-top:40px}
+.sub-h{font-size:clamp(24px,2.2vw,32px);letter-spacing:-.02em;margin:clamp(48px,8vh,80px) 0 18px}
+.contact-hs .title{font-size:clamp(44px,6.5vw,110px);line-height:.92}
+.contact-hs .lede{margin:0 0 clamp(32px,6vh,60px);max-width:34ch;font-size:clamp(24px,2.6vw,38px);line-height:1.28}
+.foot{max-width:1360px;margin:clamp(48px,8vh,80px) auto 0;display:flex;justify-content:space-between;gap:16px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+
+/* ───────── Deck extras ───────── */
+.next-proj{height:42px;background:var(--accent);color:var(--on-accent);border-color:transparent;padding:0 16px}
+.next-proj b{font-weight:650}
+.next-proj svg{width:16px;height:16px}
+.next-proj:hover{background:color-mix(in srgb,var(--accent) 86%,var(--ink))}
+html:not(.deck) .rail{display:none}
+@media (max-width:880px){
+  .hero-top,.hs-head,.about-grid,.twocol{grid-template-columns:1fr}
+  .hero{min-height:auto;padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
+  .nav-links{display:none}
+  .prow{grid-template-columns:12px 1fr auto;row-gap:4px}
+  .prow .pc,.prow .ps{grid-column:2 / 4}
+  .prow .go span{display:none}
+  .prow .go{grid-row:1;grid-column:3}
+  html.deck .rail{display:flex}
+  .rail .track{display:none}
+  .rail{justify-content:flex-end}
+}
+@media (prefers-reduced-motion:reduce){
+  .marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
+  .mq-track{animation:none}
+  .mq-track [aria-hidden="true"]{display:none}
+  #mqToggle{display:none}
+}
+
+/* ───────── Overview ───────── */
+.overview{position:fixed;inset:0;z-index:80;background:var(--bg);color:var(--ink);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 24px) var(--gutter) calc(env(safe-area-inset-bottom,0px) + 40px);display:none}
+.overview.open{display:block;animation:fadein .25s var(--ease)}
+.ov-head{display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1360px;margin:0 auto 26px}
+.ov-head h2{font-size:clamp(28px,3vw,40px);}
+.ov-grid{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.ov-card{position:relative;aspect-ratio:16/10;border-radius:8px;padding:14px;text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s var(--ease)}
+.ov-card:hover{transform:translateY(-3px)}
+.ov-card.cur{outline:2px solid var(--accent);outline-offset:3px}
+.ov-card .n{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;justify-content:space-between}
+.ov-card .t{font-family:var(--display);font-weight:640;font-size:21px;line-height:1.05;letter-spacing:-.02em;}
+
+/* ───────── Lightbox ───────── */
+.lightbox{position:fixed;inset:0;z-index:90;background:rgba(8,8,24,.92);display:none;flex-direction:column;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 64px) 16px calc(env(safe-area-inset-bottom,0px) + 24px);color:#fff}
+.lightbox.open{display:flex;animation:fadein .2s var(--ease)}
+.lightbox img{max-width:min(1400px,94vw);max-height:78vh;object-fit:contain;border-radius:6px;background:#fff}
+.lb-cap{margin-top:14px;text-align:center;max-width:70ch}
+.lb-cap b{font-family:var(--display);font-weight:600;font-size:18px}
+.lb-cap span{display:block;font-size:14px;color:rgba(255,255,255,.7);margin-top:3px}
+.lb-close{position:absolute;top:calc(env(safe-area-inset-top,0px) + 16px);right:16px}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%)}
+.lb-prev{left:14px}.lb-next{right:14px}
+.lightbox .stepper{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff}
+.lightbox .stepper:hover{background:rgba(255,255,255,.18)}
+.lightbox .icon-btn{color:#fff;border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08)}
+
+/* ───────── Flow mode: narrow or short screens ───────── */
+@media (max-width:880px),(max-height:640px){
+  html.deck{scroll-snap-type:none}
+  .slide{height:auto;min-height:0;padding:clamp(76px,12vw,96px) var(--gutter) clamp(64px,10vw,88px)}
+  .slide+.slide{border-top:1px solid var(--line)}
+  .stage{height:auto}
+  .split,.split.even,.split.rev,.cover .stage,.diagram-wrap,.pipe-detail,.awards,.edu{grid-template-columns:1fr!important}
+  .rail .track{display:none}
+  .rail .stepper{display:none}
+  .thanks{font-size:min(17vw,120px)}
+  .wordmark{font-size:min(22vw,120px)}
+  .wordmark.long{font-size:min(12.5vw,80px)}
+  .split{gap:36px}
+  .bleed-right{margin-right:0;border-radius:10px;border-right:1px solid var(--line)}
+  .rail{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}
+  .progress{display:block;position:fixed;left:0;right:0;top:0;height:3px;z-index:41;background:transparent}
+  .progress i{display:block;height:100%;background:var(--accent);width:calc(var(--p,0) * 100%);transition:width .2s}
+  .chrome{padding-top:calc(env(safe-area-inset-top,0px) + 12px);background:linear-gradient(var(--bg) 55%,transparent);padding-bottom:14px;transition:none}
+  .where{display:none}
+  .portrait{height:auto;width:100%;max-width:440px}
+  .term-stack{height:auto;display:grid;gap:10px}
+  .term-stack button{position:static;width:100%;transform:none!important}
+  .phones{height:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding-bottom:28px}
+  .phone{position:static;width:auto;transform:none!important;border-radius:14px;padding:3px}
+  .tunnel{display:none}
+  .tl li{grid-template-columns:1fr;gap:8px}
+  .tl .logo{justify-self:start;width:150px}
+  .certs{grid-template-columns:1fr;grid-auto-flow:row;grid-template-rows:none}
+  .stage.center{display:block}
+  .phone{padding:0;border-radius:0}
+  .skills{grid-template-columns:1fr 1fr}
+  .contact{grid-template-columns:1fr}
+  .pipe-groups{display:none}
+  .pipe{grid-template-columns:1fr;gap:4px}
+  .pipe::before{left:20px;right:auto;top:10px;bottom:10px;width:1px;height:auto}
+  .pipe-dot{display:none}
+  .pipe button{padding:10px 12px 10px 46px}
+  .pipe button::before{top:17px;left:16px}
+  .pipe .pt{margin-top:0}
+  .intro .cover-name span>span{animation:none}
+  .cover-name{font-size:min(24vw,140px);margin-bottom:0}
+}
+@media (max-width:520px){
+  .skills{grid-template-columns:1fr}
+  .shots{grid-template-columns:1fr 1fr}
+  .brand small{display:none}
+  .icon-btn .lbl{display:none}
+  .icon-btn{padding:0 11px}
+}
+@media (max-height:760px) and (min-width:881px) and (min-height:641px){
+  .tl p{font-size:15px}
+  .tl li{padding:10px 0}
+  .certs div span{display:none}
+  .opt{display:none}
+  .phones{height:52vh}
+}
+@media (hover:none){.keyhint{display:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body class="w-paper">
+<a class="sr" href="#projeler" data-en="Skip to projects">Projelere geç</a>
+<div class="progress" aria-hidden="true"><i></i></div>
+
+<header class="chrome" id="chrome">
+  <div class="chrome-left">
+    <button class="icon-btn back-btn" type="button" id="backBtn" hidden><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 3L5 7l4 4"/></svg><span data-en="All projects">Tüm projeler</span></button>
+    <a class="brand" href="#" id="brand">Esin Begüm Kaya<small data-en="Portfolio">Portfolyo</small></a>
+  </div>
+  <nav class="nav-links" id="homeNav" aria-label="Bölümler" data-en-aria-label="Sections">
+    <a href="#projeler" data-en="Projects">Projeler</a>
+    <a href="#hakkimda" data-en="About">Hakkımda</a>
+    <a href="#deneyim" data-en="Experience">Deneyim</a>
+    <a href="#iletisim" data-en="Contact">İletişim</a>
+  </nav>
+  <div class="chrome-right">
+    <div class="where" id="where" hidden aria-live="polite"><b id="whereChap"></b> <span class="counter" id="whereNum"></span></div>
+    <button class="icon-btn lang-btn" type="button" id="langBtn" aria-label="Switch to English" data-en-aria-label="Türkçeye geç" lang="en" data-en="TR">EN</button>
+    <button class="icon-btn" type="button" id="fsBtn" hidden aria-label="Tam ekran sunum" data-en-aria-label="Fullscreen presentation"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg><span class="lbl" data-en="Fullscreen">Tam ekran</span></button>
+  </div>
+</header>
+
+<main>
+<div class="home w-paper" id="home">
+
+  <section class="hero" id="top">
+    <div class="hero-top">
+      <div>
+        <h1>Esin Begüm<br>Kaya</h1>
+        <p class="hero-sub" data-en="Data, software development, AI and more">Veri, yazılım geliştirme, yapay zekâ ve daha fazlası</p>
+      </div>
+      <div class="hero-side stack" style="--gap:20px">
+        <p class="lede" data-en="I'm a computer engineer. Pick any project that catches your eye; each one opens as its own short presentation.">Bilgisayar mühendisiyim. İlgini çeken projeye tıkla; her biri kendi kısa sunumuyla açılıyor.</p>
+        <div class="links"><a class="btn solid" href="#projeler" data-en="Browse projects">Projelere göz at</a><a class="btn" href="#iletisim" data-en="Get in touch">İletişime geç</a></div>
+      </div>
+    </div>
+    <div class="marquee" id="marquee" aria-label="Öne çıkan projeler" data-en-aria-label="Featured projects"><div class="mq-track" id="mqTrack"></div></div>
+    <div class="hero-meta">
+      <span id="projCount"></span>
+      <button class="icon-btn" type="button" id="mqToggle" aria-pressed="false"><svg viewBox="0 0 16 16" fill="currentColor" id="mqIcon"><rect x="3.5" y="2.5" width="3" height="11" rx="1"/><rect x="9.5" y="2.5" width="3" height="11" rx="1"/></svg><span id="mqLabel"></span></button>
+    </div>
+  </section>
+
+  <section class="hs" id="projeler">
+    <div class="hs-in">
+      <div class="hs-head">
+        <h2 class="title" data-en="All projects">Tüm projeler</h2>
+        <p class="body" data-en="Each project has its own presentation with its architecture, screens and results. Open only the ones you're curious about.">Her projenin mimarisi, ekranları ve sonuçlarıyla kendi sunumu var. Yalnızca merak ettiklerini aç.</p>
+      </div>
+      <ol class="plist" id="plist"></ol>
+    </div>
+  </section>
+
+  <section class="hs" id="hakkimda">
+    <div class="hs-in about-grid">
+      <figure class="portrait"><img src="assets/portrait.webp" alt="Esin Begüm Kaya'nın portresi" data-en-alt="Portrait of Esin Begüm Kaya" loading="lazy"></figure>
+      <div class="stack" style="--gap:22px">
+        <h2 class="title" data-en="Hi, I'm Esin Begüm.">Merhaba, ben Esin Begüm.</h2>
+        <p class="body" data-en="I combine a computer engineering foundation with AI, data and product-minded problem solving. I enjoy taking an idea beyond development and turning it into a system that works, is tested and creates real-world value. I look at technology not only from a technical perspective but also through user needs, business processes and sustainable solutions. Drawing on different disciplines, I keep learning, building and growing.">Bilgisayar mühendisliği temelimi yapay zekâ, veri ve ürün odaklı problem çözmeyle birleştiriyorum. Bir fikri yalnızca geliştirmekle kalmayıp çalışan, test edilmiş ve gerçek dünyada değer yaratan bir sisteme dönüştürmekten keyif alıyorum. Teknolojiyi yalnızca teknik bir perspektiften değil, kullanıcı ihtiyaçları, iş süreçleri ve sürdürülebilir çözümler açısından da ele alıyorum. Farklı disiplinlerden beslenerek öğrenmeye, üretmeye ve kendimi geliştirmeye devam ediyorum.</p>
+        <dl class="facts">
+          <dt data-en="Location">Konum</dt><dd>İstanbul</dd>
+          <dt data-en="Education">Eğitim</dt><dd data-en="Bahçeşehir University, B.S. Computer Engineering (2026), minor in Management Engineering">Bahçeşehir Üniversitesi, Bilgisayar Mühendisliği (2026), İşletme Mühendisliği yan dal</dd>
+          <dt data-en="Focus">Odak</dt><dd data-en="AI, data, software development, test automation">Yapay zekâ, veri, yazılım geliştirme, test otomasyonu</dd>
+          <dt data-en="Languages">Diller</dt><dd data-en="English (full professional), German">İngilizce (tam profesyonel), Almanca</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="hs" id="deneyim">
+    <div class="hs-in">
+      <h2 class="title" data-en="Experience">Deneyim</h2>
+      <ol class="tl">
+        <li><span class="yr">2026</span><span class="logo"><img src="assets/microsoft_official.webp" alt="Microsoft" loading="lazy"></span><div><h3 data-en="Microsoft Turkey">Microsoft Türkiye</h3><p class="role">AI Engineering Intern, AI Innovators Program</p></div><p data-en="Building AI applications, AI agents and RAG pipelines with Azure AI Foundry and local LLMs.">Azure AI Foundry ve yerel LLM'lerle yapay zekâ uygulamaları, AI ajanları ve RAG hatları geliştiriyorum.</p></li>
+        <li><span class="yr">2025 – 2026</span><span class="logo"><img src="assets/cubewise_ibm_logo.webp" alt="Cubewise, IBM Platinum Partner" loading="lazy"></span><div><h3 data-en="Cubewise Turkey">Cubewise Türkiye</h3><p class="role">Software Development Intern</p></div><p data-en="Built multidimensional data models and forecasting models for financial planning projects with IBM Planning Analytics (TM1).">IBM Planning Analytics (TM1) ile finansal planlama projelerinde çok boyutlu veri modelleri ve tahmin modelleri kurdum.</p></li>
+        <li><span class="yr">2023 – 2025</span><span class="logo"><img src="assets/gdg_logo.webp" alt="Google Developer Groups on Campus" loading="lazy"></span><div><h3>GDG on Campus BAU</h3><p class="role" data-en="Organization Core Team Member">Organizasyon çekirdek ekip üyesi</p></div><p data-en="Organized technical events and led knowledge-sharing sessions on emerging technologies.">Teknik etkinlikler düzenledim, yeni teknolojiler üzerine bilgi paylaşımı oturumlarına öncülük ettim.</p></li>
+        <li><span class="yr">2024</span><span class="logo"><img src="assets/flo_logo.webp" alt="FLO" loading="lazy"></span><div><h3>FLO Group</h3><p class="role" data-en="ERP, Infrastructure and Information Security Intern">ERP, Altyapı ve Bilgi Güvenliği Stajyeri</p></div><p data-en="Gained hands-on experience with ERP and infrastructure systems, working across technology teams.">ERP ve altyapı sistemlerinde uygulamalı deneyim kazandım, farklı teknoloji ekipleriyle birlikte çalıştım.</p></li>
+      </ol>
+
+      <h3 class="sub-h" data-en="Education">Eğitim</h3>
+      <div class="edu" style="margin-top:0">
+        <article>
+          <span class="yr">2022 – 2026, İstanbul</span>
+          <h3 data-en="Bahçeşehir University">Bahçeşehir Üniversitesi</h3>
+          <p class="deg" data-en="B.S. in Computer Engineering, minor in Management Engineering">Bilgisayar Mühendisliği lisansı, İşletme Mühendisliği yan dal</p>
+          <p class="body" data-en="Coursework focused on software, data and AI; graduation project on multimodal skin cancer detection.">Yazılım, veri ve yapay zekâ odaklı akademik çalışmalar; bitirme projesi olarak çok modlu cilt kanseri tespiti.</p>
+          <div class="grade"><b>3.00</b><span class="small" data-en="/ 4.00, Honours">/ 4.00, onur öğrencisi</span></div>
+        </article>
+        <article>
+          <span class="yr">2017 – 2022, İzmir</span>
+          <h3 data-en="Cihat Kora Anatolian High School">Cihat Kora Anadolu Lisesi</h3>
+          <p class="deg" data-en="High school diploma">Lise diploması</p>
+          <p class="body" data-en="One of Turkey's top ten preparatory high schools. The FIRST LEGO League awards came during these years.">Türkiye'nin en iyi on hazırlık lisesinden biri. FIRST LEGO League ödülleri bu yıllarda geldi.</p>
+          <div class="grade"><b>3.78</b><span class="small">/ 4.00</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="hs" id="oduller">
+    <div class="hs-in">
+      <h2 class="title" data-en="Awards and certificates">Ödüller ve sertifikalar</h2>
+      <div class="awards" style="margin-top:clamp(24px,4vh,40px)">
+        <article>
+          <div class="award-hd"><h3>FIRST LEGO League</h3><span class="yr">2018 – 2019</span></div>
+          <p class="small" style="margin-top:6px;max-width:52ch" data-en="An international robotics competition where students design and program robots to solve real-world problems.">Öğrencilerin gerçek dünya problemlerine robot tasarlayıp programladığı uluslararası robotik yarışması.</p>
+          <ul class="award-list">
+            <li><b data-en="Gracious Professionalism, 3rd Prize">Gracious Professionalism üçüncülüğü</b><span data-en="International Tournament">Uluslararası turnuva</span></li>
+            <li><b data-en="Best Robot Mechanical Design">En İyi Robot Mekanik Tasarımı</b><span data-en="Turkey Finals">Türkiye finali</span></li>
+            <li><b data-en="Best Teamwork Award">En İyi Takım Çalışması</b><span data-en="Aegean Region">Ege bölgesi</span></li>
+          </ul>
+        </article>
+        <article>
+          <div class="award-hd"><h3 data-en="BAU Traditional Clubs Award Ceremony">BAU Geleneksel Kulüpler Ödül Töreni</h3><span class="yr">2025</span></div>
+          <p class="small" style="margin-top:6px" data-en="Turkey's largest student club recognition event.">Türkiye'nin en büyük öğrenci kulübü ödül etkinliği.</p>
+          <ul class="award-list">
+            <li><b>Industry Contribution Award</b><span data-en="with the GDG on Campus core team">GDG on Campus çekirdek ekibiyle</span></li>
+          </ul>
+        </article>
+      </div>
+      <h3 class="sub-h" data-en="Certificates">Sertifikalar</h3>
+      <ol class="certs" style="margin-top:0">
+        <li><span class="yr">2026</span><div><b>Microsoft AI Innovators Program</b><span data-en="Azure AI Foundry, local LLMs, AI agents, RAG pipelines">Azure AI Foundry, yerel LLM'ler, AI ajanları, RAG hatları</span></div></li>
+        <li><span class="yr">2025</span><div><b>Huawei Cloud HCCDA–AI</b><span data-en="ModelArts, FunctionGraph, Ollama, Elasticsearch, LLM fine-tuning">ModelArts, FunctionGraph, Ollama, Elasticsearch, LLM ince ayarı</span></div></li>
+        <li><span class="yr">2025</span><div><b>SAP Technology Consultant Professional</b><span data-en="SAP systems, architecture and business applications">SAP sistemleri, mimarisi ve iş uygulamaları</span></div></li>
+        <li><span class="yr">2024</span><div><b>NTT DATA Data Visualization Program</b><span data-en="Data visualization with Power BI">Power BI ile veri görselleştirme</span></div></li>
+        <li><span class="yr">2024</span><div><b>Data Analyst Bootcamp</b><span data-en="Istanbul Data Science Academy and Google Cloud">Istanbul Data Science Academy ve Google Cloud</span></div></li>
+        <li><span class="yr">2024</span><div><b data-en="Turkcell Women Who Code the Future, AI Program">Turkcell Geleceği Yazan Kadınlar, Yapay Zekâ</b><span>Python 101–401, Machine Learning, Data Science</span></div></li>
+        <li><span class="yr">2020</span><div><b>PCAP: Programming Essentials in Python</b><span>OpenEDG Python Institute</span></div></li>
+        <li><span class="yr">2018</span><div><b data-en="Python Programming 1 and 2">Python Programming 1 ve 2</b><span>Bilgeİş</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="hs" id="yetkinlikler">
+    <div class="hs-in">
+      <h2 class="title" data-en="Skills">Yetkinlikler</h2>
+      <div class="skills">
+        <section><h3 data-en="Programming">Programlama</h3><ul><li>Python</li><li>C++</li><li>Java</li><li>SQL</li></ul></section>
+        <section><h3 data-en="AI and data">Yapay zekâ ve veri</h3><ul><li data-en="LLM and RAG pipelines">LLM ve RAG hatları</li><li data-en="Machine learning and NLP">Makine öğrenmesi ve NLP</li><li data-en="Computer vision">Bilgisayarlı görü</li><li data-en="Data visualization (Power BI)">Veri görselleştirme (Power BI)</li></ul></section>
+        <section><h3 data-en="Cloud">Bulut</h3><ul><li>Azure AI Foundry</li><li>Google Cloud</li><li>Huawei Cloud</li></ul></section>
+        <section><h3 data-en="Testing and delivery">Test ve teslim</h3><ul><li data-en="Postman and Newman">Postman ve Newman</li><li>Selenium WebDriver</li><li>GitHub Actions</li></ul></section>
+        <section><h3 data-en="Enterprise systems">Kurumsal sistemler</h3><ul><li>IBM Planning Analytics (TM1)</li><li>SAP</li><li data-en="ERP systems">ERP sistemleri</li></ul></section>
+        <section><h3 data-en="Soft skills">Soft skills</h3><ul><li data-en="Teamwork and leadership">Takım çalışması ve liderlik</li><li data-en="Analytical problem solving">Analitik problem çözme</li><li data-en="Fast learner">Hızlı öğrenme</li></ul></section>
+      </div>
+    </div>
+  </section>
+
+  <section class="hs contact-hs w-recall" id="iletisim" style="background:var(--bg);color:var(--ink)">
+    <div class="hs-in">
+      <p class="lede" data-en="Whether it's a role, a project idea or simply an exchange of ideas around AI, data, software development or test automation, I'd be glad to hear from you.">Yapay zekâ, veri, yazılım geliştirme ya da test otomasyonu üzerine bir iş fırsatı, proje fikri veya sadece fikir alışverişi için bana buradan ulaşabilirsin.</p>
+      <div class="contact">
+        <a href="mailto:esinbegumkaya@gmail.com"><span class="k" data-en="Email">E-posta</span><span class="v">esinbegumkaya@gmail.com</span></a>
+        <a href="https://www.linkedin.com/in/esin-begum-kaya/" target="_blank" rel="noopener"><span class="k">LinkedIn</span><span class="v">in/esin-begum-kaya</span></a>
+        <a href="https://github.com/esinbegumkaya" target="_blank" rel="noopener"><span class="k">GitHub</span><span class="v">esinbegumkaya</span></a>
+      </div>
+      <div class="foot"><span>© 2026 Esin Begüm Kaya</span><span data-en="Portfolio">Portfolyo</span></div>
+    </div>
+  </section>
+</div>
+
+<div id="decks">
+<div class="project" id="p-recall" data-project="recall" hidden>
+<!-- 3 · Recall opener -->
+<section class="slide w-recall" id="s-recall" data-chapter="Recall" data-chapter-en="Recall" data-title="Recall" data-title-en="Recall">
+  <div class="stage split">
+    <div class="col stack" style="--gap:20px">
+      <h2 class="wordmark">Recall</h2>
+      <p class="lede" data-en="Ask your documents a question, get an answer with its sources. All on your own machine.">Belgelerine soru sor, kaynağıyla birlikte cevap al. Hepsi kendi bilgisayarında.</p>
+      <p class="body opt" data-en="A local RAG system that indexes PDF, DOCX, TXT and Markdown files and never answers without verifying its evidence first. Firebase is used only for sign-in; retrieval and generation stay on the device.">PDF, DOCX, TXT ve Markdown dosyalarını indeksleyen, bulduğu kanıtı doğrulamadan cevap üretmeyen yerel bir RAG sistemi. Giriş için yalnızca Firebase kullanılıyor; arama ve üretim cihazda kalıyor.</p>
+      <div class="metrics three">
+        <div class="metric"><b data-en="1,174">1.174</b><span data-en="files indexed">indekslenen dosya</span></div>
+        <div class="metric"><b data-en="30,708">30.708</b><span data-en="searchable text chunks">aranabilir metin parçası</span></div>
+        <div class="metric"><b>42</b><span data-en="passing pytest tests">başarılı pytest</span></div>
+      </div>
+      <p class="stackline" data-en="<b>Python</b>, Streamlit, SQLite, Qwen3 embeddings, Qwen 3.5 2B on Foundry Local, Firebase Auth"><b>Python</b>, Streamlit, SQLite, Qwen3 embedding, Foundry Local üzerinde Qwen 3.5 2B, Firebase Auth</p>
+    </div>
+    <div class="col">
+      <figure class="frame bleed-right"><div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="frame-url" data-en="Recall, local workspace">Recall, yerel çalışma alanı</span></div><img src="assets/recall_home.webp" alt="Recall ana paneli: indekslenen dosya, metin parçası ve embedding sayıları" data-en-alt="Recall dashboard showing indexed files, text chunks and embeddings" class="zoomable" data-lb="recall" data-lb-i="2"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Recall pipeline -->
+<section class="slide w-recall" id="s-recall-mimari" data-chapter="Recall" data-chapter-en="Recall" data-title="Yedi aşamalı hat" data-title-en="Seven-stage pipeline">
+  <div class="stage center">
+    <div class="split even" style="height:auto;align-items:end">
+      <h2 class="title" data-en="One question, seven stages.">Bir soru, yedi aşama.</h2>
+      <p class="body" data-en="Recall splits retrieval, evidence admission, local generation and post-generation verification into explicit stages, so you can trace why an answer was given at every step. Explore the stages one by one.">Recall bulmayı, kanıt kabulünü, yerel üretimi ve üretim sonrası doğrulamayı ayrı aşamalara böler. Böylece bir cevabın neden verildiği her adımda izlenebilir. Aşamaları tek tek incele.</p>
+    </div>
+    <div class="pipe-wrap">
+      <div class="pipe-groups" aria-hidden="true"><span class="g1" data-en="Retrieval and evidence">Bulma ve kanıt</span><span class="g2" data-en="Generation and verification">Üretim ve doğrulama</span></div>
+      <ol class="pipe" id="pipe" aria-label="Recall hattı aşamaları" data-en-aria-label="Recall pipeline stages"></ol>
+      <div class="pipe-detail" aria-live="polite">
+        <div><p class="k" id="pdK"></p><h3 id="pdT"></h3></div>
+        <p class="body" id="pdD"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Recall demo -->
+<section class="slide w-recall" id="s-recall-demo" data-chapter="Recall" data-chapter-en="Recall" data-title="Uygulamada" data-title-en="In action">
+  <div class="stage split rev" style="grid-template-columns:minmax(0,7.5fr) minmax(0,4.5fr)">
+    <div class="col stack" style="--gap:14px">
+      <video class="video" id="recallVideo" src="assets/recall_demo.mp4" poster="assets/recall_poster.webp" muted loop playsinline controls preload="none" aria-label="Recall uygulama demosu, 72 saniye" data-en-aria-label="Recall app demo, 72 seconds"></video>
+      <p class="small" data-en="Sign-in, asking a question, evidence checks and settings. 72-second screen recording, no sound.">Giriş, soru sorma, kanıt doğrulama ve ayarlar. 72 saniyelik ekran kaydı, sessiz.</p>
+    </div>
+    <div class="col stack" style="--gap:16px">
+      <h2 class="title" data-en="Recall in action">Uygulamada Recall</h2>
+      <div class="shots" id="recallShots"></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="project" id="p-hotel" data-project="hotel" hidden>
+<!-- 6 · Hotel opener -->
+<section class="slide w-hotel" id="s-hotel" data-chapter="HotelBooking" data-chapter-en="HotelBooking" data-title="HotelBooking" data-title-en="HotelBooking">
+  <div class="stage split">
+    <div class="col stack" style="--gap:20px">
+      <h2 class="wordmark long">Hotel<br>Booking</h2>
+      <p class="lede" data-en="A test automation project that checks a booking flow at every layer, from the API to the browser.">Bir rezervasyon akışını API'den tarayıcıya kadar her katmanda test eden otomasyon projesi.</p>
+      <p class="body opt" data-en="A React front end, a REST API served with JSON Server, API tests with Postman and Newman, and user-flow tests with Selenium WebDriver. Positive, negative and edge cases run against the live deployment.">React arayüz, JSON Server ile sunulan REST API, Postman ve Newman ile API testleri, Selenium WebDriver ile kullanıcı akışı testleri. Pozitif, negatif ve sınır durumları canlı dağıtım üzerinde çalışıyor.</p>
+      <div class="metrics three">
+        <div class="metric"><b>70/70</b><span data-en="Postman assertions passed">Postman assertion geçti</span></div>
+        <div class="metric"><b>UI + API</b><span data-en="end to end on two layers">iki katmanda uçtan uca</span></div>
+        <div class="metric"><b>CI</b><span data-en="GitHub Actions on every change">GitHub Actions ile her değişiklikte</span></div>
+      </div>
+      <div class="links">
+        <a class="btn solid" href="https://github.com/esinbegumkaya/HotelBooking-TestAutomation" target="_blank" rel="noopener"><span data-en="View the code">Kodu incele</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10l6-6M5 4h5v5"/></svg></a>
+        <a class="btn" href="https://hotel-booking-demo-ui.onrender.com" target="_blank" rel="noopener"><span data-en="Live app">Canlı arayüz</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10l6-6M5 4h5v5"/></svg></a>
+        <a class="btn" href="https://hotel-booking-api-29et.onrender.com" target="_blank" rel="noopener"><span data-en="Live API">Canlı API</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10l6-6M5 4h5v5"/></svg></a>
+      </div>
+    </div>
+    <div class="col">
+      <figure class="frame bleed-right"><div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="frame-url">hotel-booking-demo-ui.onrender.com</span></div><img src="assets/hotel_results.webp" alt="HotelBooking arama sonuçları: uygun oteller listesi" data-en-alt="HotelBooking search results listing available hotels" loading="lazy" class="zoomable" data-lb="hotel" data-lb-i="2"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · Hotel map -->
+<section class="slide w-hotel" id="s-hotel-mimari" data-chapter="HotelBooking" data-chapter-en="HotelBooking" data-title="Sistem haritası" data-title-en="System map">
+  <div class="stage center">
+    <div class="split even" style="height:auto;align-items:end">
+      <h2 class="title" data-en="The app and its tests on one map.">Uygulama ve testleri aynı haritada.</h2>
+      <p class="body" data-en="Tests enter the app through two doors: Postman goes straight to the API, Selenium goes through the browser to the UI. GitHub Actions runs both on every change. Pick a component.">Testler uygulamanın iki kapısından giriyor: Postman doğrudan API'ye, Selenium tarayıcı üzerinden arayüze. GitHub Actions ikisini de her değişiklikte çalıştırıyor. Bir bileşen seç.</p>
+    </div>
+    <div class="diagram-wrap">
+      <div class="diagram" id="hotelDiagram" role="group" aria-label="HotelBooking sistem haritası" data-en-aria-label="HotelBooking system map"></div>
+      <div class="ddetail" aria-live="polite" id="hotelDetail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · Hotel flow -->
+<section class="slide w-hotel" id="s-hotel-akis" data-chapter="HotelBooking" data-chapter-en="HotelBooking" data-title="Akış, ekran ekran" data-title-en="Screen by screen">
+  <div class="stage split" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
+    <div class="col stack" style="--gap:20px">
+      <h2 class="title" data-en="The flow, screen by screen.">Akış, ekran ekran.</h2>
+      <ol class="steps" id="hotelSteps" aria-label="Rezervasyon akışı adımları" data-en-aria-label="Booking flow steps"></ol>
+    </div>
+    <div class="col viewer">
+      <figure class="frame"><div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="frame-url" id="hotelUrl">hotel-booking-demo-ui.onrender.com</span></div><img id="hotelView" src="assets/hotel_home.webp" alt="" loading="lazy" class="zoomable"></figure>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="project" id="p-skin" data-project="skin" hidden>
+<!-- 9 · Skin opener -->
+<section class="slide w-skin" id="s-skin" data-chapter="Skin Cancer Detection" data-chapter-en="Skin Cancer Detection" data-title="Skin Cancer Detection" data-title-en="Skin Cancer Detection">
+  <div class="stage split" style="grid-template-columns:minmax(0,7fr) minmax(0,5fr)">
+    <div class="col stack" style="--gap:22px">
+      <h2 class="wordmark long">Skin Cancer<br>Detection</h2>
+      <p class="lede" style="max-width:36ch" data-en="Graduation project: a multimodal deep learning pipeline that turns three different data sources into a single prediction.">Bitirme projesi: üç farklı veri kaynağını tek bir tahminde birleştiren çok modlu derin öğrenme hattı.</p>
+      <p class="body" data-en="On the ISIC MILK10k dataset, dermoscopic images, clinical photos and patient metadata are learned separately, then fused for 11-class skin lesion classification. Focal loss, Mixup and class weights handle imbalance; Grad-CAM explains the decisions.">ISIC MILK10k veri setinde dermoskopik görüntü, klinik fotoğraf ve hasta metadatası ayrı ayrı öğreniliyor, ardından birleştirilerek 11 sınıflı cilt lezyonu sınıflandırması yapılıyor. Dengesiz sınıflar için focal loss, Mixup ve sınıf ağırlıkları; kararları açıklamak için Grad-CAM kullanıldı.</p>
+      <p class="stackline"><b>Python</b>, PyTorch, EfficientNetV2-S, scikit-learn, OpenCV</p>
+    </div>
+    <div class="col">
+      <div class="metrics" style="flex-direction:column;gap:22px;border-top:0;padding-top:0">
+        <div class="metric" style="border-top:1px solid var(--line);padding-top:16px"><b style="font-size:clamp(56px,6.4vw,104px)">0.893</b><span style="max-width:none" data-en="mean AUC">ortalama AUC</span></div>
+        <div class="metric" style="border-top:1px solid var(--line);padding-top:16px"><b style="font-size:clamp(56px,6.4vw,104px)" data-en="#44">44.</b><span style="max-width:none" data-en="on the official leaderboard">resmî sıralamadaki yer</span></div>
+        <div class="metric" style="border-top:1px solid var(--line);padding-top:16px"><b style="font-size:clamp(56px,6.4vw,104px)">11</b><span style="max-width:none" data-en="lesion classes">lezyon sınıfı</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · Skin diagram -->
+<section class="slide w-skin" id="s-skin-mimari" data-chapter="Skin Cancer Detection" data-chapter-en="Skin Cancer Detection" data-title="Üç akış, tek karar" data-title-en="Three streams, one decision">
+  <div class="stage center">
+    <div class="split even" style="height:auto;align-items:end">
+      <h2 class="title" data-en="Three streams, one decision.">Üç akış, tek karar.</h2>
+      <p class="body" data-en="Each data type is learned by its own model, and each model carries the signal it is best at. A fusion layer weighs those outputs and makes the final call. Pick a component or a training strategy.">Her veri türü kendi modelinde öğreniliyor; her model kendi güçlü olduğu sinyali taşıyor. Son kararı, bu çıktıları tartan bir füzyon katmanı veriyor. Bir bileşen ya da eğitim stratejisi seç.</p>
+    </div>
+    <div class="diagram-wrap">
+      <div>
+        <div class="diagram" id="skinDiagram" role="group" aria-label="Çok modlu model mimarisi" data-en-aria-label="Multimodal model architecture"></div>
+        <div class="chips" id="skinChips" style="margin-top:18px" aria-label="Eğitim stratejileri" data-en-aria-label="Training strategies"></div>
+      </div>
+      <div class="ddetail" aria-live="polite" id="skinDetail"></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="project" id="p-securechat" data-project="securechat" hidden>
+<!-- 11 · Systems -->
+<section class="slide w-systems" id="s-sistem" data-chapter="Diğer projeler" data-chapter-en="More projects" data-title="Ağ ve eşzamanlılık" data-title-en="Networking and concurrency">
+  <div class="stage split" style="grid-template-columns:minmax(0,5fr) minmax(0,7fr)">
+    <div class="col stack" style="--gap:20px">
+      <h2 class="title">SecureChat</h2>
+      <p class="body" data-en="A Python chat app over TCP and UDP that encrypts messages end to end. Every layer, from discovering users on the network to encrypted messaging, was written from scratch.">TCP ve UDP üzerinde çalışan, mesajları uçtan uca şifreleyen Python sohbet uygulaması. Ağdaki kullanıcıları keşfetmekten şifreli mesajlaşmaya kadar her katman sıfırdan yazıldı.</p>
+      <ol class="flow" aria-label="SecureChat bağlantı akışı" data-en-aria-label="SecureChat connection flow">
+        <li><b data-en="UDP broadcast">UDP yayını</b><span data-en="Active users announce themselves and clients find each other.">Aktif kullanıcılar ağa varlığını duyurur, istemciler birbirini bulur.</span></li>
+        <li><b>Diffie-Hellman</b><span data-en="Both sides derive a shared secret key without ever sending it.">İki taraf, anahtarı hiç göndermeden ortak bir gizli anahtar üretir.</span></li>
+        <li><b data-en="TCP with Fernet">Fernet ile TCP</b><span data-en="Messages are symmetrically encrypted and delivered over a reliable TCP connection.">Mesajlar simetrik olarak şifrelenir ve güvenilir TCP bağlantısıyla iletilir.</span></li>
+      </ol>
+      <div class="aside-card">
+        <h3>Reader-Writer Problem</h3>
+        <p class="small" style="margin-top:6px" data-en="A semaphore-based Java solution to the classic concurrency problem: reads run concurrently, writes run alone and safely.">Klasik eşzamanlılık probleminin semafor tabanlı Java çözümü: okumalar aynı anda serbest, yazmalar tek başına ve güvenli.</p>
+      </div>
+    </div>
+    <div class="col term-stack" id="termStack"></div>
+  </div>
+</section>
+</div>
+
+<div class="project" id="p-herobot" data-project="herobot" hidden>
+<!-- 12 · Herobot -->
+<section class="slide w-herobot" id="s-herobot" data-chapter="Diğer projeler" data-chapter-en="More projects" data-title="Herobot" data-title-en="Herobot">
+  <div class="stage split" style="grid-template-columns:minmax(0,5fr) minmax(0,7fr)">
+    <div class="col stack" style="--gap:20px">
+      <h2 class="wordmark long">Herobot</h2>
+      <p class="lede" data-en="An Android assistant that talks through the ChatGPT API.">ChatGPT API ile konuşan bir Android asistanı.</p>
+      <p class="body" data-en="A mobile chat app that connects to the OpenAI API with OkHttp, signs users in with Firebase Authentication and is built on an MVVM architecture. It supports Turkish and light/dark themes.">OpenAI API'ye OkHttp ile bağlanan, Firebase Authentication ile oturum açan ve MVVM mimarisiyle kurulan mobil sohbet uygulaması. Türkçe dil desteği ve açık/koyu tema seçenekleri var.</p>
+      <p class="stackline" data-en="<b>Java</b>, Android SDK, OkHttp, Firebase Auth, REST and JSON"><b>Java</b>, Android SDK, OkHttp, Firebase Auth, REST ve JSON</p>
+    </div>
+    <div class="col">
+      <div class="phones" id="phones"></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="project" id="p-mirror" data-project="mirror" hidden>
+<!-- 13 · Mirror -->
+<section class="slide w-mirror" id="s-mirror" data-chapter="Diğer projeler" data-chapter-en="More projects" data-title="Infinity Mirror Clock" data-title-en="Infinity Mirror Clock">
+  <div class="tunnel" aria-hidden="true"><i style="--n:0"></i><i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i><i style="--n:4"></i><i style="--n:5"></i><i style="--n:6"></i><i style="--n:7"></i></div>
+  <div class="stage split" style="grid-template-columns:minmax(0,5fr) minmax(0,7fr)">
+    <div class="col stack" style="--gap:20px;position:relative;z-index:1">
+      <h2 class="wordmark long">Infinity<br>Mirror Clock</h2>
+      <p class="body" data-en="An Arduino-based smart LED clock. Inside a mirror structure that creates an endless tunnel effect sit a clock, an alarm and a menu, all run by a state machine. The lights change color with room temperature, and some controls respond to sound.">Arduino tabanlı akıllı LED saat. Sonsuz tünel efekti veren ayna yapısının içinde saat, alarm ve menü; hepsi bir durum makinesiyle yönetiliyor. Işıklar ortam sıcaklığına göre renk değiştiriyor, bazı kontroller sesle tetikleniyor.</p>
+      <ol class="flow" aria-label="Yazılım modülleri" data-en-aria-label="Software modules">
+        <li><b data-en="State machine">Durum makinesi</b><span data-en="Switching between clock, alarm and menu modes.">Saat, alarm ve menü modları arasında geçiş.</span></li>
+        <li><b data-en="LED layer">LED katmanı</b><span data-en="Temperature-reactive lighting with FastLED.">FastLED ile sıcaklığa tepki veren ışık.</span></li>
+        <li><b data-en="Inputs">Girdiler</b><span data-en="RTC, rotary encoder and sound sensor.">RTC, döner kodlayıcı ve ses sensörü.</span></li>
+      </ol>
+      <p class="stackline"><b>C++</b>, Arduino, FastLED, RTClib</p>
+    </div>
+    <div class="col gallery3" id="mirrorGallery"></div>
+  </div>
+</section>
+</div>
+</div>
+</main>
+
+<nav class="rail" aria-label="Slayt gezinmesi" data-en-aria-label="Slide navigation">
+  <div class="track" id="track"></div>
+  <div class="steppers">
+    <button class="stepper" type="button" id="prevBtn" aria-label="Önceki slayt" data-en-aria-label="Previous slide"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 4L6 9l5 5"/></svg></button>
+    <button class="stepper" type="button" id="nextBtn" aria-label="Sonraki slayt" data-en-aria-label="Next slide"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 4l5 5-5 5"/></svg></button>
+    <button class="btn next-proj" type="button" id="nextProj" hidden></button>
+  </div>
+</nav>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Görsel önizleme" data-en-aria-label="Image preview">
+  <button class="icon-btn lb-close" type="button" id="lbClose"><span data-en="Close">Kapat</span> <kbd style="color:#fff;border-color:rgba(255,255,255,.3)">Esc</kbd></button>
+  <button class="stepper lb-nav lb-prev" type="button" id="lbPrev" aria-label="Önceki görsel" data-en-aria-label="Previous image"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 4L6 9l5 5"/></svg></button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-cap"><b id="lbT"></b><span id="lbD"></span></div>
+  <button class="stepper lb-nav lb-next" type="button" id="lbNext" aria-label="Sonraki görsel" data-en-aria-label="Next image"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 4l5 5-5 5"/></svg></button>
+</div>
+
+<script>
+
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const flowMQ = matchMedia('(max-width:880px),(max-height:640px)');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ───── Language ───── */
+const LANGS = ['tr', 'en'];
+function initialLang(){
+  const q = new URLSearchParams(location.search).get('lang');
+  if (LANGS.includes(q)) return q;
+  try { const s = localStorage.getItem('ebk-lang'); if (LANGS.includes(s)) return s; } catch (e) {}
+  return (navigator.language || 'tr').toLowerCase().startsWith('tr') ? 'tr' : 'en';
+}
+let lang = initialLang();
+const T = v => (v && typeof v === 'object') ? (v[lang] ?? v.tr) : v;
+const UI = {
+  stage: {tr:'Aşama', en:'Stage'},
+  component: {tr:'Bileşen', en:'Component'},
+  zoom: {tr:'büyüt', en:'enlarge'},
+  screen: {tr:'ekranı', en:'screen'},
+  slide: {tr:'Slayt', en:'Slide'},
+  docTitle: {tr:'Esin Begüm Kaya — Portfolyo', en:'Esin Begüm Kaya — Portfolio'},
+  docDesc: {tr:'Esin Begüm Kaya: bilgisayar mühendisi. Yerel yapay zekâ, test otomasyonu, derin öğrenme ve gömülü sistem projeleri.', en:'Esin Begüm Kaya: computer engineer. Local AI, test automation, deep learning and embedded systems projects.'}
+};
+const ATTRS = ['aria-label', 'alt', 'title'];
+function applyStatic(){
+  document.documentElement.lang = lang;
+  document.title = T(UI.docTitle);
+  $('meta[name="description"]').content = T(UI.docDesc);
+  $$('[data-en]').forEach(el => {
+    if (!('tr' in el.dataset)) el.dataset.tr = el.innerHTML;
+    el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.tr;
+  });
+  ATTRS.forEach(a => $$(`[data-en-${a}]`).forEach(el => {
+    const key = 'tr' + a.replace(/(^|-)(\w)/g, (_, __, c) => c.toUpperCase());
+    if (!(key in el.dataset)) el.dataset[key] = el.getAttribute(a) || '';
+    el.setAttribute(a, lang === 'en' ? el.getAttribute(`data-en-${a}`) : el.dataset[key]);
+  }));
+  $('#langBtn').setAttribute('lang', lang === 'en' ? 'tr' : 'en');
+}
+
+/* ───── Galleries (data) ───── */
+const L = (tr, en) => ({tr, en});
+const G = {
+  recall: [
+    {src:'assets/recall_landing.webp', t:L('Açılış','Landing'), d:L('Recall karşılama ekranı.','The Recall welcome screen.')},
+    {src:'assets/recall_firebase.webp', t:L('Firebase ile giriş','Firebase sign-in'), d:L('Giriş ve kayıt penceresi; kimlik doğrulama tek bulut adımı.','Sign-in and sign-up dialog; authentication is the only cloud step.')},
+    {src:'assets/recall_home.webp', t:L('Ana panel','Dashboard'), d:L('Yerel bilgi alanı: dosya, parça ve embedding sayıları.','Local knowledge space: file, chunk and embedding counts.')},
+    {src:'assets/recall_ask.webp', t:L('Soru sor','Ask Recall'), d:L('Belgeler üzerinde kaynak gösteren soru-cevap.','Question answering over documents, with sources.')},
+    {src:'assets/recall_architecture.webp', t:L('Mimari','Architecture'), d:L('Hibrit arama, kanıt kapıları, yerel üretim ve atıf doğrulama.','Hybrid retrieval, evidence gates, local generation and citation checks.')},
+    {src:'assets/recall_evaluation.webp', t:L('Değerlendirme','Evaluation'), d:L('Test senaryoları ve beklenen davranışlar.','Test scenarios and expected behaviour.')},
+    {src:'assets/recall_knowledge.webp', t:L('Bilgi tabanı','Knowledge base'), d:L('Yerel belge indeksi ve embedding kapsamı.','Local document index and embedding coverage.')},
+    {src:'assets/recall_settings.webp', t:L('Ayarlar','Settings'), d:L('Model ve çalışma zamanı yapılandırması.','Model and runtime configuration.')}
+  ],
+  hotel: [
+    {src:'assets/hotel_home.webp', t:L('Açılış','Landing'), d:L('Canlı arayüzün başlangıç ekranı.','The start screen of the live app.'), url:'hotel-booking-demo-ui.onrender.com'},
+    {src:'assets/hotel_search.webp', t:L('Otel arama','Hotel search'), d:L('Şehir, giriş ve çıkış tarihleriyle arama.','Search by city, check-in and check-out dates.'), url:'hotel-booking-demo-ui.onrender.com/search'},
+    {src:'assets/hotel_results.webp', t:L('Uygun oteller','Available hotels'), d:L('Arama sonuçları ve otel seçimi.','Search results and choosing a hotel.'), url:'hotel-booking-demo-ui.onrender.com/results'},
+    {src:'assets/hotel_form.webp', t:L('Rezervasyon formu','Booking form'), d:L('Misafir bilgileri ve doğrulama.','Guest details and validation.'), url:'hotel-booking-demo-ui.onrender.com/book'},
+    {src:'assets/hotel_confirmation.webp', t:L('Onay','Confirmation'), d:L('Başarılı rezervasyon ve rezervasyon numarası.','Successful booking with its booking ID.'), url:'hotel-booking-demo-ui.onrender.com/confirmation'},
+    {src:'assets/hotel_postman.webp', t:L('Postman sonuçları','Postman results'), d:L('70 assertion, 0 hata ile koşan koleksiyon.','The collection run: 70 assertions, 0 errors.'), url:'Postman, collection runner'}
+  ],
+  systems: [
+    {src:'assets/securechat_1.webp', t:L('Sunucu ve istemciler','Server and clients'), d:L('TCP sunucusu ve iki istemcinin terminal çıktısı.','Terminal output of the TCP server and two clients.')},
+    {src:'assets/securechat_2.webp', t:L('Kullanıcı keşfi','User discovery'), d:L('UDP yayınıyla aktif kullanıcıların listelenmesi.','Listing active users via UDP broadcast.')},
+    {src:'assets/securechat_3.webp', t:L('Şifreli mesajlaşma','Encrypted chat'), d:L('Anahtar değişimi sonrası şifreli sohbet.','Encrypted chat after the key exchange.')}
+  ],
+  herobot: [
+    {src:'assets/herobot_login.webp', t:L('Giriş','Sign-in'), d:L('Firebase ile e-posta ve parola girişi.','Email and password sign-in with Firebase.')},
+    {src:'assets/herobot_home.webp', t:L('Karşılama','Welcome'), d:L('Herobot karakteri ve sohbete başlama.','The Herobot character and starting a chat.')},
+    {src:'assets/herobot_chat.webp', t:L('Sohbet','Chat'), d:L('Kullanıcı mesajı ve modelin yanıtı.','A user message and the model\u2019s reply.')},
+    {src:'assets/herobot_navigation.webp', t:L('Menü','Menu'), d:L('Sohbet, ayarlar ve çıkış.','Chat, settings and sign-out.')},
+    {src:'assets/herobot_settings.webp', t:L('Ayarlar','Settings'), d:L('Türkçe dil ve açık/koyu tema.','Turkish language and light/dark theme.')}
+  ],
+  mirror: [
+    {src:'assets/mirror_front.webp', t:L('Çalışan saat','The working clock'), d:L('LED tünel efekti ve LCD alarm ekranı.','LED tunnel effect and the LCD alarm display.')},
+    {src:'assets/mirror_back.webp', t:L('Arka taraf','The back'), d:L('Kontrol kartı, LCD bağlantısı ve kablolama.','Controller board, LCD connection and wiring.')},
+    {src:'assets/mirror_schematic.webp', t:L('Devre şeması','Circuit schematic'), d:L('Mikrodenetleyici, LCD, LED, RTC, döner kodlayıcı, ses sensörü ve buzzer bağlantıları.','Microcontroller, LCD, LEDs, RTC, rotary encoder, sound sensor and buzzer connections.')}
+  ]
+};
+
+/* ───── Lightbox ───── */
+const lb = {el:$('#lightbox'), list:[], i:0, ret:null};
+function lbShow(){const it = lb.list[lb.i]; $('#lbImg').src = it.src; $('#lbImg').alt = T(it.t); $('#lbT').textContent = T(it.t); $('#lbD').textContent = T(it.d) || ''; $('#lbPrev').hidden = $('#lbNext').hidden = lb.list.length < 2;}
+function lbOpen(key, i){lb.list = G[key]; lb.i = i; lb.ret = document.activeElement; lbShow(); lb.el.classList.add('open'); $('#lbClose').focus();}
+function lbClose(){lb.el.classList.remove('open'); lb.ret && lb.ret.focus();}
+function lbStep(d){lb.i = (lb.i + d + lb.list.length) % lb.list.length; lbShow();}
+$('#lbClose').onclick = lbClose; $('#lbPrev').onclick = () => lbStep(-1); $('#lbNext').onclick = () => lbStep(1);
+lb.el.addEventListener('click', e => { if (e.target === lb.el) lbClose(); });
+document.addEventListener('click', e => { const z = e.target.closest('[data-lb]'); if (z) lbOpen(z.dataset.lb, +z.dataset.lbI || 0); });
+
+/* ───── Recall shots ───── */
+function renderShots(){
+  $('#recallShots').innerHTML = [0, 1, 3, 4, 5, 6].map(i => { const s = G.recall[i];
+    return `<button class="shot" type="button" data-lb="recall" data-lb-i="${i}"><img src="${s.src}" alt="" loading="lazy"><span>${esc(T(s.t))}</span></button>`; }).join('');
+}
+
+/* ───── Recall pipeline ───── */
+const PIPE = [
+  {t:L('Soru','Question'), s:L('Doğal dil girdisi','Natural language input'), d:L('Kullanıcı belgelerine doğal dilde soru sorar. Soru hem kelime hem anlam düzeyinde aramaya hazırlanır.','The user asks their documents a question in plain language. The question is prepared for search at both the word and the meaning level.')},
+  {t:L('Hibrit arama','Hybrid retrieval'), s:L('Sözcüksel ve yoğun','Lexical and dense'), d:L('Birebir kelime eşleşmesi anlamsal vektör benzerliğiyle birleştirilir. Böylece tek yöntemin kaçıracağı parçalar da bulunur.','Exact lexical matching is combined with semantic vector similarity, so passages a single method would miss are still found.')},
+  {t:L('Kanıt kapıları','Evidence gates'), s:L('Yapı ve konu','Structure and topic'), d:L('Yapısal kapılar yanlış içerik tipindeki parçaları, konu kapıları ise anlamca yakın ama konu dışı parçaları eler. Her kanıtın rol, kurum, bölüm ve üst bağlam bilgisi korunur.','Structural gates reject evidence of the wrong content type; topical gates remove passages that are semantically close but off-topic. Each evidence unit keeps its role, organization, section and parent context.')},
+  {t:L('NLI kabulü','NLI admission'), s:L('Anlamsal destek','Semantic support'), d:L('Yerel bir NLI modeli, aday kanıtın sorulan konuyu gerçekten destekleyip desteklemediğini kontrol eder. Desteklemeyen kanıt üretime giremez.','A local NLI model checks whether candidate evidence actually supports the question. Evidence that does not cannot reach generation.')},
+  {t:L('Üretim','Generation'), s:L('Foundry Local','Foundry Local'), d:L('Cevap yalnızca doğrulanmış kanıtlardan, cihazda çalışan Qwen 3.5 2B modeliyle üretilir. Belgeler bilgisayardan çıkmaz.','The answer is generated only from validated evidence, by Qwen 3.5 2B running on the device. Documents never leave the computer.')},
+  {t:L('Atıf onarımı','Citation repair'), s:L('Güvenli kaynak eşleme','Safe source mapping'), d:L('Model bir kaynağı belirtmeyi atladıysa ve destek açık, metin de kaynağa çok yakınsa atıf güvenli şekilde geri eklenir.','If the model left out a citation, it is safely restored when the support is unambiguous and the text is near-extractive.')},
+  {t:L('Doğrulama','Validation'), s:L('İddia ve atıf kontrolü','Claim and citation check'), d:L('Cevap kabul edilmeden önce atıf verilen her iddia son bir kez kontrol edilir. Geçemeyen cevap kullanıcıya gösterilmez.','Every cited claim is checked one last time before the answer is accepted. An answer that fails is not shown to the user.')}
+];
+const pipe = $('#pipe');
+let pipeI = 0;
+function renderPipe(){
+  pipe.innerHTML = PIPE.map((p, i) => `<li><button type="button" aria-pressed="false" data-i="${i}"><span class="pn">${String(i + 1).padStart(2, '0')}</span><span class="pt">${esc(T(p.t))}</span><span class="ps">${esc(T(p.s))}</span></button></li>`).join('') + '<span class="pipe-dot" aria-hidden="true"></span>';
+  pipeSel(pipeI);
+}
+function pipeSel(i){
+  pipeI = i;
+  $$('button', pipe).forEach(b => b.setAttribute('aria-pressed', +b.dataset.i === i));
+  pipe.style.setProperty('--i', i);
+  $('#pdK').textContent = `${T(UI.stage)} ${i + 1} / ${PIPE.length}`;
+  $('#pdT').textContent = T(PIPE[i].t);
+  $('#pdD').textContent = T(PIPE[i].d);
+}
+pipe.addEventListener('click', e => { const b = e.target.closest('button'); if (b) pipeSel(+b.dataset.i); });
+
+/* ───── Hotel steps ───── */
+const hs = $('#hotelSteps');
+let hotelI = 0;
+function renderSteps(){
+  hs.innerHTML = G.hotel.map((s, i) => `<li><button type="button" aria-pressed="${i === hotelI}" data-i="${i}"><span class="sn">${String(i + 1).padStart(2, '0')}</span><span class="st">${esc(T(s.t))}</span><span class="sd">${esc(T(s.d))}</span></button></li>`).join('');
+  $('#hotelView').alt = T(G.hotel[hotelI].t);
+}
+function hotelSel(i){
+  hotelI = i;
+  $$('button', hs).forEach(b => b.setAttribute('aria-pressed', +b.dataset.i === i));
+  const v = $('#hotelView'), s = G.hotel[i];
+  v.style.opacity = .25;
+  const img = new Image(); img.onload = img.onerror = () => { v.src = s.src; v.alt = T(s.t); v.dataset.lb = 'hotel'; v.dataset.lbI = i; v.style.opacity = 1; }; img.src = s.src;
+  $('#hotelUrl').textContent = s.url;
+}
+hs.addEventListener('click', e => { const b = e.target.closest('button'); if (b) hotelSel(+b.dataset.i); });
+$('#hotelView').dataset.lb = 'hotel'; $('#hotelView').dataset.lbI = 0;
+
+/* ───── Diagrams ───── */
+const NS = 'http://www.w3.org/2000/svg';
+function makeDiagram(host, detailHost, spec, chipsHost){
+  let sel = spec.start;
+  function detail(){
+    const n = spec.nodes[sel] || spec.extra[sel];
+    detailHost.innerHTML = `<p class="k">${esc(T(n.k || UI.component))}</p><h3>${esc(T(n.name || n.t))}</h3><p class="body">${esc(T(n.d))}</p>`;
+  }
+  function draw(){
+    const Lo = flowMQ.matches || innerWidth < 1000 ? spec.tall : spec.wide;
+    const W = Lo.w, H = Lo.h, nw = Lo.nw, nh = Lo.nh;
+    const box = id => { const [x, y] = Lo.pos[id]; return {x, y, hw: (Lo.nwOf?.[id] || nw) / 2, hh: nh / 2}; };
+    const clip = (a, b) => { const dx = b.x - a.x, dy = b.y - a.y; const t = Math.min(dx ? a.hw / Math.abs(dx) : Infinity, dy ? a.hh / Math.abs(dy) : Infinity); return [a.x + dx * t, a.y + dy * t]; };
+    let svg = `<svg viewBox="-4 -4 ${W + 8} ${H + 8}" xmlns="${NS}"><defs><marker id="ah-${host.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1L9 5L0 9" fill="none" stroke="context-stroke" stroke-width="1.6"/></marker></defs>`;
+    spec.edges.forEach(([a, b, label, dash]) => {
+      const A = box(a), B = box(b);
+      const [x1, y1] = clip(A, B), [x2, y2] = clip(B, A);
+      const gx = x2 - x1, gy = y2 - y1, len = Math.hypot(gx, gy) || 1, g = 6;
+      const p1 = [x1 + gx / len * g, y1 + gy / len * g], p2 = [x2 - gx / len * g, y2 - gy / len * g];
+      svg += `<path class="dedge${dash ? ' dash' : ''}" data-a="${a}" data-b="${b}" d="M${p1[0].toFixed(1)} ${p1[1].toFixed(1)}L${p2[0].toFixed(1)} ${p2[1].toFixed(1)}" marker-end="url(#ah-${host.id})"/>`;
+      const lab = T(label);
+      if (lab){ const mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2; const tw = lab.length * 6.3 + 10; svg += `<rect class="dlabel-bg" x="${mx - tw / 2}" y="${my - 9}" width="${tw}" height="17" rx="3"/><text class="dlabel" x="${mx}" y="${my + 4}" text-anchor="middle">${esc(lab)}</text>`; }
+    });
+    Object.entries(spec.nodes).forEach(([id, n]) => {
+      const b = box(id);
+      svg += `<g class="dnode" data-id="${id}" tabindex="0" role="button" aria-label="${esc(T(n.t) + ', ' + T(n.s))}"><rect x="${b.x - b.hw}" y="${b.y - b.hh}" width="${b.hw * 2}" height="${nh}" rx="8"/><text class="t1" x="${b.x}" y="${b.y - 3}" text-anchor="middle">${esc(T(n.t))}</text><text class="t2" x="${b.x}" y="${b.y + 15}" text-anchor="middle">${esc(T(n.s))}</text></g>`;
+    });
+    host.innerHTML = svg + '</svg>';
+    if (chipsHost) chipsHost.innerHTML = Object.entries(spec.extra).map(([id, n]) => `<button class="chip" type="button" data-id="${id}" aria-pressed="false">${esc(T(n.t))}</button>`).join('');
+    mark();
+  }
+  function mark(){
+    $$('.dnode', host).forEach(g => g.classList.toggle('sel', g.dataset.id === sel));
+    $$('.dedge', host).forEach(p => p.classList.toggle('hot', p.dataset.a === sel || p.dataset.b === sel));
+    if (chipsHost) $$('.chip', chipsHost).forEach(c => c.setAttribute('aria-pressed', c.dataset.id === sel));
+  }
+  function pick(id){ sel = id; mark(); detail(); }
+  host.addEventListener('click', e => { const g = e.target.closest('.dnode'); if (g) pick(g.dataset.id); });
+  host.addEventListener('keydown', e => { const g = e.target.closest('.dnode'); if (g && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); e.stopPropagation(); pick(g.dataset.id); } });
+  if (chipsHost) chipsHost.addEventListener('click', e => { const c = e.target.closest('.chip'); if (c) pick(c.dataset.id); });
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(draw, 120); });
+  return {refresh(){ draw(); detail(); }};
+}
+
+const hotelDiagram = makeDiagram($('#hotelDiagram'), $('#hotelDetail'), {
+  start: 'api',
+  nodes: {
+    ui: {t:L('Arayüz','Front end'), s:'React + Vite', d:L('Kullanıcının otel arayıp seçtiği ve rezervasyonu tamamladığı katman. API yanıtlarını gösterir, formu doğrular ve onay ekranını üretir.','Where the user searches for a hotel, picks one and completes the booking. It renders API responses, validates the form and produces the confirmation screen.')},
+    api: {t:'REST API', s:'JSON Server', d:L('Mock backend. /hotels ve /bookings uç noktalarıyla veri sunar; rezervasyonlar için GET, POST, PUT ve DELETE işlemlerini destekler.','A mock back end. It serves data through /hotels and /bookings and supports GET, POST, PUT and DELETE on bookings.')},
+    db: {t:'db.json', s:L('veri kaynağı','data source'), d:L('Oteller ve rezervasyon kayıtları tek bir JSON dosyasında tutulur. Test koşullarını hazırlamak ve sıfırlamak kolaydır.','Hotels and bookings live in a single JSON file, which makes test conditions easy to set up and reset.')},
+    postman: {t:L('API testleri','API tests'), s:'Postman + Newman', d:L('Durum kodu, yanıt gövdesi ve veri doğrulaması. Pozitif, negatif ve sınır durumlarını kapsayan 70 assertion, Newman ile komut satırından da koşar.','Status codes, response bodies and data validation. 70 assertions covering positive, negative and edge cases, also runnable from the command line with Newman.')},
+    selenium: {t:L('UI testleri','UI tests'), s:'Selenium WebDriver', d:L('Gerçek bir tarayıcıda kullanıcı akışını baştan sona oynatır: arama, seçim, form ve onay. Geçersiz tarih, boş alanlar ve API erişilemezken arayüzün davranışı da test edilir.','Plays the user flow end to end in a real browser: search, selection, form and confirmation. Invalid dates, empty fields and UI behaviour when the API is unreachable are tested too.')},
+    ci: {t:'CI', s:'GitHub Actions', d:L('Her değişiklikte API ve arayüz testlerini otomatik çalıştırır, sonuçları tekrar üretilebilir kılar.','Runs the API and UI tests automatically on every change and keeps results reproducible.')},
+    render: {t:L('Dağıtım','Deployment'), s:'Render', d:L('Arayüz ve API ayrı servisler olarak canlıda. Testler yerel kopya yerine gerçek dağıtım üzerinde uçtan uca koşabiliyor.','The front end and API are live as separate services, so tests run end to end against the real deployment instead of a local copy.')}
+  },
+  extra: {},
+  edges: [['ui','api','HTTP'],['api','db'],['postman','api','CRUD'],['selenium','ui',L('tarayıcı','browser')],['ci','postman'],['ci','selenium'],['render','ui','',1],['render','api','',1]],
+  wide: {w:980, h:420, nw:186, nh:66, pos:{ci:[100,210], postman:[380,90], selenium:[380,330], api:[660,90], ui:[660,330], db:[890,90], render:[890,330]}, nwOf:{db:150, render:150, ci:150}},
+  tall: {w:380, h:560, nw:150, nh:62, pos:{ci:[190,40], postman:[80,170], selenium:[300,170], api:[80,320], ui:[300,320], db:[80,480], render:[300,480]}}
+}, null);
+
+const skinDiagram = makeDiagram($('#skinDiagram'), $('#skinDetail'), {
+  start: 'fus',
+  nodes: {
+    derm: {t:L('Dermoskopi','Dermoscopy'), s:L('görüntü','image'), d:L('Dermatoskopla çekilmiş yakın plan lezyon görüntüleri. Yüzey yapısı ve renk dağılımı gibi ince örüntüleri taşır.','Close-up lesion images taken with a dermatoscope. They carry fine patterns such as surface structure and colour distribution.')},
+    clin: {t:L('Klinik foto','Clinical photo'), s:L('görüntü','image'), d:L('Standart kamerayla çekilmiş klinik fotoğraflar. Lezyonu çevresiyle birlikte, farklı ölçek ve ışıkta gösterir.','Clinical photos taken with a standard camera. They show the lesion with its surroundings, at a different scale and lighting.')},
+    meta: {t:'Metadata', s:L('hasta bilgisi','patient data'), d:L('Yaş, cinsiyet, lezyonun vücuttaki yeri ve lezyon özellikleri gibi yapısal hasta bilgileri.','Structured patient data such as age, sex, lesion location and lesion attributes.')},
+    e1: {t:'CNN', s:'EfficientNetV2-S', d:L('Dermoskopik görüntülerden özellik vektörü çıkaran evrişimli ağ. Veri artırma ve Mixup ile eğitildi.','A convolutional network that extracts feature vectors from dermoscopic images, trained with augmentation and Mixup.')},
+    e2: {t:'CNN', s:'EfficientNetV2-S', d:L('Klinik fotoğraflar için ikinci görsel akış. Aynı mimari, farklı görsel bağlam.','A second visual stream for clinical photos. Same architecture, different visual context.')},
+    e3: {t:'MLP', s:L('yoğun katmanlar','dense layers'), d:L('Görsel olmayan yapısal veriyi ayrı bir çok katmanlı algılayıcıyla öğrenir.','Learns the non-visual structured data with a separate multilayer perceptron.')},
+    fus: {t:L('Füzyon','Fusion'), s:'Logistic Regression', d:L('Üç modelin çıktılarını tartıp birleştiren karar katmanı. Hiçbir tek akışın tek başına ulaşamadığı ayrımı yakalamayı hedefler.','The decision layer that weighs and combines the three models\u2019 outputs, aiming for distinctions no single stream reaches on its own.')},
+    out: {t:L('Tahmin','Prediction'), s:L('11 lezyon sınıfı','11 lesion classes'), d:L('Her görüntü için 11 sınıf üzerinde olasılık dağılımı. Resmî sıralamada ortalama AUC 0.893 ile 44. sıra.','A probability distribution over 11 classes for each case. Ranked 44th on the official leaderboard with a mean AUC of 0.893.')}
+  },
+  extra: {
+    focal: {t:'Focal loss', k:L('Eğitim stratejisi','Training strategy'), d:L('Kolay örneklerin kaybını azaltıp zor ve nadir sınıflara ağırlık veren kayıp fonksiyonu. Sınıf dengesizliğine karşı ilk savunma.','A loss function that down-weights easy examples and focuses on hard, rare classes. The first line of defence against class imbalance.')},
+    mixup: {t:'Mixup', k:L('Eğitim stratejisi','Training strategy'), d:L('İki görüntüyü ve etiketlerini karıştırarak yeni eğitim örnekleri üretir; modelin ezberlemesini zorlaştırır.','Blends two images and their labels into new training examples, making it harder for the model to memorize.')},
+    cw: {t:L('Sınıf ağırlıkları','Class weights'), k:L('Eğitim stratejisi','Training strategy'), d:L('Az örneği olan sınıfların hatası daha pahalıya sayılır; model nadir lezyonları göz ardı edemez.','Mistakes on classes with few examples cost more, so the model cannot ignore rare lesions.')},
+    gc: {t:'Grad-CAM', k:L('Açıklanabilirlik','Explainability'), d:L('Modelin karar verirken görüntünün hangi bölgelerine baktığını ısı haritasıyla gösterir. Tıbbi bir modelde "neden" sorusunun cevabı.','Shows with a heat map which regions of the image the model looked at. In a medical model, it answers the question "why".')}
+  },
+  edges: [['derm','e1'],['clin','e2'],['meta','e3'],['e1','fus'],['e2','fus'],['e3','fus'],['fus','out']],
+  wide: {w:980, h:380, nw:180, nh:64, pos:{derm:[90,50], clin:[90,190], meta:[90,330], e1:[360,50], e2:[360,190], e3:[360,330], fus:[640,190], out:[890,190]}, nwOf:{derm:160, clin:160, meta:170, out:170}},
+  tall: {w:380, h:470, nw:118, nh:62, pos:{derm:[60,36], clin:[190,36], meta:[320,36], e1:[60,170], e2:[190,170], e3:[320,170], fus:[190,304], out:[190,430]}, nwOf:{fus:170, out:170}}
+}, $('#skinChips'));
+
+/* ───── Systems / Herobot / Mirror media ───── */
+function renderTerm(){
+  $('#termStack').innerHTML = G.systems.map((s, i) => `<button type="button" data-lb="systems" data-lb-i="${i}" aria-label="${esc(T(s.t))}, ${T(UI.zoom)}"><img src="${s.src}" alt="${esc(T(s.t))}" loading="lazy"></button>`).join('');
+}
+const phones = $('#phones');
+let phoneI = 2;
+function renderPhones(){
+  phones.innerHTML = G.herobot.map((s, i) => `<button class="phone${i === phoneI ? ' front' : ''}" type="button" style="--k:${i - 2};--a:${Math.abs(i - 2)};z-index:${5 - Math.abs(i - phoneI)}" data-i="${i}" aria-label="${esc(T(s.t))} ${T(UI.screen)}"><img src="${s.src}" alt="Herobot: ${esc(T(s.t))}" loading="lazy"></button>`).join('') + `<p class="phone-caption" aria-live="polite">${esc(T(G.herobot[phoneI].t))}: ${esc(T(G.herobot[phoneI].d))}</p>`;
+}
+phones.addEventListener('click', e => {
+  const b = e.target.closest('.phone'); if (!b) return;
+  if (b.classList.contains('front') || flowMQ.matches){ lbOpen('herobot', +b.dataset.i); return; }
+  phoneI = +b.dataset.i;
+  $$('.phone', phones).forEach(p => { const k = +p.dataset.i; p.classList.toggle('front', k === phoneI); p.style.zIndex = 5 - Math.abs(k - phoneI); });
+  $('.phone-caption', phones).textContent = `${T(G.herobot[phoneI].t)}: ${T(G.herobot[phoneI].d)}`;
+});
+function renderMirror(){
+  $('#mirrorGallery').innerHTML = G.mirror.map((s, i) => `<button type="button" class="${i === 0 ? 'tall' : 'sq'}" data-lb="mirror" data-lb-i="${i}" aria-label="${esc(T(s.t))}, ${T(UI.zoom)}"><img src="${s.src}" alt="${esc(T(s.t))}" loading="lazy"></button>`).join('');
+}
+
+/* ───── Projects (add new projects here) ───── */
+const PROJECTS = [
+  {id:'recall', world:'w-recall', title:'Recall', cat:L('Yerel yapay zekâ, RAG','Local AI, RAG'),
+   sum:L('Belgelerine soru sor, kaynağıyla birlikte cevap al; hepsi kendi bilgisayarında.','Ask your documents a question and get an answer with its sources, all on your own machine.'),
+   preview:{type:'img', src:'assets/recall_home.webp'}},
+  {id:'hotel', world:'w-hotel', title:'HotelBooking', cat:L('Test otomasyonu','Test automation'),
+   sum:L("Bir rezervasyon akışını API'den tarayıcıya kadar test eden otomasyon.",'Automation that tests a booking flow from the API to the browser.'),
+   preview:{type:'img', src:'assets/hotel_results.webp'}},
+  {id:'skin', world:'w-skin', title:'Skin Cancer Detection', cat:L('Derin öğrenme, bitirme projesi','Deep learning, graduation project'),
+   sum:L('Üç veri kaynağını tek tahminde birleştiren çok modlu sınıflandırma.','Multimodal classification that fuses three data sources into one prediction.'),
+   preview:{type:'skin'}},
+  {id:'securechat', world:'w-systems', title:'SecureChat', cat:L('Ağ programlama, güvenlik','Networking, security'),
+   sum:L('TCP ve UDP üzerinde uçtan uca şifreli sohbet; yanında Reader-Writer.','End-to-end encrypted chat over TCP and UDP, plus Reader-Writer.'),
+   preview:{type:'img', src:'assets/securechat_2.webp'}},
+  {id:'herobot', world:'w-herobot', title:'Herobot', cat:L('Android, yapay zekâ entegrasyonu','Android, AI integration'),
+   sum:L('ChatGPT API ile konuşan Android asistanı.','An Android assistant that talks through the ChatGPT API.'),
+   preview:{type:'phones', srcs:['assets/herobot_home.webp','assets/herobot_chat.webp','assets/herobot_settings.webp']}},
+  {id:'mirror', world:'w-mirror', title:'Infinity Mirror Clock', cat:L('Gömülü sistemler','Embedded systems'),
+   sum:L('Arduino tabanlı, sıcaklığa ve sese tepki veren akıllı LED saat.','An Arduino smart LED clock that reacts to temperature and sound.'),
+   preview:{type:'img', src:'assets/mirror_front.webp', pos:'center 58%'}}
+];
+PROJECTS.forEach(p => { p.el = document.getElementById('p-' + p.id); p.slides = $$('.slide', p.el); });
+const UI2 = {
+  slides: n => lang === 'en' ? `${n} slide${n > 1 ? 's' : ''}` : `${n} slayt`,
+  count: n => matchMedia('(hover:none)').matches ? (lang === 'en' ? `${n} projects. Tap one to open it.` : `${n} proje. Açmak için birine dokun.`) : (lang === 'en' ? `${n} projects. Hover to pause, click to open.` : `${n} proje. Üzerine gelince durur, tıklayınca açılır.`),
+  open: {tr:'Sunumu aç', en:'Open'},
+  pause: {tr:'Durdur', en:'Pause'},
+  play: {tr:'Oynat', en:'Play'},
+  next: {tr:'Sonraki proje', en:'Next project'}
+};
+const pad = n => String(n).padStart(2, '0');
+const worldVar = (w, v) => { const t = document.createElement('div'); t.className = w; t.style.display = 'none'; document.body.appendChild(t); const a = getComputedStyle(t).getPropertyValue(v).trim(); t.remove(); return a; };
+
+const SKIN_SVG = `<svg viewBox="0 0 320 170" aria-hidden="true" fill="none"><g stroke="currentColor" stroke-opacity=".35" stroke-width="1.4"><path d="M86 30H120M86 85H120M86 140H120M196 30L236 78M196 85H236M196 140L236 92M288 85H300"/></g><g fill="var(--surface)" stroke="currentColor" stroke-opacity=".3"><rect x="10" y="16" width="76" height="28" rx="5"/><rect x="10" y="71" width="76" height="28" rx="5"/><rect x="10" y="126" width="76" height="28" rx="5"/><rect x="120" y="16" width="76" height="28" rx="5"/><rect x="120" y="71" width="76" height="28" rx="5"/><rect x="120" y="126" width="76" height="28" rx="5"/></g><rect x="236" y="68" width="52" height="34" rx="6" fill="var(--accent)"/><g font-family="Schibsted Grotesk,Arial,sans-serif" font-size="10" fill="currentColor" text-anchor="middle"><text x="48" y="34">Dermoscopy</text><text x="48" y="89">Clinical</text><text x="48" y="144">Metadata</text><text x="158" y="34">CNN</text><text x="158" y="89">CNN</text><text x="158" y="144">MLP</text><text x="262" y="88" fill="var(--on-accent)" font-weight="700">AUC .893</text></g></svg>`;
+
+function previewHTML(p){
+  const v = p.preview;
+  if (v.type === 'img') return `<div class="pv"><img src="${v.src}" alt="" loading="lazy" style="object-position:${v.pos || 'top left'}"></div>`;
+  if (v.type === 'phones') return `<div class="pv phones3">${v.srcs.map(s => `<img src="${s}" alt="" loading="lazy">`).join('')}</div>`;
+  if (v.type === 'skin') return `<div class="pv skinpv">${SKIN_SVG}</div>`;
+  return '<div class="pv"></div>';
+}
+function renderHome(){
+  const card = (p, dup) => `<button class="pcard ${p.world}" type="button" data-open="${p.id}"${dup ? ' aria-hidden="true" tabindex="-1"' : ''} aria-label="${esc(p.title)}: ${esc(T(UI2.open))}">${previewHTML(p)}<span class="pc-meta"><span class="pc-title">${esc(p.title)}</span><span class="pc-count">${UI2.slides(p.slides.length)}</span></span><span class="pc-cat">${esc(T(p.cat))}</span></button>`;
+  $('#mqTrack').innerHTML = PROJECTS.map(p => card(p, false)).join('') + PROJECTS.map(p => card(p, true)).join('');
+  $('#mqTrack').style.setProperty('--dur', `${PROJECTS.length * 12}s`);
+  $('#projCount').textContent = UI2.count(PROJECTS.length);
+  $('#plist').innerHTML = PROJECTS.map(p => `<li><button class="prow" type="button" data-open="${p.id}"><span class="sw" style="--sw:${worldVar(p.world, '--accent')}"></span><span class="pt">${esc(p.title)}</span><span class="pc">${esc(T(p.cat))}</span><span class="ps">${esc(T(p.sum))}</span><span class="go"><span>${UI2.slides(p.slides.length)}</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3l5 5-5 5"/></svg></span></button></li>`).join('');
+  mqLabel();
+}
+const mq = $('#marquee');
+function mqLabel(){ const paused = mq.classList.contains('paused'); $('#mqLabel').textContent = T(paused ? UI2.play : UI2.pause); $('#mqToggle').setAttribute('aria-pressed', paused); $('#mqIcon').innerHTML = paused ? '<path d="M4 2.5v11l9-5.5z"/>' : '<rect x="3.5" y="2.5" width="3" height="11" rx="1"/><rect x="9.5" y="2.5" width="3" height="11" rx="1"/>'; }
+$('#mqToggle').onclick = () => { mq.classList.toggle('paused'); mqLabel(); };
+document.addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b){ homeY = scrollY; location.hash = '#p/' + b.dataset.open; } });
+
+/* ───── Deck ───── */
+let proj = null, slides = [], cur = -1, homeY = 0;
+function buildRail(){
+  $('#track').innerHTML = `<div class="chap on"><span class="chap-name">${esc(proj.title)}</span><div class="segs">${slides.map((s, i) => `<button class="seg" type="button" data-go="${i}" aria-label="${T(UI.slide)} ${i + 1}: ${esc(titleOf(s))}"><span class="tip">${pad(i + 1)} ${esc(titleOf(s))}</span></button>`).join('')}</div></div>`;
+}
+const titleOf = s => lang === 'en' ? s.dataset.titleEn : s.dataset.title;
+function nextProject(){ return PROJECTS[(PROJECTS.indexOf(proj) + 1) % PROJECTS.length]; }
+function setCurrent(i, force){
+  if (!proj || (i === cur && !force)) return;
+  cur = i;
+  const s = slides[i];
+  document.body.className = [...s.classList].find(k => k.startsWith('w-'));
+  const bg = getComputedStyle(s).getPropertyValue('--bg').trim();
+  document.documentElement.style.setProperty('--page-bg', bg);
+  $('meta[name="theme-color"]').content = bg;
+  $('#whereChap').textContent = proj.title;
+  $('#whereNum').textContent = `${i + 1} / ${slides.length}`;
+  $$('.seg').forEach(b => { const k = +b.dataset.go; b.classList.toggle('now', k === i); b.classList.toggle('past', k < i); b.toggleAttribute('aria-current', k === i); });
+  $('#prevBtn').disabled = i === 0;
+  const last = i === slides.length - 1;
+  $('#nextBtn').hidden = last;
+  const np = $('#nextProj');
+  np.hidden = !last;
+  if (last){ const n = nextProject(); np.innerHTML = `<span>${T(UI2.next)}:</span> <b>${esc(n.title)}</b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3l5 5-5 5"/></svg>`; np.dataset.next = n.id; }
+  if (history.replaceState) history.replaceState(null, '', `${location.pathname}${location.search}#p/${proj.id}${i ? '/' + (i + 1) : ''}`);
+  const v = $('#recallVideo');
+  if (s.contains(v)){ if (!reduced){ v.preload = 'auto'; v.play().catch(() => {}); } } else if (!v.paused) v.pause();
+}
+function go(i){
+  if (!proj) return;
+  i = Math.max(0, Math.min(slides.length - 1, i));
+  slides[i].scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'});
+  if (flowMQ.matches) setCurrent(i);
+}
+function showProject(p, idx){
+  proj = p; slides = p.slides; cur = -1;
+  $('#home').hidden = true;
+  PROJECTS.forEach(q => q.el.hidden = q !== p);
+  document.documentElement.classList.add('deck'); document.documentElement.classList.remove('home-mode');
+  $('#backBtn').hidden = false; $('#brand').hidden = true; $('#homeNav').hidden = true;
+  $('#where').hidden = false; $('#fsBtn').hidden = !document.fullscreenEnabled;
+  $('#chrome').classList.remove('solid');
+  buildRail();
+  window.scrollTo(0, 0);
+  idx = Math.max(0, Math.min(slides.length - 1, idx || 0));
+  if (idx) slides[idx].scrollIntoView();
+  setCurrent(idx, true);
+}
+function showHome(anchor){
+  const wasDeck = !!proj;
+  proj = null; slides = []; cur = -1;
+  const v = $('#recallVideo'); if (!v.paused) v.pause();
+  PROJECTS.forEach(q => q.el.hidden = true);
+  $('#home').hidden = false;
+  document.documentElement.classList.remove('deck'); document.documentElement.classList.add('home-mode');
+  $('#backBtn').hidden = true; $('#brand').hidden = false; $('#homeNav').hidden = false;
+  $('#where').hidden = true; $('#fsBtn').hidden = true;
+  document.body.className = 'w-paper';
+  const bg = getComputedStyle($('#home')).getPropertyValue('--bg').trim();
+  document.documentElement.style.setProperty('--page-bg', bg);
+  $('meta[name="theme-color"]').content = bg;
+  const el = anchor && anchor.length > 1 ? document.getElementById(anchor.slice(1)) : null;
+  if (el) el.scrollIntoView(); else window.scrollTo(0, wasDeck ? homeY : 0);
+  headerState();
+}
+function route(){
+  const h = decodeURIComponent(location.hash);
+  const m = h.match(/^#p\/([\w-]+)(?:\/(\d+))?$/);
+  if (m){ const p = PROJECTS.find(q => q.id === m[1]); if (p) return showProject(p, (+m[2] || 1) - 1); }
+  // legacy slide anchors such as #s-hotel-mimari
+  for (const p of PROJECTS){ const k = p.slides.findIndex(s => '#' + s.id === h); if (k >= 0) return showProject(p, k); }
+  showHome(h);
+}
+addEventListener('hashchange', route);
+$('#backBtn').onclick = () => { location.hash = '#projeler'; };
+$('#nextProj').onclick = () => { location.hash = '#p/' + $('#nextProj').dataset.next; };
+
+// Header background on the home page
+function headerState(){ $('#chrome').classList.toggle('solid', !proj && scrollY > 40); }
+
+// Track which slide is on stage: the one under the viewport's center line
+let raf = 0;
+function track(){
+  raf = 0;
+  headerState();
+  if (!proj) return;
+  const mid = innerHeight / 2;
+  for (let k = 0; k < slides.length; k++){ const r = slides[k].getBoundingClientRect(); if (r.top <= mid && r.bottom > mid){ setCurrent(k); break; } }
+}
+addEventListener('scroll', () => {
+  if (!raf) raf = requestAnimationFrame(track);
+  const h = document.documentElement.scrollHeight - innerHeight;
+  $('.progress i').style.setProperty('--p', proj && h > 0 ? scrollY / h : 0);
+}, {passive: true});
+addEventListener('scrollend', track);
+addEventListener('resize', track);
+
+document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(+b.dataset.go); });
+$('#prevBtn').onclick = () => go(cur - 1);
+$('#nextBtn').onclick = () => go(cur + 1);
+
+// Fullscreen
+const fs = $('#fsBtn');
+fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {});
+
+// Language switch
+function renderAll(){
+  applyStatic();
+  renderShots(); renderPipe(); renderSteps(); renderTerm(); renderPhones(); renderMirror();
+  hotelDiagram.refresh(); skinDiagram.refresh();
+  renderHome();
+  PROJECTS.forEach(p => p.slides.forEach((s, i) => { s.setAttribute('aria-roledescription', 'slide'); s.setAttribute('aria-label', `${p.title}, ${i + 1} / ${p.slides.length}: ${titleOf(s)}`); }));
+  if (proj){ buildRail(); setCurrent(cur, true); }
+  if (lb.el.classList.contains('open')) lbShow();
+}
+function setLang(l){
+  lang = l;
+  try { localStorage.setItem('ebk-lang', l); } catch (e) {}
+  const u = new URL(location.href); u.searchParams.set('lang', l);
+  if (history.replaceState) history.replaceState(null, '', u.pathname + u.search + u.hash);
+  renderAll();
+}
+$('#langBtn').onclick = () => setLang(lang === 'tr' ? 'en' : 'tr');
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (lb.el.classList.contains('open')){
+    if (e.key === 'Escape') lbClose();
+    else if (e.key === 'ArrowRight') lbStep(1);
+    else if (e.key === 'ArrowLeft') lbStep(-1);
+    return;
+  }
+  if (['input','textarea','select','video'].includes(tag)) return;
+  if (e.key === 'l' || e.key === 'L'){ setLang(lang === 'tr' ? 'en' : 'tr'); return; }
+  if (!proj) return;
+  const onBtn = tag === 'button' || tag === 'a' || e.target.getAttribute('role') === 'button';
+  switch (e.key){
+    case 'ArrowRight': case 'ArrowDown': case 'PageDown': e.preventDefault(); go(cur + 1); break;
+    case 'ArrowLeft': case 'ArrowUp': case 'PageUp': e.preventDefault(); go(cur - 1); break;
+    case ' ': if (onBtn) return; e.preventDefault(); go(cur + (e.shiftKey ? -1 : 1)); break;
+    case 'Home': e.preventDefault(); go(0); break;
+    case 'End': e.preventDefault(); go(slides.length - 1); break;
+    case 'Escape': location.hash = '#projeler'; break;
+  }
+});
+
+// Boot
+renderAll();
+route();
+})();
+</script>
+</body>
+</html>
