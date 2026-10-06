@@ -1711,7 +1711,7 @@ function abiOf(program){
 }
 
 
-const PLC_REPO = ''; // GitHub depo adresini buraya yaz, örn. 'https://github.com/esinbegumkaya/PLCFlow' — boşken "Kodu incele" düğmesi gizli kalır
+const PLC_REPO = 'https://github.com/esinbegumkaya/PLCFlow';
 const WASM_B64 = 'AGFzbQEAAAABDANgAABgAX8AYAABfwMODQABAgECAQICAgICAgAFAwEAAgaYARd/AUGAgAQLfwBBAAt/AEEBC38AQYCABAt/AEGAgAQLfwBBhIAEC38AQYWABAt/AEGGgAQLfwBBiIAEC38AQYyABAt/AEGQgAQLfwBBlIAEC38AQYeABAt/AEGAgAQLfwBBmIAEC38AQQALfwBBAAt/AEEAC38AQYCABAt/AEGAgAQLfwBBoIAEC38AQYCACAt/AEGAgAQLB+UEJQZtZW1vcnkCABFfX3dhc21fY2FsbF9jdG9ycwAAD19fc3RhY2tfcG9pbnRlcgMAEHBsY19zZXRfY3ljbGVfbXMAAQxwbGNfY3ljbGVfbXMDBBBwbGNfZ2V0X2N5Y2xlX21zAAITcGxjX3NldF9TdGFydEJ1dHRvbgADC1N0YXJ0QnV0dG9uAwUTcGxjX2dldF9TdGFydEJ1dHRvbgAEEnBsY19zZXRfU3RvcEJ1dHRvbgAFClN0b3BCdXR0b24DBhJwbGNfZ2V0X1N0b3BCdXR0b24ABg1wbGNfZ2V0X01vdG9yAAcFTW90b3IDBxRwbGNfZ2V0X1N0YXJ0RGVsYXlfUQAIDFN0YXJ0RGVsYXlfUQMIFXBsY19nZXRfU3RhcnREZWxheV9FVAAJDVN0YXJ0RGVsYXlfRVQDCRVwbGNfZ2V0X1N0YXJ0RGVsYXlfUFQACg1TdGFydERlbGF5X1BUAwoPcGxjX2dldF9Db3VudGVyAAsHQ291bnRlcgMLCnNjYW5fY3ljbGUADA1TdGFydERlbGF5X0lOAwwMX19kc29faGFuZGxlAw0KX19kYXRhX2VuZAMODl9fcm9kYXRhX3N0YXJ0Aw8MX19yb2RhdGFfZW5kAxALX19zdGFja19sb3cDEQxfX3N0YWNrX2hpZ2gDEg1fX2dsb2JhbF9iYXNlAxMLX19oZWFwX2Jhc2UDFApfX2hlYXBfZW5kAxUNX19tZW1vcnlfYmFzZQMBDF9fdGFibGVfYmFzZQMCFV9fd2FzbV9maXJzdF9wYWdlX2VuZAMWCl9fdGxzX2Jhc2UDAwqZAw0CAAsOAEEAIAA2AoCAhIAADwsMAEEAKAKAgISAAA8LGgEBfyAAQQBHIQFBACABQQFxOgCEgISAAA8LDwBBAC0AhICEgABBAXEPCxoBAX8gAEEARyEBQQAgAUEBcToAhYCEgAAPCw8AQQAtAIWAhIAAQQFxDwsPAEEALQCGgISAAEEBcQ8LDwBBAC0AiICEgABBAXEPCwwAQQAoAoyAhIAADwsMAEEAKAKQgISAAA8LDABBACgClICEgAAPC9oBAQh/QQAtAISAhIAAQQAtAIWAhIAAQX9zcSEAQQAgAEEBcToAh4CEgABB5AAhAUEAIAE2ApCAhIAAQQAoAoyAhIAAQQAoAoCAhIAAaiECIAJB5ABKIQNB5AAgAiADQQFxG0EAIABBAXEbIQRBACAENgKMgISAACAAIARB5ABOcSEFQQAgBUEBcToAiICEgABBAC0AiICEgAAhBkEAIAZBAXE6AIaAhIAAAkACQEEALQCGgISAAEEBcUUNAEEAKAKUgISAAEEBaiEHQQAgBzYClICEgAAMAQsLDwsLDAEAQYCABAsECgAAAA==';
 
 const EXAMPLES = {
@@ -2237,15 +2237,15 @@ const PROJECTS = [
   {id:'recall', world:'w-recall', title:'Recall', cat:L('Yerel yapay zekâ, RAG','Local AI, RAG'),
    sum:L('Belgelerine soru sor, kaynağıyla birlikte cevap al; hepsi kendi bilgisayarında.','Ask your documents a question and get an answer with its sources, all on your own machine.'),
    preview:{type:'img', src:'assets/recall_home.webp'}},
+  {id:'plcflow', world:'w-plc', title:'PLCFlow', cat:L('Derleyici, endüstriyel otomasyon','Compilers, industrial automation'),
+   sum:L("Structured Text'i derleyen, sanal bir PLC'de ya da WebAssembly'de çalıştıran araç zinciri; tarayıcıda canlı demo.",'A toolchain that compiles Structured Text and runs it on a virtual PLC or as WebAssembly, with a live demo in the browser.'),
+   preview:{type:'plc'}},
   {id:'hotel', world:'w-hotel', title:'HotelBooking', cat:L('Test otomasyonu','Test automation'),
    sum:L("Bir rezervasyon akışını API'den tarayıcıya kadar test eden otomasyon.",'Automation that tests a booking flow from the API to the browser.'),
    preview:{type:'img', src:'assets/hotel_results.webp'}},
   {id:'skin', world:'w-skin', title:'Skin Cancer Detection', cat:L('Derin öğrenme, bitirme projesi','Deep learning, graduation project'),
    sum:L('Üç veri kaynağını tek tahminde birleştiren çok modlu sınıflandırma.','Multimodal classification that fuses three data sources into one prediction.'),
    preview:{type:'skin'}},
-  {id:'plcflow', world:'w-plc', title:'PLCFlow', cat:L('Derleyici, endüstriyel otomasyon','Compilers, industrial automation'),
-   sum:L("Structured Text'i derleyen, sanal bir PLC'de ya da WebAssembly'de çalıştıran araç zinciri; tarayıcıda canlı demo.",'A toolchain that compiles Structured Text and runs it on a virtual PLC or as WebAssembly, with a live demo in the browser.'),
-   preview:{type:'plc'}},
   {id:'securechat', world:'w-systems', title:'SecureChat', cat:L('Ağ programlama, güvenlik','Networking, security'),
    sum:L('TCP ve UDP üzerinde uçtan uca şifreli sohbet; yanında Reader-Writer.','End-to-end encrypted chat over TCP and UDP, plus Reader-Writer.'),
    preview:{type:'img', src:'assets/securechat_2.webp'}},
