@@ -513,6 +513,180 @@ html:not(.deck) .rail{display:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* ───────── PLCFlow (w-plc world + live compiler demo) ───────── */
+.w-plc{--bg:#E3E4DF;--ink:#1B2328;--muted:#56616A;--accent:#AD5900;--accent-text:#8F4A00;--line:rgba(27,35,40,.15);--surface:#F3F3EF;--on-accent:#fff;
+  --plc-screen:#1E2A31;--plc-screen-2:#26353D;--plc-screen-line:#34464F;--plc-screen-ink:#D3DDE1;--plc-screen-dim:#7C9099;
+  --plc-on:#1F9A55;--plc-err:#C2372B;--plc-wire:#2156A6;--plc-amber:#DE9410;--plc-bezel:#3A4449;--plc-lamp-off:#5C6669;--plc-well:#E3E4DF}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .w-plc{--bg:#181D20;--ink:#E3E6E2;--muted:#9AA6AB;--accent:#F0A23A;--accent-text:#F5B25A;--line:rgba(227,230,226,.14);--surface:#222A2E;--on-accent:#181D20;
+    --plc-screen:#11191E;--plc-screen-2:#18232A;--plc-screen-line:#27353D;--plc-on:#36C474;--plc-err:#EF6352;--plc-wire:#77A3EE;--plc-amber:#F0AC2C;--plc-bezel:#0F1417;--plc-lamp-off:#3B4549;--plc-well:#181D20}
+}
+:root[data-theme="dark"] .w-plc{--bg:#181D20;--ink:#E3E6E2;--muted:#9AA6AB;--accent:#F0A23A;--accent-text:#F5B25A;--line:rgba(227,230,226,.14);--surface:#222A2E;--on-accent:#181D20;
+  --plc-screen:#11191E;--plc-screen-2:#18232A;--plc-screen-line:#27353D;--plc-on:#36C474;--plc-err:#EF6352;--plc-wire:#77A3EE;--plc-amber:#F0AC2C;--plc-bezel:#0F1417;--plc-lamp-off:#3B4549;--plc-well:#181D20}
+.w-plc{--plc-mono:ui-monospace,"SFMono-Regular","JetBrains Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --hl-kw:#8DB4FF;--hl-type:#79D0BF;--hl-addr:#F0C04C;--hl-time:#E3A1F2;--hl-num:#F3A66A;--hl-com:#6B8089}
+
+/* syntax colours (editor, cover, code blocks) */
+.plc-k{color:var(--hl-kw)}.plc-ty{color:var(--hl-type)}.plc-ad{color:var(--hl-addr)}.plc-tm{color:var(--hl-time)}.plc-nu{color:var(--hl-num)}.plc-co{color:var(--hl-com);font-style:italic}
+
+/* cover code frame */
+.plc-code{margin:0;background:var(--plc-screen);color:var(--plc-screen-ink);font:400 clamp(12.5px,1.02vw,15.5px)/1.65 var(--plc-mono);padding:clamp(16px,2vw,26px) clamp(18px,2.2vw,30px);white-space:pre;overflow:auto;tab-size:4}
+.plc-code .plc-ln{display:block}
+.plc-code .plc-gut{display:inline-block;width:2.2em;color:var(--plc-screen-dim);opacity:.6;user-select:none}
+
+/* demo slide layout */
+.plc-demo-stage{display:flex;flex-direction:column;gap:clamp(10px,1.6vh,16px)}
+.plc-demo-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,64px);align-items:end}
+.plc-demo-head .title{font-size:clamp(28px,2.9vw,44px)}
+.plc-demo-head .small{max-width:62ch}
+.plc{flex:1;min-height:0;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 30px 60px -36px rgba(10,20,30,.45)}
+.plc-note{margin-top:-2px}
+
+/* stage rail */
+.plc-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 26px minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto;column-gap:16px;row-gap:8px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.plc-st{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:1px 9px;text-align:left;background:var(--plc-well);border:1px solid var(--line);border-radius:7px;padding:7px 10px;min-width:0;transition:border-color .2s,background-color .2s}
+.plc-st:hover{border-color:var(--muted)}
+.plc-st[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.plc-st[aria-selected="true"] .plc-st-d{color:inherit;opacity:.72}
+.plc-st-n{grid-row:1/3;font:600 11.5px/1 var(--plc-mono);width:25px;height:25px;display:grid;place-items:center;border:1px solid currentColor;border-radius:50%;opacity:.75}
+.plc-st-name{font-family:var(--display);font-weight:640;font-size:15px;line-height:1.15;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.plc-st-d{grid-column:2;font-size:12.5px;line-height:1.3;color:var(--muted)}
+.plc-st-dot{grid-row:1/3;grid-column:3;width:9px;height:9px;border-radius:50%;background:var(--muted);opacity:.5}
+.plc-st[data-status="ok"] .plc-st-dot{background:var(--plc-on);opacity:1;box-shadow:0 0 0 3px color-mix(in srgb,var(--plc-on) 25%,transparent)}
+.plc-st[data-status="err"] .plc-st-dot{background:var(--plc-err);opacity:1;box-shadow:0 0 0 3px color-mix(in srgb,var(--plc-err) 25%,transparent)}
+.plc-st[data-status="blocked"]{opacity:.5}
+.plc-st.lead{grid-row:1/3;align-self:center}
+.plc-st.lead::after,.plc-st.chain::after{content:"";position:absolute;right:-17px;top:50%;width:16px;height:1.5px;background:color-mix(in srgb,var(--ink) 34%,transparent)}
+.plc-st.s-lexer{grid-column:1}.plc-st.s-parser{grid-column:2}.plc-st.s-sem{grid-column:3}
+.plc-fork{grid-column:4;grid-row:1/3;margin:0 -16px;align-self:stretch}
+.plc-fork svg{width:100%;height:100%;display:block;max-width:none}
+.plc-st.s-runtime{grid-column:5/7;grid-row:1}.plc-st.s-llvm{grid-column:5;grid-row:2}.plc-st.s-wasm{grid-column:6;grid-row:2}
+
+/* bench */
+.plc-bench{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+.plc-ed-col{display:flex;flex-direction:column;min-height:0;min-width:0;background:var(--plc-screen);color:var(--plc-screen-ink)}
+.plc-ed-bar{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--plc-screen-line);font-size:13.5px}
+.plc-ed-bar label{color:var(--plc-screen-dim)}
+.plc-ed-bar select{font:inherit;font-size:13.5px;background:var(--plc-screen-2);color:var(--plc-screen-ink);border:1px solid var(--plc-screen-line);border-radius:5px;padding:4px 6px;min-width:0;flex:0 1 auto}
+.plc-file{margin-left:auto;font:400 12.5px var(--plc-mono);color:var(--plc-screen-dim);white-space:nowrap}
+.plc-editor{position:relative;flex:1;min-height:180px;display:grid;grid-template-columns:auto minmax(0,1fr);overflow:hidden}
+.plc-gutter{margin:0;padding:12px 8px 12px 12px;text-align:right;color:var(--plc-screen-dim);font:400 13px/1.6 var(--plc-mono);user-select:none;overflow:hidden;opacity:.7}
+.plc-code-area{position:relative;overflow:hidden}
+.plc-code-area pre,.plc-code-area textarea{position:absolute;inset:0;margin:0;padding:12px 14px 12px 6px;font:400 13px/1.6 var(--plc-mono);white-space:pre;tab-size:4;overflow:auto;border:0;border-radius:0;letter-spacing:0}
+.plc-code-area pre{pointer-events:none;color:var(--plc-screen-ink)}
+.plc-code-area textarea{background:transparent;color:transparent;caret-color:#fff;resize:none;outline:none;overscroll-behavior:contain;-webkit-text-fill-color:transparent}
+.plc-code-area textarea::selection{background:rgba(141,180,255,.32)}
+.plc-code-area textarea:focus-visible{box-shadow:inset 0 0 0 2px rgba(141,180,255,.45)}
+.plc-ln{display:block;min-height:1.6em}
+.plc-ln.err{background:rgba(226,80,64,.22)}
+.plc-diag{border-top:1px solid var(--plc-screen-line);padding:9px 12px 10px;font-size:13.5px;line-height:1.4;max-height:116px;overflow:auto;overscroll-behavior:contain}
+.plc-diag-ok{color:#8BE0AE}
+.plc-diag ul{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.plc-diag li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline}
+.plc-diag-code{font:500 12px var(--plc-mono);color:#FF9B8C}
+.plc-diag button{text-decoration:underline;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:2px}
+.plc-hint{color:var(--plc-screen-dim);font-size:12.5px;margin-top:4px}
+.plc-diag code,.plc-hint code{font:12px var(--plc-mono);background:var(--plc-screen-2);padding:1px 5px;border-radius:3px}
+
+.plc-out{min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;border-left:1px solid var(--line)}
+.plc-panel{padding:14px 18px 18px}
+.plc-panel[hidden]{display:none!important}
+.plc-panel h3{font-size:18px;margin-bottom:8px}
+.plc-sm{font-size:14px;line-height:1.5;color:var(--muted)}
+.plc-blocked{border:1px dashed var(--line);border-radius:8px;padding:14px;color:var(--muted);font-size:14.5px;line-height:1.5}
+.plc-h4{margin:18px 0 7px;font-family:var(--display);font-weight:620;font-size:14.5px;color:var(--muted);letter-spacing:0}
+
+/* runtime controls */
+.plc-controls{display:flex;flex-wrap:wrap;align-items:center;gap:7px 8px;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.plc-btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);font-size:14px;font-weight:550;transition:background-color .2s,border-color .2s}
+.plc-btn:hover{background:var(--plc-well);border-color:var(--muted)}
+.plc-btn.solid{background:var(--accent);color:var(--on-accent);border-color:transparent}
+.plc-btn.solid:hover{background:color-mix(in srgb,var(--accent) 86%,var(--ink))}
+.plc-btn svg{width:13px;height:13px}
+.plc-ctl{display:inline-flex;align-items:center;gap:5px;font-size:13.5px;color:var(--muted)}
+.plc-ctl select{font:inherit;font-size:13.5px;color:var(--ink);background:var(--plc-well);border:1px solid var(--line);border-radius:6px;padding:4px 5px}
+.plc-cycles{margin-left:auto;font:500 12.5px var(--plc-mono);color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.plc-io{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}
+.plc-io h4{margin:0 0 4px;font-family:var(--display);font-weight:620;font-size:14.5px;color:var(--muted);letter-spacing:0}
+.plc-row{display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:11px;padding:6px 0;border-bottom:1px solid var(--line)}
+.plc-row:last-child{border-bottom:0}
+.plc-term{font:500 11.5px var(--plc-mono);background:var(--plc-well);border:1px solid var(--line);border-radius:4px;padding:3px 6px 3px 17px;position:relative;min-width:60px}
+.plc-term::before{content:"";position:absolute;left:5px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;border:1px solid color-mix(in srgb,var(--ink) 35%,transparent)}
+.plc-term.force{border-style:dashed}
+.plc-name{font-weight:550;font-size:15px;line-height:1.2;min-width:0;overflow-wrap:anywhere}
+.plc-name small{display:block;color:var(--muted);font-weight:400;font-size:12.5px}
+.plc-pbw{display:flex;align-items:center;gap:7px}
+.plc-pb{--cap:#59656A;position:relative;width:38px;height:38px;border-radius:50%;background:var(--plc-bezel);box-shadow:0 0 0 3px var(--plc-well),0 2px 0 3px var(--line)}
+.plc-pb::before{content:"";position:absolute;inset:5px;border-radius:50%;background:radial-gradient(circle at 40% 30%,color-mix(in srgb,var(--cap) 70%,#fff) 0,var(--cap) 55%,color-mix(in srgb,var(--cap) 75%,#000) 100%);box-shadow:0 3px 0 color-mix(in srgb,var(--cap) 55%,#000);transition:transform .08s,box-shadow .08s}
+.plc-pb[aria-pressed="true"]::before{transform:translateY(2px);box-shadow:0 1px 0 color-mix(in srgb,var(--cap) 55%,#000),inset 0 0 0 2px rgba(255,255,255,.5)}
+.plc-pb.green{--cap:#1E8E4E}.plc-pb.red{--cap:#B8312A}.plc-pb.blue{--cap:#2459A8}
+.plc-pbv{font:500 12px var(--plc-mono);color:var(--muted);width:1ch}
+.plc-lamp{--c:var(--plc-on);width:28px;height:28px;border-radius:50%;border:4px solid var(--plc-bezel);background:radial-gradient(circle at 36% 30%,rgba(255,255,255,.22) 0 16%,transparent 18%),var(--plc-lamp-off);box-shadow:inset 0 2px 5px rgba(0,0,0,.35);transition:background .12s,box-shadow .12s;flex:none}
+.plc-lamp.on{background:radial-gradient(circle at 36% 30%,rgba(255,255,255,.8) 0 14%,transparent 17%),radial-gradient(circle,color-mix(in srgb,var(--c) 55%,#fff) 0,var(--c) 50%,color-mix(in srgb,var(--c) 75%,#000) 100%);box-shadow:0 0 16px 3px color-mix(in srgb,var(--c) 55%,transparent),inset 0 -2px 5px rgba(0,0,0,.25)}
+.plc-lamp.red{--c:#E2463A}.plc-lamp.amber{--c:#F3B12A}.plc-lamp.blue{--c:#4B8DF0}
+.plc-lamp.sm{width:15px;height:15px;border-width:2px}
+
+.plc-timer{display:grid;grid-template-columns:1fr auto;gap:5px 12px;align-items:center;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--plc-well)}
+.plc-timer+.plc-timer{margin-top:7px}
+.plc-timer b{font-weight:600}
+.plc-flags{display:flex;gap:11px;font:500 11.5px var(--plc-mono);color:var(--muted);align-items:center}
+.plc-flags span{display:inline-flex;align-items:center;gap:5px}
+.plc-bar{grid-column:1/3;height:9px;border-radius:2px;background:color-mix(in srgb,var(--ink) 8%,transparent);overflow:hidden;position:relative}
+.plc-bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--plc-amber)}
+.plc-bar i.done{background:var(--plc-on)}
+.plc-nums{grid-column:1/3;font:400 12px var(--plc-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+
+.plc-table{width:100%;border-collapse:collapse;font-size:14px}
+.plc-table th,.plc-table td{text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.plc-table th{font-weight:500;color:var(--muted)}
+.plc-table td.m{font:400 12.5px var(--plc-mono);white-space:nowrap}
+.plc-table td.v{font:500 13px var(--plc-mono);text-align:right;font-variant-numeric:tabular-nums}
+.plc-table td.code{font:500 12.5px var(--plc-mono);color:var(--plc-err);white-space:nowrap}
+.plc-match.y{color:var(--plc-on)}.plc-match.n{color:var(--plc-err)}
+
+.plc-trace{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 12px;align-items:center;font-size:13px}
+.plc-trace>span{white-space:nowrap;color:var(--muted)}
+.plc-trace svg{width:100%;height:18px;display:block;background:var(--plc-well);border-radius:2px;max-width:none}
+.plc-trace path{fill:none;stroke-width:1.6;vector-effect:non-scaling-stroke}
+.plc-trace .in path{stroke:var(--plc-wire)}.plc-trace .out path{stroke:var(--plc-on)}.plc-trace .tq path{stroke:var(--plc-amber)}
+
+.plc-okline{display:flex;align-items:center;gap:10px;font-weight:550;margin-bottom:10px}
+.plc-rterr{margin-top:12px;padding:9px 12px;border-left:3px solid var(--plc-err);background:color-mix(in srgb,var(--plc-err) 10%,transparent);font-size:14px}
+.plc-badge{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:8px;border:1px solid var(--line);font-size:14px;line-height:1.4;margin-bottom:10px}
+.plc-tokens{display:flex;flex-wrap:wrap;gap:5px}
+.plc-tok{display:inline-flex;flex-direction:column;gap:1px;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--plc-well);text-align:left;line-height:1.2}
+.plc-tok:hover{border-color:var(--accent)}
+.plc-tok b{font:500 12.5px var(--plc-mono)}
+.plc-tok span{color:var(--muted);font-size:11px}
+.plc-tok.kw{border-left:3px solid var(--plc-wire)}.plc-tok.addr{border-left:3px solid var(--plc-amber)}.plc-tok.lit{border-left:3px solid var(--plc-on)}
+.plc-block{margin:0;background:var(--plc-screen);color:var(--plc-screen-ink);border-radius:8px;padding:12px 14px;font:400 12.5px/1.6 var(--plc-mono);overflow:auto;white-space:pre;overscroll-behavior:contain}
+.plc-block .tr{color:var(--plc-screen-dim)}.plc-block .nt{color:var(--hl-type)}.plc-block .nm{color:#fff}.plc-block .gl{color:var(--hl-addr)}.plc-block .tp{color:var(--hl-num)}.plc-block .lb{color:var(--hl-time)}
+
+/* project card preview */
+.pv.plcpv{display:grid;place-items:center;background:var(--surface)}
+.pv.plcpv svg{width:100%;height:100%}
+
+@media (max-width:1180px) and (min-width:881px){
+  .plc-st-d{display:none}
+}
+@media (max-width:880px),(max-height:640px){
+  .plc-demo-head{grid-template-columns:1fr}
+  .plc{flex:none}
+  .plc-rail{display:flex;overflow-x:auto;gap:8px;padding:12px;scroll-snap-type:x proximity}
+  .plc-st{flex:0 0 175px;scroll-snap-align:start}
+  .plc-st.lead::after,.plc-st.chain::after,.plc-fork{display:none}
+  .plc-st-d{display:block}
+  .plc-bench{grid-template-columns:1fr}
+  .plc-editor{flex:none;height:330px}
+  .plc-out{border-left:0;border-top:1px solid var(--line);overflow:visible}
+}
+@media (max-width:520px){
+  .plc-io{grid-template-columns:1fr}
+  .plc-file{display:none}
+  .plc-ed-bar select{flex:1}
+}
 </style>
 </head>
 <body class="w-paper">
@@ -818,6 +992,95 @@ html:not(.deck) .rail{display:none}
       </div>
       <div class="ddetail" aria-live="polite" id="skinDetail"></div>
     </div>
+  </div>
+</section>
+</div>
+
+<div class="project" id="p-plcflow" data-project="plcflow" hidden>
+<!-- PLCFlow opener -->
+<section class="slide w-plc" id="s-plc" data-chapter="PLCFlow" data-chapter-en="PLCFlow" data-title="PLCFlow" data-title-en="PLCFlow">
+  <div class="stage split">
+    <div class="col stack" style="--gap:20px">
+      <h2 class="wordmark long">PLCFlow</h2>
+      <p class="lede" data-en="A compiler and virtual PLC for Structured Text: from source code to a scan cycle, and on to WebAssembly.">Structured Text için bir derleyici ve sanal PLC: kaynak koddan tarama döngüsüne, oradan WebAssembly'ye.</p>
+      <p class="body opt" data-en="A C#/.NET toolchain that parses an IEC 61131-3-inspired Structured Text subset, validates it semantically, and runs it either in a deterministic scan cycle or as WebAssembly through LLVM. The same frontend gives VS Code diagnostics, hover and completion through a Language Server.">IEC 61131-3'ten esinlenen bir Structured Text alt kümesini ayrıştırıp anlamsal olarak doğrulayan, ardından deterministik bir tarama döngüsünde ya da LLVM üzerinden WebAssembly'de çalıştıran C#/.NET araç zinciri. Aynı ön uç, Language Server aracılığıyla VS Code'a teşhis, hover ve tamamlama sağlıyor.</p>
+      <div class="metrics three">
+        <div class="metric"><b>2</b><span data-en="backends from one AST">backend, tek AST'den</span></div>
+        <div class="metric"><b>18</b><span data-en="xUnit tests">xUnit testi</span></div>
+        <div class="metric"><b>3</b><span data-en="independent CI jobs">bağımsız CI işi</span></div>
+      </div>
+      <p class="stackline"><b>C#</b>, .NET 8, LLVM IR, Clang, WebAssembly, TypeScript, LSP, xUnit, Docker</p>
+      <div class="links" id="plcLinks" hidden>
+        <a class="btn solid" id="plcRepo" href="#" target="_blank" rel="noopener"><span data-en="View the code">Kodu incele</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10l6-6M5 4h5v5"/></svg></a>
+      </div>
+    </div>
+    <div class="col">
+      <figure class="frame bleed-right"><div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="frame-url">examples/conveyor/conveyor-v02.st</span></div><pre class="plc-code" id="plcCover" aria-label="Structured Text örneği: konveyör kontrolü" data-en-aria-label="Structured Text example: conveyor control"></pre></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PLCFlow architecture -->
+<section class="slide w-plc" id="s-plc-mimari" data-chapter="PLCFlow" data-chapter-en="PLCFlow" data-title="Tek ön uç, iki backend" data-title-en="One frontend, two backends">
+  <div class="stage center">
+    <div class="split even" style="height:auto;align-items:end">
+      <h2 class="title" data-en="One frontend, two backends.">Tek ön uç, iki backend.</h2>
+      <p class="body" data-en="The same validated AST is either interpreted in a scan cycle or compiled to WebAssembly through LLVM. The editor uses that same frontend through a Language Server, so the IDE and the compiler never disagree. Pick a component or a design decision.">Doğrulanmış aynı AST ya bir tarama döngüsünde yorumlanıyor ya da LLVM üzerinden WebAssembly'ye derleniyor. Editör de aynı ön ucu bir Language Server üzerinden kullanıyor; IDE ile derleyici hiç ayrışmıyor. Bir bileşen ya da tasarım kararı seç.</p>
+    </div>
+    <div class="diagram-wrap">
+      <div>
+        <div class="diagram" id="plcDiagram" role="group" aria-label="PLCFlow mimarisi" data-en-aria-label="PLCFlow architecture"></div>
+        <div class="chips" id="plcChips" style="margin-top:18px" aria-label="Tasarım kararları" data-en-aria-label="Design decisions"></div>
+      </div>
+      <div class="ddetail" aria-live="polite" id="plcDetail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLCFlow live demo -->
+<section class="slide w-plc" id="s-plc-demo" data-chapter="PLCFlow" data-chapter-en="PLCFlow" data-title="Canlı derleyici" data-title-en="Live compiler">
+  <div class="stage plc-demo-stage">
+    <div class="plc-demo-head">
+      <h2 class="title" data-en="Run the compiler right here.">Derleyiciyi burada çalıştır.</h2>
+      <p class="small" data-en="Edit the code and it recompiles on every keystroke. Press the inputs, watch the outputs, or click a stage to see its tokens, AST, diagnostics, LLVM IR and WebAssembly interface.">Kodu değiştir; her tuşta yeniden derlenir. Girişlere bas, çıkışları izle ya da bir aşamaya tıklayıp token'larını, AST'sini, teşhislerini, LLVM IR'ını ve WebAssembly arayüzünü gör.</p>
+    </div>
+    <div class="plc" id="plc">
+      <div class="plc-rail" role="tablist" aria-label="Derleme aşamaları" data-en-aria-label="Compilation stages">
+        <button class="plc-st lead s-lexer" type="button" role="tab" id="plct-lexer" aria-controls="plcp-lexer" data-stage="lexer" aria-selected="false" tabindex="-1"><span class="plc-st-n">1</span><span class="plc-st-name">Lexer</span><span class="plc-st-d"></span><span class="plc-st-dot"></span></button>
+        <button class="plc-st lead s-parser" type="button" role="tab" id="plct-parser" aria-controls="plcp-parser" data-stage="parser" aria-selected="false" tabindex="-1"><span class="plc-st-n">2</span><span class="plc-st-name">Parser</span><span class="plc-st-d"></span><span class="plc-st-dot"></span></button>
+        <button class="plc-st lead s-sem" type="button" role="tab" id="plct-sem" aria-controls="plcp-sem" data-stage="sem" aria-selected="false" tabindex="-1"><span class="plc-st-n">3</span><span class="plc-st-name" data-en="Semantics">Semantik</span><span class="plc-st-d"></span><span class="plc-st-dot"></span></button>
+        <div class="plc-fork" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 50H50V24H100M50 50V76H100" fill="none" stroke="currentColor" stroke-opacity=".34" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg></div>
+        <button class="plc-st s-runtime" type="button" role="tab" id="plct-runtime" aria-controls="plcp-runtime" data-stage="runtime" aria-selected="true"><span class="plc-st-n">4a</span><span class="plc-st-name" data-en="Virtual PLC">Sanal PLC</span><span class="plc-st-d"></span><span class="plc-st-dot"></span></button>
+        <button class="plc-st chain s-llvm" type="button" role="tab" id="plct-llvm" aria-controls="plcp-llvm" data-stage="llvm" aria-selected="false" tabindex="-1"><span class="plc-st-n">4b</span><span class="plc-st-name">LLVM IR</span><span class="plc-st-d"></span><span class="plc-st-dot"></span></button>
+        <button class="plc-st s-wasm" type="button" role="tab" id="plct-wasm" aria-controls="plcp-wasm" data-stage="wasm" aria-selected="false" tabindex="-1"><span class="plc-st-n">5</span><span class="plc-st-name">WebAssembly</span><span class="plc-st-d"></span><span class="plc-st-dot"></span></button>
+      </div>
+      <div class="plc-bench">
+        <div class="plc-ed-col">
+          <div class="plc-ed-bar">
+            <label for="plcExample" data-en="Example">Örnek</label>
+            <select id="plcExample"></select>
+            <span class="plc-file" id="plcFile">conveyor-v02.st</span>
+          </div>
+          <div class="plc-editor">
+            <pre class="plc-gutter" id="plcGutter" aria-hidden="true"></pre>
+            <div class="plc-code-area">
+              <pre id="plcHl" aria-hidden="true"></pre>
+              <textarea id="plcSrc" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Structured Text kaynak kodu" data-en-aria-label="Structured Text source code"></textarea>
+            </div>
+          </div>
+          <div class="plc-diag" id="plcDiag" aria-live="polite"></div>
+        </div>
+        <div class="plc-out">
+          <div class="plc-panel" id="plcp-runtime" role="tabpanel" aria-labelledby="plct-runtime"></div>
+          <div class="plc-panel" id="plcp-lexer" role="tabpanel" aria-labelledby="plct-lexer" hidden></div>
+          <div class="plc-panel" id="plcp-parser" role="tabpanel" aria-labelledby="plct-parser" hidden></div>
+          <div class="plc-panel" id="plcp-sem" role="tabpanel" aria-labelledby="plct-sem" hidden></div>
+          <div class="plc-panel" id="plcp-llvm" role="tabpanel" aria-labelledby="plct-llvm" hidden></div>
+          <div class="plc-panel" id="plcp-wasm" role="tabpanel" aria-labelledby="plct-wasm" hidden></div>
+        </div>
+      </div>
+    </div>
+    <p class="small plc-note" data-en="The compiler here is a line-by-line JavaScript port of the C# source; the WebAssembly stage runs the real conveyor-v02.wasm built by the project's Clang/LLVM toolchain.">Buradaki derleyici C# kaynağının JavaScript'e satır satır aktarımı; WebAssembly aşaması ise projenin Clang/LLVM araç zinciriyle derlenmiş gerçek conveyor-v02.wasm dosyasını çalıştırıyor.</p>
   </div>
 </section>
 </div>
@@ -1150,6 +1413,825 @@ function renderMirror(){
   $('#mirrorGallery').innerHTML = G.mirror.map((s, i) => `<button type="button" class="${i === 0 ? 'tall' : 'sq'}" data-lb="mirror" data-lb-i="${i}" aria-label="${esc(T(s.t))}, ${T(UI.zoom)}"><img src="${s.src}" alt="${esc(T(s.t))}" loading="lazy"></button>`).join('');
 }
 
+
+/* ───── PLCFlow: live compiler (port of PLCFlow.Compiler + PLCFlow.Runtime) ───── */
+const PLC = (() => {
+
+// ---- Port of PLCFlow.Compiler (Lexer, Parser, SemanticAnalyzer, LlvmEmitter) and PLCFlow.Runtime ----
+const KEYWORDS = {PROGRAM:'Program',END_PROGRAM:'EndProgram',VAR:'Var',END_VAR:'EndVar',AT:'At',IF:'If',THEN:'Then',ELSE:'Else',END_IF:'EndIf',BOOL:'Bool',INT:'Int',TON:'Ton',TRUE:'True',FALSE:'False',AND:'And',OR:'Or',NOT:'Not'};
+class CompilerException extends Error{
+  constructor(msg,line,col){super(`${msg} at ${line}:${col}`);this.line=line;this.col=col;}
+}
+const isWs=c=>/\s/.test(c), isLetter=c=>/\p{L}/u.test(c), isDigit=c=>/\p{Nd}/u.test(c), isLD=c=>isLetter(c)||isDigit(c);
+
+function lex(text){
+  let pos=0,line=1,col=1; const tokens=[];
+  const cur=()=>text[pos], peek=o=>pos+o<text.length?text[pos+o]:'\0';
+  const adv=(n=1)=>{for(let i=0;i<n;i++){if(pos>=text.length)return;if(text[pos]==='\n'){line++;col=1}else col++;pos++;}};
+  const readWhile=p=>{const s=pos;while(pos<text.length&&p(cur()))adv();return text.slice(s,pos)};
+  const push=(kind,t,start,l,c)=>tokens.push({kind,text:t,pos:start,end:pos,line:l,col:c});
+  while(pos<text.length){
+    if(isWs(cur())){while(pos<text.length&&isWs(cur()))adv();continue}
+    if(cur()==='('&&peek(1)==='*'){adv(2);while(pos<text.length&&!(cur()==='*'&&peek(1)===')'))adv();if(pos>=text.length)throw new CompilerException('Unterminated comment',line,col);adv(2);continue}
+    const start=pos,l=line,c=col;
+    if(cur()==='%'){const a=readWhile(ch=>isLD(ch)||ch==='%'||ch==='.');push('DirectAddress',a,start,l,c);continue}
+    if((cur()==='T'||cur()==='t')&&peek(1)==='#'){adv(2);while(pos<text.length&&(isLD(cur())||cur()==='.'))adv();push('TimeLiteral',text.slice(start,pos),start,l,c);continue}
+    if(isLetter(cur())||cur()==='_'){const w=readWhile(ch=>isLD(ch)||ch==='_');push(KEYWORDS[w.toUpperCase()]||'Identifier',w,start,l,c);continue}
+    if(isDigit(cur())){const n=readWhile(isDigit);push('Number',n,start,l,c);continue}
+    const ch=cur(),nx=peek(1); let kind=null;
+    if(ch===':'&&nx==='=')kind='Assign';else if(ch==='<'&&nx==='>')kind='NotEqual';else if(ch==='<'&&nx==='=')kind='LessEqual';else if(ch==='>'&&nx==='=')kind='GreaterEqual';
+    else kind={':':'Colon',';':'Semicolon',',':'Comma','.':'Dot','+':'Plus','-':'Minus','*':'Star','/':'Slash','=':'Equal','<':'Less','>':'Greater','(':'LeftParen',')':'RightParen'}[ch]||null;
+    if(!kind)throw new CompilerException(`Unexpected character '${ch}'`,l,c);
+    const w=['Assign','NotEqual','LessEqual','GreaterEqual'].includes(kind)?2:1;
+    const t=text.substr(pos,w);adv(w);push(kind,t,start,l,c);
+  }
+  tokens.push({kind:'EndOfFile',text:'',pos,end:pos,line,col});
+  return tokens;
+}
+
+function parse(tokens){
+  let p=0;
+  const cur=()=>tokens[Math.min(p,tokens.length-1)], next=()=>tokens[p++];
+  const err=m=>new CompilerException(m,cur().line,cur().col);
+  const match=k=>{if(cur().kind!==k)throw err(`Expected ${k}, found ${cur().kind}`);return next()};
+  const unaryPrec=k=>(k==='Not'||k==='Minus')?6:0;
+  const binPrec=k=>({Star:5,Slash:5,Plus:4,Minus:4,Equal:3,NotEqual:3,Less:3,LessEqual:3,Greater:3,GreaterEqual:3,And:2,Or:1})[k]||0;
+  function parseTime(tok){
+    const text=tok.text, raw=text.slice(2).toLowerCase(), num=s=>/^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(s.trim())?parseFloat(s):NaN;
+    let v;
+    if(raw.endsWith('ms')&&!isNaN(v=num(raw.slice(0,-2))))return v;
+    if(raw.endsWith('s')&&!isNaN(v=num(raw.slice(0,-1))))return v*1000;
+    if(raw.endsWith('m')&&!isNaN(v=num(raw.slice(0,-1))))return v*60000;
+    const e=new Error(`Unsupported time literal '${text}'. Use T#500ms, T#2s or T#1m.`);e.line=tok.line;e.col=tok.col;throw e;
+  }
+  function primary(){
+    if(cur().kind==='LeftParen'){next();const e=expression();match('RightParen');return e}
+    if(cur().kind==='Number'){const t=next();const v=parseInt(t.text,10);if(v>2147483647){const e=new Error('Value was either too large or too small for an Int32.');e.line=t.line;e.col=t.col;throw e}return {t:'IntegerLiteralExpression',value:v}}
+    if(cur().kind==='TimeLiteral'){const tok=next();return {t:'TimeLiteralExpression',ms:parseTime(tok),text:tok.text}}
+    if(cur().kind==='True'){next();return {t:'BooleanLiteralExpression',value:true}}
+    if(cur().kind==='False'){next();return {t:'BooleanLiteralExpression',value:false}}
+    if(cur().kind==='Identifier'){const name=next().text;if(cur().kind==='Dot'){next();const m=match('Identifier').text;return {t:'MemberAccessExpression',instance:name,member:m}}return {t:'IdentifierExpression',name}}
+    throw err('Expected expression');
+  }
+  function expression(parent=0){
+    let left; const up=unaryPrec(cur().kind);
+    if(up!==0&&up>=parent){const op=next();left={t:'UnaryExpression',op:op.text.toUpperCase(),operand:expression(up)}}
+    else left=primary();
+    while(true){const pr=binPrec(cur().kind);if(pr===0||pr<=parent)break;const op=next();const right=expression(pr);left={t:'BinaryExpression',left,op:op.text.toUpperCase(),right}}
+    return left;
+  }
+  function statementsUntil(...term){const r=[];while(!term.includes(cur().kind)&&cur().kind!=='EndOfFile')r.push(statement());return r}
+  function statement(){
+    if(cur().kind==='If')return parseIf();
+    const startTok=cur();
+    const name=match('Identifier').text;
+    if(cur().kind==='LeftParen')return fbCall(name,startTok);
+    match('Assign');const value=expression();match('Semicolon');
+    return {t:'AssignmentStatement',name,value,line:startTok.line};
+  }
+  function fbCall(instance,startTok){
+    match('LeftParen');const args={};
+    while(cur().kind!=='RightParen'){const an=match('Identifier').text;match('Assign');const ex=expression();const k=an.toUpperCase();if(args[k])args[k].expr=ex;else args[k]={name:an,expr:ex};if(cur().kind==='Comma')next();else break}
+    match('RightParen');match('Semicolon');
+    return {t:'FunctionBlockCallStatement',instance,args,line:startTok.line};
+  }
+  function parseIf(){
+    match('If');const cond=expression();match('Then');
+    const thenS=statementsUntil('Else','EndIf');let elseS=[];
+    if(cur().kind==='Else'){next();elseS=statementsUntil('EndIf')}
+    match('EndIf');if(cur().kind==='Semicolon')next();
+    return {t:'IfStatement',cond,then:thenS,else:elseS};
+  }
+  match('Program');const name=match('Identifier').text;const vars=[];
+  if(cur().kind==='Var'){
+    next();
+    while(cur().kind!=='EndVar'){
+      const vt=cur();const vn=match('Identifier').text;let address=null;
+      if(cur().kind==='At'){next();address=match('DirectAddress').text}
+      match('Colon');
+      const type={Bool:'Bool',Int:'Int',Ton:'Ton'}[cur().kind];if(!type)throw err('Expected BOOL, INT or TON');
+      next();match('Semicolon');
+      vars.push({name:vn,type,address,line:vt.line});
+    }
+    match('EndVar');
+  }
+  const statements=statementsUntil('EndProgram');match('EndProgram');match('EndOfFile');
+  return {t:'ProgramNode',name,variables:vars,statements};
+}
+const isInputVar=v=>!!v.address&&v.address.toUpperCase().startsWith('%I');
+const isOutputVar=v=>!!v.address&&v.address.toUpperCase().startsWith('%Q');
+
+function analyze(program){
+  const symbols=new Map(),variables=new Map(),diags=[];
+  const add=(code,message)=>diags.push({code,message});
+  const lc=s=>s.toLowerCase();
+  const isValidAddress=a=>{const u=a.toUpperCase();if(!(u.startsWith('%I')||u.startsWith('%Q')))return false;const parts=a.slice(2).split('.');return parts.length===2&&/^\s*[+-]?\d+\s*$/.test(parts[0])&&/^\s*[+-]?\d+\s*$/.test(parts[1])&&(+parts[1]>=0&&+parts[1]<=7)};
+  for(const v of program.variables){
+    if(symbols.has(lc(v.name)))add('PLCF1002',`Duplicate declaration '${v.name}'.`);else{symbols.set(lc(v.name),v.type);variables.set(lc(v.name),v)}
+    if(v.address!==null&&!isValidAddress(v.address))add('PLCF1010',`Invalid PLC direct address '${v.address}' for '${v.name}'.`);
+    if(v.type==='Ton'&&v.address!==null)add('PLCF1011',`Function block '${v.name}' cannot use a direct I/O address.`);
+  }
+  const undefinedSym=n=>{add('PLCF1001',`Undefined symbol '${n}'.`);return null};
+  function typeOf(e){
+    switch(e.t){
+      case 'IntegerLiteralExpression':return 'Int';
+      case 'TimeLiteralExpression':return null;
+      case 'BooleanLiteralExpression':return 'Bool';
+      case 'IdentifierExpression':return symbols.has(lc(e.name))?symbols.get(lc(e.name)):undefinedSym(e.name);
+      case 'MemberAccessExpression':{
+        if(!symbols.has(lc(e.instance)))return undefinedSym(e.instance);
+        if(symbols.get(lc(e.instance))!=='Ton'){add('PLCF1018',`'${e.instance}' has no member '${e.member}'.`);return null}
+        const m=e.member.toUpperCase();if(m==='Q')return 'Bool';if(m==='ET')return 'Int';
+        add('PLCF1018',`TON '${e.instance}' has no member '${e.member}'.`);return null;
+      }
+      case 'UnaryExpression':{const t=typeOf(e.operand);if(e.op==='NOT'&&t!=='Bool')add('PLCF1005','NOT requires BOOL operand.');if(e.op==='-'&&t!=='Int')add('PLCF1005',"Unary '-' requires INT operand.");return e.op==='NOT'?'Bool':'Int'}
+      case 'BinaryExpression':{
+        const l=typeOf(e.left),r=typeOf(e.right);if(l===null||r===null)return null;
+        if(['+','-','*','/'].includes(e.op)){if(l!=='Int'||r!=='Int')add('PLCF1006',`Operator '${e.op}' requires INT operands.`);return 'Int'}
+        if(['AND','OR'].includes(e.op)){if(l!=='Bool'||r!=='Bool')add('PLCF1006',`Operator '${e.op}' requires BOOL operands.`);return 'Bool'}
+        if(l!==r)add('PLCF1007',`Cannot compare ${l} and ${r}.`);return 'Bool';
+      }
+    }
+    return null;
+  }
+  function stmt(s){
+    if(s.t==='AssignmentStatement'){
+      if(!symbols.has(lc(s.name))){add('PLCF1001',`Undefined symbol '${s.name}'.`);return}
+      const target=symbols.get(lc(s.name)),decl=variables.get(lc(s.name));
+      if(decl&&isInputVar(decl))add('PLCF1012',`Input '${s.name}' (${decl.address}) is read-only inside the PLC program.`);
+      if(target==='Ton'){add('PLCF1013',`Cannot assign directly to TON instance '${s.name}'.`);return}
+      const vt=typeOf(s.value);if(vt!==null&&vt!==target)add('PLCF1003',`Cannot assign ${vt} to ${target} variable '${s.name}'.`);
+    } else if(s.t==='IfStatement'){
+      const ct=typeOf(s.cond);if(ct!==null&&ct!=='Bool')add('PLCF1004','IF condition must be BOOL.');
+      s.then.forEach(stmt);s.else.forEach(stmt);
+    } else if(s.t==='FunctionBlockCallStatement'){
+      if(!symbols.has(lc(s.instance))){add('PLCF1001',`Undefined function block instance '${s.instance}'.`);return}
+      if(symbols.get(lc(s.instance))!=='Ton'){add('PLCF1014',`'${s.instance}' is not a TON function block.`);return}
+      if(!s.args.IN)add('PLCF1015',`TON '${s.instance}' requires IN argument.`);else if(typeOf(s.args.IN.expr)!=='Bool')add('PLCF1016',`TON '${s.instance}' IN must be BOOL.`);
+      if(!s.args.PT)add('PLCF1015',`TON '${s.instance}' requires PT argument.`);else if(s.args.PT.expr.t!=='TimeLiteralExpression')add('PLCF1017',`TON '${s.instance}' PT must be a TIME literal such as T#2s.`);
+    }
+  }
+  program.statements.forEach(stmt);
+  return {symbols,diagnostics:diags,success:diags.length===0};
+}
+
+function compile(source){
+  const r={tokens:null,program:null,semantics:null,error:null,errorStage:null};
+  try{r.tokens=lex(source)}catch(e){r.error=e;r.errorStage='lexer';return r}
+  try{r.program=parse(r.tokens)}catch(e){r.error=e;r.errorStage='parser';return r}
+  r.semantics=analyze(r.program);
+  r.success=r.semantics.success;
+  return r;
+}
+
+const toBool=v=>typeof v==='boolean'?v:v!==0;
+const toInt=v=>typeof v==='boolean'?(v?1:0):v|0;
+class PlcRuntime{
+  constructor(program){
+    this.program=program;this.memory=new Map();this.inputs=new Map();this.outputs=new Map();this.timers=new Map();this.vars=new Map();this.cycleCount=0;
+    for(const v of program.variables){
+      const k=v.name.toLowerCase();this.vars.set(k,v);
+      if(v.type==='Bool')this.memory.set(k,false);else if(v.type==='Int')this.memory.set(k,0);else this.timers.set(k,{in:false,q:false,et:0,pt:0});
+      if(isInputVar(v))this.inputs.set(v.address.toUpperCase(),false);
+      if(isOutputVar(v))this.outputs.set(v.address.toUpperCase(),false);
+    }
+  }
+  setInputAddress(a,val){const k=a.toUpperCase();if(!this.inputs.has(k))throw new Error(`Unknown PLC input address '${a}'.`);this.inputs.set(k,!!val)}
+  getOutputAddress(a){const k=a.toUpperCase();if(!this.outputs.has(k))throw new Error(`Unknown PLC output address '${a}'.`);return this.outputs.get(k)}
+  force(name,val){this.memory.set(name.toLowerCase(),!!val)}
+  scanCycle(elapsed=10){
+    for(const v of this.program.variables)if(isInputVar(v))this.memory.set(v.name.toLowerCase(),this.inputs.get(v.address.toUpperCase()));
+    for(const s of this.program.statements)this.exec(s,elapsed);
+    for(const v of this.program.variables)if(isOutputVar(v))this.outputs.set(v.address.toUpperCase(),toBool(this.memory.get(v.name.toLowerCase())));
+    this.cycleCount++;
+  }
+  exec(s,elapsed){
+    if(s.t==='AssignmentStatement')this.memory.set(s.name.toLowerCase(),this.eval(s.value));
+    else if(s.t==='IfStatement'){for(const n of (toBool(this.eval(s.cond))?s.then:s.else))this.exec(n,elapsed)}
+    else if(s.t==='FunctionBlockCallStatement'){
+      const k=s.instance.toLowerCase(),st=this.timers.get(k);if(!st)throw new Error(`Unknown TON instance '${s.instance}'.`);
+      const input=toBool(this.eval(s.args.IN.expr));const pt=s.args.PT.expr.ms;
+      let et=input?st.et+elapsed:0;if(et>pt)et=pt;
+      this.timers.set(k,{in:input,q:input&&et>=pt,et,pt});
+    }
+  }
+  eval(e){
+    switch(e.t){
+      case 'IntegerLiteralExpression':return e.value;
+      case 'BooleanLiteralExpression':return e.value;
+      case 'IdentifierExpression':return this.memory.get(e.name.toLowerCase());
+      case 'MemberAccessExpression':{const tm=this.timers.get(e.instance.toLowerCase());if(!tm)throw new Error(`Unknown timer '${e.instance}'.`);const m=e.member.toUpperCase();if(m==='Q')return tm.q;if(m==='ET')return Math.trunc(tm.et);throw new Error(`TON member '${e.member}'`)}
+      case 'UnaryExpression':return e.op==='NOT'?!toBool(this.eval(e.operand)):(-toInt(this.eval(e.operand)))|0;
+      case 'BinaryExpression':{
+        const l=this.eval(e.left),r=this.eval(e.right);
+        switch(e.op){
+          case '+':return (toInt(l)+toInt(r))|0; case '-':return (toInt(l)-toInt(r))|0;
+          case '*':return Math.imul(toInt(l),toInt(r)); case '/':{if(toInt(r)===0)throw new Error('System.DivideByZeroException: Attempted to divide by zero.');return Math.trunc(toInt(l)/toInt(r))|0}
+          case 'AND':return toBool(l)&&toBool(r); case 'OR':return toBool(l)||toBool(r);
+          case '=':return l===r; case '<>':return l!==r;
+          case '<':return toInt(l)<toInt(r); case '<=':return toInt(l)<=toInt(r);
+          case '>':return toInt(l)>toInt(r); case '>=':return toInt(l)>=toInt(r);
+        }
+      }
+    }
+    throw new Error('NotSupported '+e.t);
+  }
+}
+
+function emitLlvm(program){
+  const symbols=new Map();for(const v of program.variables)symbols.set(v.name.toLowerCase(),v);
+  let temp=0,label=0;const body=[];const out=[];
+  const T=()=>`%t${++temp}`, L=p=>`${p}_${++label}`, ty=t=>t==='Bool'?'i1':'i32', N=n=>n.replace(/-/g,'_'), esc=s=>s.replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+  out.push(`; ModuleID = '${esc(program.name)}'`,`source_filename = "${esc(program.name)}.st"`,'target triple = "wasm32-unknown-unknown"','','@plc_cycle_ms = global i32 10');
+  for(const v of program.variables){
+    if(v.type==='Ton'){out.push(`@${N(v.name)}_IN = global i1 0`,`@${N(v.name)}_Q = global i1 0`,`@${N(v.name)}_ET = global i32 0`,`@${N(v.name)}_PT = global i32 0`)}
+    else out.push(`@${N(v.name)} = global ${ty(v.type)} 0`);
+  }
+  out.push('','define void @plc_set_cycle_ms(i32 %value) {','entry:','  store i32 %value, ptr @plc_cycle_ms','  ret void','}','','define i32 @plc_get_cycle_ms() {','entry:','  %value = load i32, ptr @plc_cycle_ms','  ret i32 %value','}','');
+  const boolGetter=(f,g)=>out.push(`define i32 @${f}() {`,'entry:',`  %raw = load i1, ptr ${g}`,'  %value = zext i1 %raw to i32','  ret i32 %value','}','');
+  const intGetter=(f,g)=>out.push(`define i32 @${f}() {`,'entry:',`  %value = load i32, ptr ${g}`,'  ret i32 %value','}','');
+  for(const v of program.variables){
+    const s=N(v.name);
+    if(v.type==='Ton'){boolGetter(`plc_get_${s}_Q`,`@${s}_Q`);intGetter(`plc_get_${s}_ET`,`@${s}_ET`);intGetter(`plc_get_${s}_PT`,`@${s}_PT`);continue}
+    if(isInputVar(v)){
+      out.push(`define void @plc_set_${s}(i32 %value) {`,'entry:');
+      if(v.type==='Bool')out.push('  %normalized = icmp ne i32 %value, 0',`  store i1 %normalized, ptr @${s}`);else out.push(`  store i32 %value, ptr @${s}`);
+      out.push('  ret void','}','');
+    }
+    if(v.type==='Bool')boolGetter(`plc_get_${s}`,`@${s}`);else intGetter(`plc_get_${s}`,`@${s}`);
+  }
+  function expr(e){
+    switch(e.t){
+      case 'IntegerLiteralExpression':return {type:'Int',v:String(e.value)};
+      case 'BooleanLiteralExpression':return {type:'Bool',v:e.value?'1':'0'};
+      case 'MemberAccessExpression':{const tm=N(e.instance),t=T();if(e.member.toUpperCase()==='Q'){body.push(`  ${t} = load i1, ptr @${tm}_Q`);return {type:'Bool',v:t}}body.push(`  ${t} = load i32, ptr @${tm}_ET`);return {type:'Int',v:t}}
+      case 'IdentifierExpression':{const d=symbols.get(e.name.toLowerCase());if(d.type==='Ton')throw new Error(`TON instance '${e.name}' cannot be used directly as a value.`);const t=T();body.push(`  ${t} = load ${ty(d.type)}, ptr @${N(e.name)}`);return {type:d.type,v:t}}
+      case 'UnaryExpression':{const o=expr(e.operand),t=T();if(e.op==='NOT')body.push(`  ${t} = xor i1 ${o.v}, true`);else body.push(`  ${t} = sub i32 0, ${o.v}`);return {type:e.op==='NOT'?'Bool':'Int',v:t}}
+      case 'BinaryExpression':{
+        const l=expr(e.left),r=expr(e.right),t=T();
+        const ins={'+':'add i32','-':'sub i32','*':'mul i32','/':'sdiv i32','AND':'and i1','OR':'or i1','=':`icmp eq ${ty(l.type)}`,'<>':`icmp ne ${ty(l.type)}`,'<':'icmp slt i32','<=':'icmp sle i32','>':'icmp sgt i32','>=':'icmp sge i32'}[e.op];
+        body.push(`  ${t} = ${ins} ${l.v}, ${r.v}`);return {type:['+','-','*','/'].includes(e.op)?'Int':'Bool',v:t};
+      }
+    }
+    throw new Error('NotSupported '+e.t);
+  }
+  function stmt(s){
+    if(s.t==='AssignmentStatement'){const v=expr(s.value),tg=symbols.get(s.name.toLowerCase());body.push(`  store ${ty(tg.type)} ${v.v}, ptr @${N(s.name)}`)}
+    else if(s.t==='IfStatement'){const c=expr(s.cond),th=L('if_then'),el=L('if_else'),en=L('if_end');body.push(`  br i1 ${c.v}, label %${th}, label %${el}`,`${th}:`);s.then.forEach(stmt);body.push(`  br label %${en}`,`${el}:`);s.else.forEach(stmt);body.push(`  br label %${en}`,`${en}:`)}
+    else if(s.t==='FunctionBlockCallStatement'){
+      const tm=N(s.instance),inp=expr(s.args.IN.expr),pt=Math.trunc(s.args.PT.expr.ms);
+      body.push(`  store i1 ${inp.v}, ptr @${tm}_IN`,`  store i32 ${pt}, ptr @${tm}_PT`);
+      const oldEt=T();body.push(`  ${oldEt} = load i32, ptr @${tm}_ET`);
+      const cyc=T();body.push(`  ${cyc} = load i32, ptr @plc_cycle_ms`);
+      const sum=T();body.push(`  ${sum} = add i32 ${oldEt}, ${cyc}`);
+      const over=T();body.push(`  ${over} = icmp sgt i32 ${sum}, ${pt}`);
+      const cl=T();body.push(`  ${cl} = select i1 ${over}, i32 ${pt}, i32 ${sum}`);
+      const ne=T();body.push(`  ${ne} = select i1 ${inp.v}, i32 ${cl}, i32 0`);
+      body.push(`  store i32 ${ne}, ptr @${tm}_ET`);
+      const done=T();body.push(`  ${done} = icmp sge i32 ${ne}, ${pt}`);
+      const q=T();body.push(`  ${q} = and i1 ${inp.v}, ${done}`);
+      body.push(`  store i1 ${q}, ptr @${tm}_Q`);
+    }
+  }
+  out.push('define void @scan_cycle() {','entry:');
+  program.statements.forEach(stmt);body.push('  ret void');
+  return out.concat(body,['}']).join('\n')+'\n';
+}
+
+function abiOf(program){
+  const N=n=>n.replace(/-/g,'_');const rows=[['plc_set_cycle_ms','i32','void','cycle'],['plc_get_cycle_ms','','i32','cycle']];
+  for(const v of program.variables){
+    const s=N(v.name);
+    if(v.type==='Ton'){rows.push([`plc_get_${s}_Q`,'','i32','tonq',v.name],[`plc_get_${s}_ET`,'','i32','tonet',v.name],[`plc_get_${s}_PT`,'','i32','tonpt',v.name]);continue}
+    if(isInputVar(v))rows.push([`plc_set_${s}`,'i32','void','set',v.name]);
+    rows.push([`plc_get_${s}`,'','i32','get',v.name]);
+  }
+  rows.push(['scan_cycle','','void','scan']);
+  return rows;
+}
+
+
+const PLC_REPO = ''; // GitHub depo adresini buraya yaz, örn. 'https://github.com/esinbegumkaya/PLCFlow' — boşken "Kodu incele" düğmesi gizli kalır
+const WASM_B64 = 'AGFzbQEAAAABDANgAABgAX8AYAABfwMODQABAgECAQICAgICAgAFAwEAAgaYARd/AUGAgAQLfwBBAAt/AEEBC38AQYCABAt/AEGAgAQLfwBBhIAEC38AQYWABAt/AEGGgAQLfwBBiIAEC38AQYyABAt/AEGQgAQLfwBBlIAEC38AQYeABAt/AEGAgAQLfwBBmIAEC38AQQALfwBBAAt/AEEAC38AQYCABAt/AEGAgAQLfwBBoIAEC38AQYCACAt/AEGAgAQLB+UEJQZtZW1vcnkCABFfX3dhc21fY2FsbF9jdG9ycwAAD19fc3RhY2tfcG9pbnRlcgMAEHBsY19zZXRfY3ljbGVfbXMAAQxwbGNfY3ljbGVfbXMDBBBwbGNfZ2V0X2N5Y2xlX21zAAITcGxjX3NldF9TdGFydEJ1dHRvbgADC1N0YXJ0QnV0dG9uAwUTcGxjX2dldF9TdGFydEJ1dHRvbgAEEnBsY19zZXRfU3RvcEJ1dHRvbgAFClN0b3BCdXR0b24DBhJwbGNfZ2V0X1N0b3BCdXR0b24ABg1wbGNfZ2V0X01vdG9yAAcFTW90b3IDBxRwbGNfZ2V0X1N0YXJ0RGVsYXlfUQAIDFN0YXJ0RGVsYXlfUQMIFXBsY19nZXRfU3RhcnREZWxheV9FVAAJDVN0YXJ0RGVsYXlfRVQDCRVwbGNfZ2V0X1N0YXJ0RGVsYXlfUFQACg1TdGFydERlbGF5X1BUAwoPcGxjX2dldF9Db3VudGVyAAsHQ291bnRlcgMLCnNjYW5fY3ljbGUADA1TdGFydERlbGF5X0lOAwwMX19kc29faGFuZGxlAw0KX19kYXRhX2VuZAMODl9fcm9kYXRhX3N0YXJ0Aw8MX19yb2RhdGFfZW5kAxALX19zdGFja19sb3cDEQxfX3N0YWNrX2hpZ2gDEg1fX2dsb2JhbF9iYXNlAxMLX19oZWFwX2Jhc2UDFApfX2hlYXBfZW5kAxUNX19tZW1vcnlfYmFzZQMBDF9fdGFibGVfYmFzZQMCFV9fd2FzbV9maXJzdF9wYWdlX2VuZAMWCl9fdGxzX2Jhc2UDAwqZAw0CAAsOAEEAIAA2AoCAhIAADwsMAEEAKAKAgISAAA8LGgEBfyAAQQBHIQFBACABQQFxOgCEgISAAA8LDwBBAC0AhICEgABBAXEPCxoBAX8gAEEARyEBQQAgAUEBcToAhYCEgAAPCw8AQQAtAIWAhIAAQQFxDwsPAEEALQCGgISAAEEBcQ8LDwBBAC0AiICEgABBAXEPCwwAQQAoAoyAhIAADwsMAEEAKAKQgISAAA8LDABBACgClICEgAAPC9oBAQh/QQAtAISAhIAAQQAtAIWAhIAAQX9zcSEAQQAgAEEBcToAh4CEgABB5AAhAUEAIAE2ApCAhIAAQQAoAoyAhIAAQQAoAoCAhIAAaiECIAJB5ABKIQNB5AAgAiADQQFxG0EAIABBAXEbIQRBACAENgKMgISAACAAIARB5ABOcSEFQQAgBUEBcToAiICEgABBAC0AiICEgAAhBkEAIAZBAXE6AIaAhIAAAkACQEEALQCGgISAAEEBcUUNAEEAKAKUgISAAEEBaiEHQQAgBzYClICEgAAMAQsLDwsLDAEAQYCABAsECgAAAA==';
+
+const EXAMPLES = {
+  'conveyor-v02': {file:'conveyor-v02.st', name:L('Konveyör, TON zamanlayıcılı (v0.2)','Conveyor with TON timer (v0.2)'), src:`PROGRAM ConveyorControl
+VAR
+    StartButton AT %I0.0 : BOOL;
+    StopButton  AT %I0.1 : BOOL;
+    Motor       AT %Q0.0 : BOOL;
+    StartDelay : TON;
+    Counter : INT;
+END_VAR
+
+StartDelay(IN := StartButton AND NOT StopButton, PT := T#100ms);
+Motor := StartDelay.Q;
+
+IF Motor THEN
+    Counter := Counter + 1;
+END_IF;
+END_PROGRAM
+`},
+  'conveyor': {file:'conveyor.st', name:L('Konveyör (v0.1)','Conveyor (v0.1)'), src:`PROGRAM ConveyorControl
+VAR
+    StartButton : BOOL;
+    StopButton : BOOL;
+    Motor : BOOL;
+    Counter : INT;
+END_VAR
+
+IF StartButton THEN
+    Motor := TRUE;
+END_IF;
+
+IF StopButton THEN
+    Motor := FALSE;
+END_IF;
+
+IF Motor THEN
+    Counter := Counter + 1;
+END_IF;
+END_PROGRAM
+`},
+  'tank': {file:'tank.st', name:L('Tank seviye kontrolü','Tank level control'), src:`PROGRAM TankController
+VAR
+    LowLevel : BOOL;
+    HighLevel : BOOL;
+    Pump : BOOL;
+END_VAR
+
+IF LowLevel THEN
+    Pump := TRUE;
+END_IF;
+
+IF HighLevel THEN
+    Pump := FALSE;
+END_IF;
+END_PROGRAM
+`},
+  'traffic-light': {file:'traffic-light.st', name:L('Trafik ışığı','Traffic light'), src:`PROGRAM TrafficLight
+VAR
+    Enable : BOOL;
+    Red : BOOL;
+    Yellow : BOOL;
+    Green : BOOL;
+END_VAR
+
+IF Enable THEN
+    Red := FALSE;
+    Green := TRUE;
+ELSE
+    Red := TRUE;
+    Green := FALSE;
+END_IF;
+END_PROGRAM
+`},
+  'diagnostics': {file:'conveyor-errors.st', name:L('Teşhis demosu (hatalı kod)','Diagnostics demo (broken code)'), src:`PROGRAM ConveyorControl
+VAR
+    StartButton AT %I0.0 : BOOL;
+    StopButton  AT %I0.1 : BOOL;
+    Motor       AT %Q0.0 : BOOL;
+    StartDelay : TON;
+    Counter : INT;
+END_VAR
+
+(* Intentionally broken: the semantic analyzer reports each line below *)
+StartDelay(IN := StartButton AND NOT StopButton, PT := T#100ms);
+Motor := 42;
+StartButton := TRUE;
+Counter := StartDelay.Done;
+END_PROGRAM
+`}
+};
+
+const P = {
+  tokens:L('{n} token','{n} tokens'), ast:L('{v} değişken, {s} deyim','{v} variables, {s} statements'), diag0:L('Teşhis yok','No diagnostics'), diagN:L('{n} teşhis','{n} diagnostics'),
+  waiting:L('Bekliyor','Waiting'), error:L('Hata','Error'), scan:L('Tarama #{n}','Scan #{n}'), irN:L('{n} satır IR','{n} lines of IR'), abiN:L('{n} dışa aktarım','{n} exports'),
+  abiReal:L('Gerçek modül eşleşiyor','Real module matches'), abiDiff:L('Gerçek modül farklı','Real module differs'),
+  ok:L('Derleme başarılı, teşhis yok.','Compiled successfully, no diagnostics.'), lexErr:L('Lexer hatası','Lexer error'), parseErr:L('Parser hatası','Parser error'), line:L('satır {l}','line {l}'),
+  hint:L('Dene: <code>Motor := 42;</code> yaz ya da bir noktalı virgülü sil.','Try typing <code>Motor := 42;</code> or deleting a semicolon.'),
+  run:L('Çalıştır','Run'), pause:L('Duraklat','Pause'), step:L('Tek tarama','Single scan'), reset:L('Sıfırla','Reset'), cycle:L('Çevrim','Cycle'), speed:L('Hız','Speed'),
+  real:L('Gerçek zaman','Real time'), slow10:L('10× yavaş','10× slower'), slow50:L('50× yavaş','50× slower'),
+  inputs:L('Girişler','Inputs'), outputs:L('Çıkışlar','Outputs'), timers:L('Zamanlayıcılar','Timers'), watch:L('İzleme tablosu','Watch table'), trace:L('Sinyal izi, son 80 tarama','Signal trace, last 80 scans'),
+  noIn:L('Bu programda okunabilir giriş yok.','This program has no readable inputs.'), noOut:L('Bu programda çıkış yok.','This program has no outputs.'),
+  input:L('giriş','input'), output:L('çıkış','output'), force:L('zorlanabilir bellek biti','forceable memory bit'), memory:L('bellek biti','memory bit'),
+  blocked:L('Program derlenmeden sanal PLC çalışamaz. Soldaki teşhisleri düzelt.','The virtual PLC cannot run until the program compiles. Fix the diagnostics on the left.'),
+  forceNote:L('Bu örnekte değişkenler %I/%Q adresine bağlı değil; okunup hiç yazılmayan BOOL değişkenler, gerçek PLC\'lerdeki "force" işlevi gibi elle zorlanabilir.','Variables in this example are not mapped to %I/%Q addresses; BOOLs that are read but never written can be forced by hand, like the "force" function on real PLCs.'),
+  variable:L('Değişken','Variable'), type:L('Tip','Type'), value:L('Değer','Value'), rtErr:L('Runtime hatası','Runtime error'),
+  lxT:L('Token akışı','Token stream'), lxL:L("Bir token'a tıkla, kaynakta işaretlensin. Satır:sütun her token'ın başladığı yeri gösterir.",'Click a token to highlight it in the source. Line:column shows where each token starts.'),
+  psT:L('Soyut sözdizimi ağacı','Abstract syntax tree'), psL:L("Özyinelemeli iniş parser'ının ürettiği AST. Düğüm adları C# kayıt tipleriyle aynı.",'The AST produced by the recursive-descent parser. Node names match the C# record types.'),
+  psB:L('Lexer başarısız olduğu için parser çalıştırılmadı.','The parser did not run because lexing failed.'),
+  smT:L('Semantik analiz','Semantic analysis'), smOk:L('Program anlamsal olarak geçerli.','The program is semantically valid.'), smErr:L('{n} teşhis bulundu','{n} diagnostics found'), sym:L('Sembol tablosu','Symbol table'),
+  addr:L('Adres','Address'), role:L('Rol','Role'), smB:L('AST oluşmadığı için semantik analiz çalıştırılmadı.','Semantic analysis did not run because no AST was produced.'),
+  rIn:L('giriş','input'), rOut:L('çıkış','output'), rMem:L('bellek','memory'), rFb:L('fonksiyon bloğu','function block'),
+  llT:'LLVM IR', llL:L('Her değişken bir global, her tarama <code>@scan_cycle</code> fonksiyonu. Hedef: <code>wasm32-unknown-unknown</code>.','Each variable becomes a global and each scan is the <code>@scan_cycle</code> function. Target: <code>wasm32-unknown-unknown</code>.'),
+  llB:L('Semantik analiz başarısız olduğunda backend çalıştırılmaz.','Backends do not run when semantic analysis fails.'),
+  wsT:L('WebAssembly host ABI','WebAssembly host ABI'), wsL:L('Modül ham bellek ofsetleri yerine bu fonksiyonları dışa aktarır.','Instead of raw memory offsets, the module exports these functions.'),
+  fn:L('Fonksiyon','Function'), params:L('Parametre','Params'), ret:L('Dönüş','Returns'),
+  liveOn:L('Gerçek <code>conveyor-v02.wasm</code> tarayıcında, yönetilen runtime ile aynı girişlerle eş zamanlı çalışıyor.','The real <code>conveyor-v02.wasm</code> is running in your browser, in lockstep with the managed runtime and the same inputs.'),
+  liveOff:L('Gerçek modül <code>conveyor-v02.st</code> kaynağından derlendi. Kaynak değişince karşılaştırma kapanır, çünkü tarayıcıda Clang yok; ABI ve host kodu yeni programa göre üretilmeye devam eder.','The real module was built from <code>conveyor-v02.st</code>. Once the source changes the comparison switches off, since there is no Clang in the browser; the ABI and host code keep regenerating for the new program.'),
+  signal:L('Sinyal','Signal'), managed:L('Yönetilen runtime','Managed runtime'), match:L('Eşleşme','Match'), host:L('Host kodu','Host code'),
+  wsB:L('LLVM IR üretilmeden WebAssembly arayüzü oluşmaz.','No WebAssembly interface without LLVM IR.')
+};
+const t = (k, vars = {}) => String(T(P[k])).replace(/\{(\w+)\}/g, (_, n) => vars[n]);
+
+const srcEl = $('#plcSrc'), hlEl = $('#plcHl'), gutEl = $('#plcGutter');
+if (PLC_REPO){ $('#plcRepo').href = PLC_REPO; $('#plcLinks').hidden = false; }
+
+function highlight(src, errLine, cls = 'plc-ln'){
+  const re = /(\(\*[\s\S]*?(?:\*\)|$))|(%[\p{L}\p{Nd}%.]*)|([Tt]#[\p{L}\p{Nd}.]*)|([\p{L}_][\p{L}\p{Nd}_]*)|(\p{Nd}+)|([\s\S])/gu;
+  let html = '', m;
+  while ((m = re.exec(src))){
+    if (m[1]) html += `<span class="plc-co">${esc(m[1])}</span>`;
+    else if (m[2]) html += `<span class="plc-ad">${esc(m[2])}</span>`;
+    else if (m[3]) html += `<span class="plc-tm">${esc(m[3])}</span>`;
+    else if (m[4]){ const u = m[4].toUpperCase(); html += ['BOOL','INT','TON'].includes(u) ? `<span class="plc-ty">${esc(m[4])}</span>` : KEYWORDS[u] ? `<span class="plc-k">${esc(m[4])}</span>` : esc(m[4]); }
+    else if (m[5]) html += `<span class="plc-nu">${esc(m[5])}</span>`;
+    else html += esc(m[6]);
+  }
+  const lines = []; const open = []; let curLine = '';
+  for (const p of html.split(/(<span class="[a-z-]+">|<\/span>|\n)/)){
+    if (p === '\n'){ lines.push(curLine + '</span>'.repeat(open.length)); curLine = open.join(''); }
+    else if (p.startsWith('<span')){ open.push(p); curLine += p; }
+    else if (p === '</span>'){ open.pop(); curLine += p; }
+    else curLine += p;
+  }
+  lines.push(curLine + '</span>'.repeat(open.length));
+  return lines.map((l, i) => `<span class="${cls}${errLine === i + 1 ? ' err' : ''}">${l || ' '}</span>`);
+}
+function renderCover(){
+  const src = EXAMPLES['conveyor-v02'].src.trimEnd();
+  $('#plcCover').innerHTML = highlight(src, null).map((l, i) => l.replace('">', `"><span class="plc-gut">${i + 1}</span>`)).join('');
+}
+function renderEditor(errLine){
+  hlEl.innerHTML = highlight(srcEl.value, errLine).join('') + '\n';
+  gutEl.textContent = Array.from({length: srcEl.value.split('\n').length}, (_, i) => i + 1).join('\n');
+  syncScroll();
+}
+function syncScroll(){ hlEl.scrollTop = srcEl.scrollTop; hlEl.scrollLeft = srcEl.scrollLeft; gutEl.scrollTop = srcEl.scrollTop; }
+srcEl.addEventListener('scroll', syncScroll);
+function jumpTo(line, col = 1, len = 0){
+  const lines = srcEl.value.split('\n'); let off = 0;
+  for (let i = 0; i < line - 1 && i < lines.length; i++) off += lines[i].length + 1;
+  off += Math.max(0, col - 1); srcEl.focus({preventScroll: true}); srcEl.setSelectionRange(off, off + len);
+  const lh = parseFloat(getComputedStyle(srcEl).lineHeight) || 21; srcEl.scrollTop = Math.max(0, (line - 4) * lh); syncScroll();
+}
+
+/* state */
+let C = null, runtime = null, running = true, timerId = null, cycleMs = 10, slow = 10, selected = 'runtime', history = [], inputState = new Map(), lastRtError = null, io = null, visible = false;
+const wasm = {module: null, inst: null, active: false, matches: true};
+try { wasm.module = new WebAssembly.Module(Uint8Array.from(atob(WASM_B64), c => c.charCodeAt(0))); } catch (e) { wasm.module = null; }
+
+let editT = null;
+srcEl.addEventListener('input', () => { renderEditor(null); clearTimeout(editT); editT = setTimeout(recompile, 180); });
+
+function collect(program){
+  const assigned = new Set(), read = new Set();
+  const ex = e => { if (!e) return; switch (e.t){ case 'IdentifierExpression': read.add(e.name.toLowerCase()); break; case 'MemberAccessExpression': read.add(e.instance.toLowerCase()); break; case 'UnaryExpression': ex(e.operand); break; case 'BinaryExpression': ex(e.left); ex(e.right); break; } };
+  const st = s => { if (s.t === 'AssignmentStatement'){ assigned.add(s.name.toLowerCase()); ex(s.value); } else if (s.t === 'IfStatement'){ ex(s.cond); s.then.forEach(st); s.else.forEach(st); } else if (s.t === 'FunctionBlockCallStatement') Object.values(s.args).forEach(a => ex(a.expr)); };
+  program.statements.forEach(st);
+  return {assigned, read};
+}
+function buildIo(program){
+  const {assigned, read} = collect(program); const r = {inputs: [], outputs: [], ints: [], timers: [], forced: false};
+  for (const v of program.variables){
+    const k = v.name.toLowerCase();
+    if (v.type === 'Ton'){ r.timers.push(v); continue; }
+    if (v.type === 'Int'){ r.ints.push(v); continue; }
+    if (isInputVar(v)) r.inputs.push({v, kind: 'addr'});
+    else if (isOutputVar(v)) r.outputs.push({v, kind: 'addr'});
+    else if (!assigned.has(k) && read.has(k)){ r.inputs.push({v, kind: 'force'}); r.forced = true; }
+    else r.outputs.push({v, kind: 'mem'});
+  }
+  return r;
+}
+const sig = tokens => tokens.map(x => x.text).join(' ');
+const WASM_SIG = sig(lex(EXAMPLES['conveyor-v02'].src));
+
+function recompile(){
+  C = compile(srcEl.value);
+  if (C.success){ try { C.ir = emitLlvm(C.program); } catch (e) { C.ir = null; } }
+  renderEditor(C.error && C.error.line ? C.error.line : null);
+  renderDiag();
+  if (C.success){
+    const prev = inputState; inputState = new Map();
+    io = buildIo(C.program);
+    io.inputs.forEach(x => { const k = x.v.name.toLowerCase(); inputState.set(k, prev.get(k) || false); });
+    resetRuntime();
+  } else { runtime = null; io = null; wasm.active = false; }
+  renderRuntime(); renderPanels(); updateRail(); schedule();
+}
+function resetRuntime(){
+  runtime = new PlcRuntime(C.program); history = []; lastRtError = null;
+  wasm.active = !!(wasm.module && C.tokens && sig(C.tokens) === WASM_SIG); wasm.matches = true;
+  if (wasm.active){ try { wasm.inst = new WebAssembly.Instance(wasm.module, {}).exports; wasm.inst.plc_set_cycle_ms(cycleMs); } catch (e) { wasm.active = false; } }
+  applyInputs();
+}
+function applyInputs(){
+  if (!runtime) return;
+  io.inputs.forEach(x => { const val = inputState.get(x.v.name.toLowerCase()); if (x.kind === 'addr') runtime.setInputAddress(x.v.address, val); else runtime.force(x.v.name, val); });
+}
+
+function renderDiag(){
+  const bar = $('#plcDiag');
+  if (C.error){
+    const label = C.errorStage === 'lexer' ? t('lexErr') : t('parseErr');
+    const where = C.error.line ? ` <button type="button" data-l="${C.error.line}" data-c="${C.error.col || 1}">${t('line', {l: C.error.line})}</button>` : '';
+    bar.innerHTML = `<ul><li><span class="plc-diag-code">${label}</span><span>${esc(C.error.message)}${where}</span></li></ul>`;
+  } else if (!C.semantics.success){
+    bar.innerHTML = `<ul>${C.semantics.diagnostics.map(d => `<li><span class="plc-diag-code">${d.code}</span><span>${esc(d.message)}</span></li>`).join('')}</ul>`;
+  } else bar.innerHTML = `<div class="plc-diag-ok">${t('ok')}</div><div class="plc-hint">${t('hint')}</div>`;
+  $$('button[data-l]', bar).forEach(b => b.onclick = () => jumpTo(+b.dataset.l, +b.dataset.c, 1));
+}
+
+/* rail */
+function stageStatus(){
+  const s = {};
+  s.lexer = C.tokens ? 'ok' : 'err';
+  s.parser = C.program ? 'ok' : (C.tokens ? 'err' : 'blocked');
+  s.sem = C.semantics ? (C.semantics.success ? 'ok' : 'err') : 'blocked';
+  s.runtime = C.success ? (lastRtError ? 'err' : 'ok') : 'blocked';
+  s.llvm = C.success ? (C.ir ? 'ok' : 'err') : 'blocked';
+  s.wasm = s.llvm === 'ok' ? 'ok' : 'blocked';
+  return s;
+}
+const countSt = list => list.reduce((n, s) => n + 1 + (s.t === 'IfStatement' ? countSt(s.then) + countSt(s.else) : 0), 0);
+function updateRail(){
+  if (!C) return;
+  const st = stageStatus();
+  const det = {
+    lexer: C.tokens ? t('tokens', {n: C.tokens.length}) : t('error'),
+    parser: C.program ? t('ast', {v: C.program.variables.length, s: countSt(C.program.statements)}) : (C.tokens ? t('error') : t('waiting')),
+    sem: C.semantics ? (C.semantics.success ? t('diag0') : t('diagN', {n: C.semantics.diagnostics.length})) : t('waiting'),
+    runtime: runtime ? (lastRtError ? t('error') : t('scan', {n: runtime.cycleCount})) : t('waiting'),
+    llvm: C.ir ? t('irN', {n: C.ir.trimEnd().split('\n').length}) : t('waiting'),
+    wasm: C.ir ? (wasm.active ? t(wasm.matches ? 'abiReal' : 'abiDiff') : t('abiN', {n: abiOf(C.program).length})) : t('waiting')
+  };
+  $$('.plc-st').forEach(b => { const k = b.dataset.stage; b.dataset.status = st[k]; $('.plc-st-d', b).textContent = det[k]; });
+}
+const ORDER = ['lexer', 'parser', 'sem', 'runtime', 'llvm', 'wasm'];
+$$('.plc-st').forEach(b => b.addEventListener('click', () => select(b.dataset.stage)));
+$('.plc-rail').addEventListener('keydown', e => {
+  if (!['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
+  e.preventDefault(); e.stopPropagation(); // keep arrow keys inside the tab list instead of changing slides
+  const i = ORDER.indexOf(selected);
+  const n = e.key === 'Home' ? 0 : e.key === 'End' ? ORDER.length - 1 : (i + (e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : ORDER.length - 1)) % ORDER.length;
+  select(ORDER[n]); $(`.plc-st[data-stage="${ORDER[n]}"]`).focus();
+});
+function select(k){
+  selected = k;
+  $$('.plc-st').forEach(b => { const on = b.dataset.stage === k; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; });
+  $$('.plc-panel').forEach(p => p.hidden = p.id !== 'plcp-' + k);
+  $('.plc-out').scrollTop = 0;
+  renderPanels(); railToSelected();
+}
+// On narrow screens the rail scrolls sideways; keep the selected stage in view without moving the page.
+function railToSelected(){
+  const rail = $('.plc-rail'), b = $(`.plc-st[data-stage="${selected}"]`);
+  if (rail.scrollWidth <= rail.clientWidth) return;
+  rail.scrollLeft += b.getBoundingClientRect().left - rail.getBoundingClientRect().left - 12;
+}
+
+/* runtime panel */
+const ICON = {
+  play:'<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>',
+  pause:'<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" fill="currentColor"/></svg>',
+  step:'<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 1.5v11l7-5.5zM10 1.5h2v11h-2z" fill="currentColor"/></svg>',
+  reset:'<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 2a5 5 0 1 1-4.6 3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M1.5 1.5v4h4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>'
+};
+const lampColor = n => /red|alarm|fault|stop/i.test(n) ? 'red' : /yellow|amber|warn/i.test(n) ? 'amber' : '';
+const capColor = n => /stop|halt|off|high/i.test(n) ? 'red' : /start|run|enable|on|low/i.test(n) ? 'green' : 'blue';
+function signals(){
+  if (!io) return [];
+  return [...io.inputs.map(x => ({id: 'i:' + x.v.name.toLowerCase(), label: x.v.name, cls: 'in'})),
+          ...io.timers.map(v => ({id: 't:' + v.name.toLowerCase(), label: v.name + '.Q', cls: 'tq'})),
+          ...io.outputs.map(x => ({id: 'o:' + x.v.name.toLowerCase(), label: x.v.name, cls: 'out'}))];
+}
+function renderRuntime(){
+  const el = $('#plcp-runtime');
+  if (!C || !C.success){ el.innerHTML = `<p class="plc-blocked">${t('blocked')}</p>`; return; }
+  const ins = io.inputs.length ? io.inputs.map(x => { const k = x.v.name.toLowerCase(), on = inputState.get(k);
+    return `<div class="plc-row"><span class="plc-term${x.kind === 'force' ? ' force' : ''}">${x.kind === 'addr' ? esc(x.v.address) : 'M'}</span><span class="plc-pbw"><button type="button" class="plc-pb ${capColor(x.v.name)}" data-in="${esc(k)}" aria-pressed="${on}" aria-label="${esc(x.v.name)}"></button><span class="plc-pbv" data-inv="${esc(k)}">${on ? 1 : 0}</span></span><span class="plc-name">${esc(x.v.name)}<small>${x.kind === 'addr' ? t('input') : t('force')}</small></span></div>`; }).join('') : `<p class="plc-sm">${t('noIn')}</p>`;
+  const outs = io.outputs.length ? io.outputs.map(x => `<div class="plc-row"><span class="plc-term">${x.kind === 'addr' ? esc(x.v.address) : 'M'}</span><span class="plc-lamp ${lampColor(x.v.name)}" data-out="${esc(x.v.name.toLowerCase())}" role="img" aria-label="${esc(x.v.name)}"></span><span class="plc-name">${esc(x.v.name)}<small>${x.kind === 'addr' ? t('output') : t('memory')}</small></span></div>`).join('') : `<p class="plc-sm">${t('noOut')}</p>`;
+  const timers = io.timers.length ? `<h4 class="plc-h4">${t('timers')}</h4>` + io.timers.map(v => `<div class="plc-timer" data-timer="${esc(v.name.toLowerCase())}"><span><b>${esc(v.name)}</b> <span class="plc-sm">TON</span></span><span class="plc-flags"><span><span class="plc-lamp sm blue" data-tf="in"></span>IN</span><span><span class="plc-lamp sm" data-tf="q"></span>Q</span></span><div class="plc-bar"><i></i></div><span class="plc-nums"></span></div>`).join('') : '';
+  const watch = io.ints.length ? `<h4 class="plc-h4">${t('watch')}</h4><table class="plc-table"><thead><tr><th>${t('variable')}</th><th>${t('type')}</th><th style="text-align:right">${t('value')}</th></tr></thead><tbody>${io.ints.map(v => `<tr><td>${esc(v.name)}</td><td>INT</td><td class="v" data-int="${esc(v.name.toLowerCase())}">0</td></tr>`).join('')}</tbody></table>` : '';
+  const sg = signals();
+  const trace = sg.length ? `<h4 class="plc-h4">${t('trace')}</h4><div class="plc-trace">${sg.map(s => `<span>${esc(s.label)}</span><svg class="${s.cls}" viewBox="0 0 80 10" preserveAspectRatio="none" aria-hidden="true"><path data-trace="${esc(s.id)}" d="M0 8.5H80"/></svg>`).join('')}</div>` : '';
+  el.innerHTML = `<div class="plc-controls">
+      <button type="button" class="plc-btn solid" id="plcRun"></button>
+      <button type="button" class="plc-btn" id="plcStep">${ICON.step}${t('step')}</button>
+      <button type="button" class="plc-btn" id="plcReset">${ICON.reset}${t('reset')}</button>
+      <label class="plc-ctl">${t('cycle')} <select id="plcCycle"><option value="10">10 ms</option><option value="50">50 ms</option><option value="100">100 ms</option></select></label>
+      <label class="plc-ctl">${t('speed')} <select id="plcSpeed"><option value="1">${t('real')}</option><option value="10">${t('slow10')}</option><option value="50">${t('slow50')}</option></select></label>
+      <span class="plc-cycles" id="plcCycles"></span>
+    </div>
+    ${io.forced ? `<p class="plc-sm" style="margin-bottom:10px">${t('forceNote')}</p>` : ''}
+    <div class="plc-io"><div><h4>${t('inputs')}</h4>${ins}</div><div><h4>${t('outputs')}</h4>${outs}</div></div>
+    ${timers}${watch}${trace}<div id="plcRtErr"></div>`;
+  $('#plcCycle').value = String(cycleMs); $('#plcSpeed').value = String(slow);
+  $('#plcRun').onclick = () => { running = !running; schedule(); paintRun(); };
+  $('#plcStep').onclick = () => { running = false; schedule(); paintRun(); scan(); };
+  $('#plcReset').onclick = () => { resetRuntime(); schedule(); paint(); updateRail(); renderPanels(); };
+  $('#plcCycle').onchange = e => { cycleMs = +e.target.value; if (wasm.active) wasm.inst.plc_set_cycle_ms(cycleMs); schedule(); };
+  $('#plcSpeed').onchange = e => { slow = +e.target.value; schedule(); };
+  $$('[data-in]', el).forEach(b => b.onclick = () => {
+    const k = b.dataset.in, v = !inputState.get(k); inputState.set(k, v);
+    b.setAttribute('aria-pressed', v); $(`[data-inv="${CSS.escape(k)}"]`, el).textContent = v ? 1 : 0; applyInputs();
+  });
+  paintRun(); paint();
+}
+function paintRun(){ const b = $('#plcRun'); if (b) b.innerHTML = running ? ICON.pause + t('pause') : ICON.play + t('run'); }
+function sample(){
+  const r = {};
+  io.inputs.forEach(x => r['i:' + x.v.name.toLowerCase()] = !!runtime.memory.get(x.v.name.toLowerCase()));
+  io.timers.forEach(v => r['t:' + v.name.toLowerCase()] = runtime.timers.get(v.name.toLowerCase()).q);
+  io.outputs.forEach(x => r['o:' + x.v.name.toLowerCase()] = x.kind === 'addr' ? runtime.getOutputAddress(x.v.address) : !!runtime.memory.get(x.v.name.toLowerCase()));
+  return r;
+}
+function paint(){
+  if (!runtime || !io) return;
+  const el = $('#plcp-runtime');
+  io.outputs.forEach(x => { const k = x.v.name.toLowerCase(), on = x.kind === 'addr' ? runtime.getOutputAddress(x.v.address) : !!runtime.memory.get(k);
+    const l = $(`[data-out="${CSS.escape(k)}"]`, el); if (l){ l.classList.toggle('on', on); l.setAttribute('aria-label', `${x.v.name}: ${on ? 'TRUE' : 'FALSE'}`); } });
+  io.timers.forEach(v => { const k = v.name.toLowerCase(), s = runtime.timers.get(k), box = $(`[data-timer="${CSS.escape(k)}"]`, el); if (!box) return;
+    const bar = $('.plc-bar i', box); bar.style.width = (s.pt ? Math.min(100, s.et / s.pt * 100) : 0) + '%'; bar.classList.toggle('done', s.q);
+    $('[data-tf="in"]', box).classList.toggle('on', s.in); $('[data-tf="q"]', box).classList.toggle('on', s.q);
+    $('.plc-nums', box).textContent = `ET ${Math.trunc(s.et)} ms / PT ${Math.trunc(s.pt)} ms`; });
+  io.ints.forEach(v => { const c = $(`[data-int="${CSS.escape(v.name.toLowerCase())}"]`, el); if (c) c.textContent = runtime.memory.get(v.name.toLowerCase()); });
+  const cc = $('#plcCycles'); if (cc) cc.textContent = `#${runtime.cycleCount}  ${runtime.cycleCount * cycleMs} ms`;
+  const N = 80;
+  signals().forEach(s => {
+    const p = $(`[data-trace="${CSS.escape(s.id)}"]`, el); if (!p) return;
+    if (!history.length){ p.setAttribute('d', 'M0 8.5H80'); return; }
+    const start = N - history.length; let d = '', prev = null;
+    history.forEach((h, i) => { const y = h[s.id] ? 1.5 : 8.5, x = start + i; if (prev === null) d += `M${x} ${y}`; else if (prev !== y) d += `V${y}`; d += `H${x + 1}`; prev = y; });
+    if (start > 0) d = `M0 8.5H${start}` + d.replace(/^M/, 'L');
+    p.setAttribute('d', d);
+  });
+  const er = $('#plcRtErr'); if (er) er.innerHTML = lastRtError ? `<div class="plc-rterr"><strong>${t('rtErr')}:</strong> ${esc(lastRtError)}</div>` : '';
+}
+function scan(){
+  if (!runtime) return;
+  applyInputs();
+  try { runtime.scanCycle(cycleMs); } catch (e) { lastRtError = e.message; running = false; schedule(); paintRun(); paint(); updateRail(); return; }
+  if (wasm.active){
+    try {
+      io.inputs.forEach(x => { if (x.kind !== 'addr') return; const fn = wasm.inst['plc_set_' + x.v.name]; if (fn) fn(inputState.get(x.v.name.toLowerCase()) ? 1 : 0); });
+      wasm.inst.scan_cycle();
+      wasm.matches = wasmRows().every(r => r.ok);
+    } catch (e) { wasm.active = false; }
+  }
+  history.push(sample()); if (history.length > 80) history.shift();
+  paint();
+  const r = $('.plc-st[data-stage="runtime"] .plc-st-d'); if (r) r.textContent = t('scan', {n: runtime.cycleCount});
+  if (wasm.active){ const w = $('.plc-st[data-stage="wasm"] .plc-st-d'); if (w) w.textContent = t(wasm.matches ? 'abiReal' : 'abiDiff'); }
+  if (selected === 'wasm') paintWasm();
+}
+// The scan loop only runs while the demo slide is on screen and the tab is visible.
+function schedule(){
+  clearInterval(timerId); timerId = null;
+  if (running && visible && !document.hidden && runtime && !lastRtError) timerId = setInterval(scan, Math.max(10, cycleMs * slow));
+}
+document.addEventListener('visibilitychange', schedule);
+if ('IntersectionObserver' in window){
+  new IntersectionObserver(es => { es.forEach(en => { visible = en.isIntersecting; }); if (visible) railToSelected(); schedule(); }, {threshold: 0.25}).observe($('#s-plc-demo'));
+} else visible = true;
+
+/* stage panels */
+function renderPanels(){
+  if (!C) return;
+  ({lexer: rLexer, parser: rParser, sem: rSem, llvm: rLlvm, wasm: rWasm})[selected]?.();
+}
+const tokClass = k => k === 'DirectAddress' ? 'addr' : ['Number','TimeLiteral','True','False'].includes(k) ? 'lit' : Object.values(KEYWORDS).includes(k) ? 'kw' : '';
+function rLexer(){
+  const p = $('#plcp-lexer');
+  if (!C.tokens){ p.innerHTML = `<h3>${t('lxT')}</h3><div class="plc-rterr"><strong>${t('lexErr')}:</strong> ${esc(C.error.message)}</div>`; return; }
+  p.innerHTML = `<h3>${t('lxT')}</h3><p class="plc-sm" style="margin-bottom:10px">${t('lxL')}</p><div class="plc-tokens">${C.tokens.map((k, i) => `<button type="button" class="plc-tok ${tokClass(k.kind)}" data-i="${i}"><b>${esc(k.text || 'EOF')}</b><span>${k.kind} ${k.line}:${k.col}</span></button>`).join('')}</div>`;
+  $$('.plc-tok', p).forEach(b => b.onclick = () => { const k = C.tokens[+b.dataset.i]; jumpTo(k.line, k.col, k.text.length); });
+}
+function astText(prog){
+  const out = [];
+  const Ln = (pre, last, label) => out.push(`<span class="tr">${pre}${last ? '└─ ' : '├─ '}</span>${label}`);
+  const nt = s => `<span class="nt">${s}</span>`, nm = s => `<span class="nm">${esc(s)}</span>`;
+  const lab = e => ({IdentifierExpression: () => nm(e.name), MemberAccessExpression: () => nm(e.instance + '.' + e.member), IntegerLiteralExpression: () => nm(e.value), TimeLiteralExpression: () => `${nm(e.text)} <span class="tr">(${e.ms} ms)</span>`, BooleanLiteralExpression: () => nm(e.value ? 'TRUE' : 'FALSE'), UnaryExpression: () => nm(e.op), BinaryExpression: () => nm(e.op)})[e.t]();
+  function expr(e, pre, last, role){
+    Ln(pre, last, (role ? `<span class="tr">${role}: </span>` : '') + `${nt(e.t)} ${lab(e)}`);
+    const np = pre + (last ? '   ' : '│  ');
+    if (e.t === 'UnaryExpression') expr(e.operand, np, true);
+    if (e.t === 'BinaryExpression'){ expr(e.left, np, false); expr(e.right, np, true); }
+  }
+  function stmt(s, pre, last){
+    const np = pre + (last ? '   ' : '│  ');
+    if (s.t === 'AssignmentStatement'){ Ln(pre, last, `${nt(s.t)} ${nm(s.name)}`); expr(s.value, np, true); }
+    else if (s.t === 'FunctionBlockCallStatement'){ Ln(pre, last, `${nt(s.t)} ${nm(s.instance)}`); const a = Object.values(s.args); a.forEach((x, i) => expr(x.expr, np, i === a.length - 1, x.name)); }
+    else if (s.t === 'IfStatement'){
+      Ln(pre, last, nt(s.t)); expr(s.cond, np, false, 'Condition');
+      Ln(np, !s.else.length, '<span class="tr">Then</span>'); s.then.forEach((x, i) => stmt(x, np + (s.else.length ? '│  ' : '   '), i === s.then.length - 1));
+      if (s.else.length){ Ln(np, true, '<span class="tr">Else</span>'); s.else.forEach((x, i) => stmt(x, np + '   ', i === s.else.length - 1)); }
+    }
+  }
+  out.push(`${nt('ProgramNode')} ${nm(prog.name)}`);
+  Ln('', false, '<span class="tr">Variables</span>');
+  prog.variables.forEach((v, i) => Ln('│  ', i === prog.variables.length - 1, `${nt('VariableDeclaration')} ${nm(v.name)} <span class="tr">:</span> ${v.type}${v.address ? ` <span class="tr">AT</span> <span class="gl">${esc(v.address)}</span>` : ''}`));
+  Ln('', true, '<span class="tr">Statements</span>');
+  prog.statements.forEach((s, i) => stmt(s, '   ', i === prog.statements.length - 1));
+  return out.join('\n');
+}
+function rParser(){
+  const p = $('#plcp-parser');
+  if (!C.tokens){ p.innerHTML = `<h3>${t('psT')}</h3><p class="plc-blocked">${t('psB')}</p>`; return; }
+  if (!C.program){ p.innerHTML = `<h3>${t('psT')}</h3><div class="plc-rterr"><strong>${t('parseErr')}:</strong> ${esc(C.error.message)}</div>`; return; }
+  p.innerHTML = `<h3>${t('psT')}</h3><p class="plc-sm" style="margin-bottom:10px">${t('psL')}</p><pre class="plc-block">${astText(C.program)}</pre>`;
+}
+function rSem(){
+  const p = $('#plcp-sem');
+  if (!C.semantics){ p.innerHTML = `<h3>${t('smT')}</h3><p class="plc-blocked">${t('smB')}</p>`; return; }
+  const s = C.semantics;
+  const head = s.success ? `<div class="plc-okline"><span class="plc-lamp sm on"></span>${t('smOk')}</div>`
+    : `<div class="plc-okline"><span class="plc-lamp sm red on"></span>${t('smErr', {n: s.diagnostics.length})}</div><table class="plc-table">${s.diagnostics.map(d => `<tr><td class="code">${d.code}</td><td>${esc(d.message)}</td></tr>`).join('')}</table>`;
+  const role = v => v.type === 'Ton' ? t('rFb') : isInputVar(v) ? t('rIn') : isOutputVar(v) ? t('rOut') : t('rMem');
+  p.innerHTML = `<h3>${t('smT')}</h3>${head}<h4 class="plc-h4">${t('sym')}</h4><table class="plc-table"><thead><tr><th>${t('variable')}</th><th>${t('type')}</th><th>${t('addr')}</th><th>${t('role')}</th></tr></thead><tbody>${C.program.variables.map(v => `<tr><td>${esc(v.name)}</td><td class="m">${v.type.toUpperCase()}</td><td class="m">${v.address ? esc(v.address) : ''}</td><td>${role(v)}</td></tr>`).join('')}</tbody></table>`;
+}
+function hlIr(ir){
+  return esc(ir).split('\n').map(line => {
+    if (line.startsWith(';')) return `<span class="tr">${line}</span>`;
+    if (/^[a-z_0-9]+:$/.test(line)) return `<span class="lb">${line}</span>`;
+    return line.replace(/(@[A-Za-z_0-9]+)|(%[A-Za-z_0-9]+)|\b(define|global|store|load|ret|br|label|select|icmp|zext|xor|add|sub|mul|sdiv|and|or|to|ptr|target|triple|source_filename)\b|\b(i1|i32|void)\b/g, (m, g, l, k) => g ? `<span class="gl">${g}</span>` : l ? `<span class="nm">${l}</span>` : k ? `<span class="nt">${k}</span>` : `<span class="tp">${m}</span>`);
+  }).join('\n');
+}
+function rLlvm(){
+  const p = $('#plcp-llvm');
+  if (!C.ir){ p.innerHTML = `<h3>${t('llT')}</h3><p class="plc-blocked">${t('llB')}</p>`; return; }
+  p.innerHTML = `<h3>${t('llT')}</h3><p class="plc-sm" style="margin-bottom:10px">${t('llL')}</p><pre class="plc-block">${hlIr(C.ir)}</pre>`;
+}
+function wasmRows(){
+  if (!wasm.active || !runtime) return [];
+  const e = wasm.inst, r = runtime, tm = r.timers.get('startdelay'), b = v => v ? 'true' : 'false';
+  return [
+    {s: 'StartButton (%I0.0)', m: b(r.memory.get('startbutton')), w: b(e.plc_get_StartButton())},
+    {s: 'StopButton (%I0.1)', m: b(r.memory.get('stopbutton')), w: b(e.plc_get_StopButton())},
+    {s: 'StartDelay.ET', m: Math.trunc(tm.et) + ' ms', w: e.plc_get_StartDelay_ET() + ' ms'},
+    {s: 'StartDelay.PT', m: Math.trunc(tm.pt) + ' ms', w: e.plc_get_StartDelay_PT() + ' ms'},
+    {s: 'StartDelay.Q', m: b(tm.q), w: b(e.plc_get_StartDelay_Q())},
+    {s: 'Motor (%Q0.0)', m: b(r.getOutputAddress('%Q0.0')), w: b(e.plc_get_Motor())},
+    {s: 'Counter', m: String(r.memory.get('counter')), w: String(e.plc_get_Counter())}
+  ].map(x => ({...x, ok: x.m === x.w}));
+}
+function paintWasm(){ const tb = $('#plcWasmCmp'); if (tb) tb.innerHTML = wasmRows().map(x => `<tr><td>${x.s}</td><td class="m">${x.m}</td><td class="m">${x.w}</td><td class="plc-match ${x.ok ? 'y' : 'n'}">${x.ok ? '✓' : '✗'}</td></tr>`).join(''); }
+function hostCode(program){
+  const N = n => n.replace(/-/g, '_');
+  const ins = program.variables.filter(v => isInputVar(v) && v.type !== 'Ton'), outs = program.variables.filter(v => v.type !== 'Ton' && !isInputVar(v)), tons = program.variables.filter(v => v.type === 'Ton');
+  const L2 = [`<span class="tr">// ${esc(program.name)}.wasm</span>`, `<span class="nt">const</span> { instance } = <span class="nt">await</span> WebAssembly.instantiate(bytes);`, `<span class="nt">const</span> plc = instance.exports;`, '', `plc.<span class="gl">plc_set_cycle_ms</span>(${cycleMs});`];
+  ins.forEach((v, i) => L2.push(`plc.<span class="gl">plc_set_${esc(N(v.name))}</span>(${i === 0 ? 1 : 0});`));
+  L2.push(`<span class="nt">for</span> (<span class="nt">let</span> i = 0; i &lt; 10; i++) plc.<span class="gl">scan_cycle</span>();`, '');
+  outs.forEach(v => L2.push(`plc.<span class="gl">plc_get_${esc(N(v.name))}</span>();`));
+  tons.forEach(v => L2.push(`plc.<span class="gl">plc_get_${esc(N(v.name))}_Q</span>();  plc.<span class="gl">plc_get_${esc(N(v.name))}_ET</span>();`));
+  return L2.join('\n');
+}
+function rWasm(){
+  const p = $('#plcp-wasm');
+  if (!C.ir){ p.innerHTML = `<h3>${t('wsT')}</h3><p class="plc-blocked">${t('wsB')}</p>`; return; }
+  const live = wasm.active ? `<div class="plc-badge"><span class="plc-lamp sm on"></span><span>${t('liveOn')}</span></div><table class="plc-table"><thead><tr><th>${t('signal')}</th><th>${t('managed')}</th><th>WebAssembly</th><th>${t('match')}</th></tr></thead><tbody id="plcWasmCmp"></tbody></table>` : `<p class="plc-blocked">${t('liveOff')}</p>`;
+  p.innerHTML = `<h3>${t('wsT')}</h3>${live}<h4 class="plc-h4">${t('wsL')}</h4><table class="plc-table"><thead><tr><th>${t('fn')}</th><th>${t('params')}</th><th>${t('ret')}</th></tr></thead><tbody>${abiOf(C.program).map(r => `<tr><td class="m">${esc(r[0])}()</td><td class="m">${r[1] ? 'i32 value' : ''}</td><td class="m">${r[2]}</td></tr>`).join('')}</tbody></table><h4 class="plc-h4">${t('host')}</h4><pre class="plc-block">${hostCode(C.program)}</pre>`;
+  paintWasm();
+}
+
+/* examples */
+const exSel = $('#plcExample');
+function fillExamples(){ const v = exSel.value || 'conveyor-v02'; exSel.innerHTML = Object.entries(EXAMPLES).map(([k, x]) => `<option value="${k}">${esc(T(x.name))}</option>`).join(''); exSel.value = v; }
+exSel.addEventListener('change', () => { const x = EXAMPLES[exSel.value]; srcEl.value = x.src; $('#plcFile').textContent = x.file; srcEl.scrollTop = 0; running = true; inputState = new Map(); recompile(); });
+
+srcEl.value = EXAMPLES['conveyor-v02'].src;
+renderCover();
+
+return {
+  render(){ fillExamples(); if (!C) recompile(); else { renderDiag(); renderRuntime(); renderPanels(); updateRail(); } }
+};
+})();
+
+const plcDiagram = makeDiagram($('#plcDiagram'), $('#plcDetail'), {
+  start: 'front',
+  nodes: {
+    src: {t:L('ST kaynak','ST source'), s:'.st', d:L("IEC 61131-3'ten esinlenen Structured Text alt kümesi: PROGRAM, VAR, BOOL, INT, %I/%Q adresleri, IF/ELSE ve TON zamanlayıcı.",'An IEC 61131-3-inspired Structured Text subset: PROGRAM, VAR, BOOL, INT, %I/%Q addresses, IF/ELSE and the TON timer.')},
+    front: {t:L('Ön uç','Frontend'), s:'Lexer → Parser → AST', d:L("Sözcük analizi, özyinelemeli iniş parser'ı ve AST. CLI ile Language Server bu kodu ortak kullanıyor; editör doğrulaması ayrıca yazılmadı.",'Lexing, a recursive-descent parser and the AST. The CLI and the Language Server share this code; editor validation was never written twice.')},
+    sem: {t:L('Semantik analiz','Semantic analysis'), s:L('tip ve kural denetimi','types and rules'), d:L('Tanımsız sembol, tip uyuşmazlığı, salt okunur giriş ve TON argümanları gibi kuralları PLCF1001–PLCF1018 kodlu teşhislerle raporlar.','Reports undefined symbols, type mismatches, read-only inputs and TON argument rules as diagnostics coded PLCF1001 to PLCF1018.')},
+    rt: {t:L('Sanal PLC','Virtual PLC'), s:L('tarama döngüsü','scan cycle'), d:L('Girişleri oku, programı yürüt, fonksiyon bloklarını güncelle, çıkışları yaz. Bellek döngüler arasında korunur; %I/%Q süreç görüntüsü program belleğinden ayrı tutulur.','Read inputs, execute the program, update function blocks, write outputs. Memory persists across cycles, and the %I/%Q process image is kept separate from program memory.')},
+    llvm: {t:'LLVM IR', s:'wasm32-unknown-unknown', d:L('Doğrulanmış AST incelenebilir LLVM IR\'a indirgenir: her değişken bir global, her tarama @scan_cycle fonksiyonu.','The validated AST is lowered to inspectable LLVM IR: each variable is a global and each scan is the @scan_cycle function.')},
+    wasm: {t:'WebAssembly', s:L('Node.js host','Node.js host'), d:L('Clang ve LLD ile derlenen modül, Node.js host\'unda çalışır. GitHub Actions her değişiklikte bu yolu duman testinden geçirir.','The module built with Clang and LLD runs in a Node.js host. GitHub Actions smoke-tests this path on every change.')},
+    lsp: {t:'Language Server', s:'C#', d:L('Ayrı bir .NET süreci. Derleyici ön ucunu kullanarak teşhis, hover, tanıma git ve TON üyeleri için bağlama duyarlı tamamlama sağlar.','A standalone .NET process. It uses the compiler frontend to provide diagnostics, hover, go-to-definition and context-aware completion for TON members.')},
+    vsc: {t:'VS Code', s:'TypeScript', d:L('Language Server Protocol üzerinden sunucuyla konuşan eklenti; .st dosyaları için sözdizimi renklendirmesi de içerir.','An extension that talks to the server over the Language Server Protocol, plus syntax highlighting for .st files.')}
+  },
+  extra: {
+    image: {t:L('Süreç görüntüsü','Process image'), k:L('Tasarım kararı','Design decision'), d:L('%I girişleri ve %Q çıkışları program belleğinden ayrı modellenir; tarama döngüsünün davranışı görünür ve test edilebilir olur.','%I inputs and %Q outputs are modeled separately from program memory, so scan-cycle behavior is visible and testable.')},
+    ton: {t:L('Durum tutan TON','Stateful TON'), k:L('Tasarım kararı','Design decision'), d:L('TON; IN, Q, ET ve PT değerlerini döngüler arasında saklar ve girişi düştüğünde deterministik olarak sıfırlanır.','TON persists IN, Q, ET and PT across cycles and resets deterministically when its input drops.')},
+    abi: {t:'Host ABI', k:L('Tasarım kararı','Design decision'), d:L('WebAssembly modülü ham bellek ofsetleri yerine plc_set_*, plc_get_* ve scan_cycle() dışa aktarır; host, backend\'in bellek düzeninden bağımsız kalır.','Instead of raw memory offsets, the WebAssembly module exports plc_set_*, plc_get_* and scan_cycle(), so the host stays independent of backend memory layout.')},
+    ci: {t:L('CI ve Docker','CI and Docker'), k:L('Kalite','Quality'), d:L('Üç bağımsız CI işi: .NET derleme ve 18 xUnit testi, TypeScript eklentisi, LLVM → WebAssembly duman testi. Docker imajı .NET, Clang, LLD ve Node.js içerir.','Three independent CI jobs: .NET build with 18 xUnit tests, the TypeScript extension, and an LLVM → WebAssembly smoke test. The Docker image bundles .NET, Clang, LLD and Node.js.')}
+  },
+  edges: [['vsc','lsp','LSP'],['lsp','front',L('aynı ön uç','same frontend'),1],['src','front'],['front','sem','AST'],['sem','rt'],['sem','llvm'],['llvm','wasm','Clang']],
+  wide: {w:980, h:440, nw:176, nh:66, pos:{vsc:[100,60], lsp:[370,60], src:[100,230], front:[370,230], sem:[620,230], rt:[870,90], llvm:[870,240], wasm:[870,390]}, nwOf:{front:200, src:150, vsc:150, llvm:204}},
+  tall: {w:380, h:640, nw:156, nh:62, pos:{vsc:[86,40], lsp:[294,40], src:[86,180], front:[294,180], sem:[190,320], rt:[86,460], llvm:[294,460], wasm:[294,600]}, nwOf:{front:170, llvm:170}}
+}, $('#plcChips'));
+
 /* ───── Projects (add new projects here) ───── */
 const PROJECTS = [
   {id:'recall', world:'w-recall', title:'Recall', cat:L('Yerel yapay zekâ, RAG','Local AI, RAG'),
@@ -1161,6 +2243,9 @@ const PROJECTS = [
   {id:'skin', world:'w-skin', title:'Skin Cancer Detection', cat:L('Derin öğrenme, bitirme projesi','Deep learning, graduation project'),
    sum:L('Üç veri kaynağını tek tahminde birleştiren çok modlu sınıflandırma.','Multimodal classification that fuses three data sources into one prediction.'),
    preview:{type:'skin'}},
+  {id:'plcflow', world:'w-plc', title:'PLCFlow', cat:L('Derleyici, endüstriyel otomasyon','Compilers, industrial automation'),
+   sum:L("Structured Text'i derleyen, sanal bir PLC'de ya da WebAssembly'de çalıştıran araç zinciri; tarayıcıda canlı demo.",'A toolchain that compiles Structured Text and runs it on a virtual PLC or as WebAssembly, with a live demo in the browser.'),
+   preview:{type:'plc'}},
   {id:'securechat', world:'w-systems', title:'SecureChat', cat:L('Ağ programlama, güvenlik','Networking, security'),
    sum:L('TCP ve UDP üzerinde uçtan uca şifreli sohbet; yanında Reader-Writer.','End-to-end encrypted chat over TCP and UDP, plus Reader-Writer.'),
    preview:{type:'img', src:'assets/securechat_2.webp'}},
@@ -1185,11 +2270,13 @@ const worldVar = (w, v) => { const t = document.createElement('div'); t.classNam
 
 const SKIN_SVG = `<svg viewBox="0 0 320 170" aria-hidden="true" fill="none"><g stroke="currentColor" stroke-opacity=".35" stroke-width="1.4"><path d="M86 30H120M86 85H120M86 140H120M196 30L236 78M196 85H236M196 140L236 92M288 85H300"/></g><g fill="var(--surface)" stroke="currentColor" stroke-opacity=".3"><rect x="10" y="16" width="76" height="28" rx="5"/><rect x="10" y="71" width="76" height="28" rx="5"/><rect x="10" y="126" width="76" height="28" rx="5"/><rect x="120" y="16" width="76" height="28" rx="5"/><rect x="120" y="71" width="76" height="28" rx="5"/><rect x="120" y="126" width="76" height="28" rx="5"/></g><rect x="236" y="68" width="52" height="34" rx="6" fill="var(--accent)"/><g font-family="Schibsted Grotesk,Arial,sans-serif" font-size="10" fill="currentColor" text-anchor="middle"><text x="48" y="34">Dermoscopy</text><text x="48" y="89">Clinical</text><text x="48" y="144">Metadata</text><text x="158" y="34">CNN</text><text x="158" y="89">CNN</text><text x="158" y="144">MLP</text><text x="262" y="88" fill="var(--on-accent)" font-weight="700">AUC .893</text></g></svg>`;
 
+const PLC_SVG = `<svg viewBox="0 0 320 200" aria-hidden="true"><rect x="14" y="14" width="196" height="172" rx="8" fill="#1E2A31"/><g font-family="ui-monospace,Menlo,Consolas,monospace" font-size="9.6" fill="#D3DDE1" style="white-space:pre"><text x="26" y="38"><tspan fill="#8DB4FF">PROGRAM</tspan> Conveyor</text><text x="26" y="54" fill="#8DB4FF">VAR</text><text x="26" y="70">&#160;&#160;Start <tspan fill="#8DB4FF">AT</tspan> <tspan fill="#F0C04C">%I0.0</tspan> : <tspan fill="#79D0BF">BOOL</tspan>;</text><text x="26" y="86">&#160;&#160;Motor <tspan fill="#8DB4FF">AT</tspan> <tspan fill="#F0C04C">%Q0.0</tspan> : <tspan fill="#79D0BF">BOOL</tspan>;</text><text x="26" y="102">&#160;&#160;Delay : <tspan fill="#79D0BF">TON</tspan>;</text><text x="26" y="118" fill="#8DB4FF">END_VAR</text><text x="26" y="140">Delay(IN := Start,</text><text x="26" y="156">&#160;&#160;PT := <tspan fill="#E3A1F2">T#100ms</tspan>);</text><text x="26" y="172">Motor := Delay.Q;</text></g><rect x="222" y="14" width="84" height="172" rx="8" fill="var(--bg)" stroke="var(--line)"/><g font-family="ui-monospace,Menlo,Consolas,monospace" font-size="8" fill="var(--muted)"><text x="264" y="40" text-anchor="middle">%I0.0</text><text x="264" y="96" text-anchor="middle">%I0.1</text><text x="264" y="152" text-anchor="middle">%Q0.0</text></g><circle cx="264" cy="62" r="13" fill="#3A4449"/><circle cx="264" cy="62" r="9.5" fill="#1E8E4E"/><circle cx="264" cy="118" r="13" fill="#3A4449"/><circle cx="264" cy="118" r="9.5" fill="#B8312A"/><circle cx="264" cy="172" r="15" fill="#36C474" opacity=".28"/><circle cx="264" cy="172" r="10" fill="#3A4449"/><circle cx="264" cy="172" r="7.5" fill="#43D17E"/><circle cx="262" cy="170" r="2.2" fill="#fff" opacity=".8"/></svg>`;
 function previewHTML(p){
   const v = p.preview;
   if (v.type === 'img') return `<div class="pv"><img src="${v.src}" alt="" loading="lazy" style="object-position:${v.pos || 'top left'}"></div>`;
   if (v.type === 'phones') return `<div class="pv phones3">${v.srcs.map(s => `<img src="${s}" alt="" loading="lazy">`).join('')}</div>`;
   if (v.type === 'skin') return `<div class="pv skinpv">${SKIN_SVG}</div>`;
+  if (v.type === 'plc') return `<div class="pv plcpv">${PLC_SVG}</div>`;
   return '<div class="pv"></div>';
 }
 function renderHome(){
@@ -1314,7 +2401,7 @@ fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : docu
 function renderAll(){
   applyStatic();
   renderShots(); renderPipe(); renderSteps(); renderTerm(); renderPhones(); renderMirror();
-  hotelDiagram.refresh(); skinDiagram.refresh();
+  hotelDiagram.refresh(); skinDiagram.refresh(); plcDiagram.refresh(); PLC.render();
   renderHome();
   PROJECTS.forEach(p => p.slides.forEach((s, i) => { s.setAttribute('aria-roledescription', 'slide'); s.setAttribute('aria-label', `${p.title}, ${i + 1} / ${p.slides.length}: ${titleOf(s)}`); }));
   if (proj){ buildRail(); setCurrent(cur, true); }
